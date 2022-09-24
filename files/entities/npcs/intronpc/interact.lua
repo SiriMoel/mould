@@ -9,6 +9,6 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
         name = "Tuoli",
         portrait = "mods/mould/files/entities/npcs/intronpc/portrait.png",
         typing_sound = "two",
-        text = "Hey you. You're finally awake.",
+        text = "Lorem ipsum dolor sit amet.",
     } )
 end
