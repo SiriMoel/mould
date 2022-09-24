@@ -1,0 +1,11 @@
+HIISI NAMES
+Tuoli - general introduction NPC, first hiisi you meet
+Sormi - map/archaeology NPC, will trade treasures for gold, if you get enough he will let you in vault
+Pallo - Armoury NPC
+peili
+
+MAGE NAMES
+Vihreä
+Sininen
+Punainen
+Valkoinen
