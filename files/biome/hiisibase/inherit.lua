@@ -4,6 +4,7 @@ dofile_once("data/scripts/lib/utilities.lua")
 
 RegisterSpawnFunction( 0xff80FF5A, "spawn_vines" )
 RegisterSpawnFunction( 0xffff7b86, "intronpc" )
+RegisterSpawnFunction( 0xffff7bb6, "armourynpc" )
 
 g_vines =
 {
@@ -46,4 +47,8 @@ end
 
 function intronpc(x, y)
     EntityLoad("mods/mould/files/entities/npcs/intronpc/intronpc.xml", x, y)
+end
+
+function armourynpc(x, y)
+	EntityLoad("mods/mould/files/entities/npcs/armourynpc/armourynpc.xml", x, y)
 end

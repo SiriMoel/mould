@@ -1,0 +1,3 @@
+intro_armoury - go to armoury and get a weapon
+intro_maproom - go to maproom and get task
+retrievemap - go to old village and retrieve map fragment
