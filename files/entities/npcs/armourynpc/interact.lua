@@ -9,7 +9,7 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
         name = "Pallo",
         portrait = "mods/mould/files/entities/npcs/armourynpc/portrait.png",
         typing_sound = "two",
-        text = "Ah! Hello #Minä#. What can I do for you today?",
+        text = "Ah! Hello ~Mina~. What can I do for you today?",
         options = {
             {
                 text="I need a weapon.",
@@ -17,7 +17,7 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                     local flag = "objective_intro_armoury"
                     if GameHasFlagRun(flag) == true then
                         dialogue.show( {
-                            text="I see. I can give you the choice of three. The #shotgun#, the #pistol# or the #sniper#."
+                            text="I see. I can give you the choice of three. \nThe ~shotgun~, the ~pistol~ or the ~sniper~."
                         } )
                         -- spawn starting weapons
                         GameRemoveFlagRun(flag)

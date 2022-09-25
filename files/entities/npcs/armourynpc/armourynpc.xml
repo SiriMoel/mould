@@ -1,4 +1,4 @@
-<Entity name="Tuoli" tags="hittable">
+<Entity name="Pallo" tags="hittable">
 
     <SpriteComponent 
 		image_file="mods/mould/files/entities/npcs/armourynpc/sprite.xml" 

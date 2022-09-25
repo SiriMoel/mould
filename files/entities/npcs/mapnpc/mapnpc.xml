@@ -1,0 +1,22 @@
+<Entity name="Sormi" tags="hittable">
+
+    <SpriteComponent 
+		image_file="mods/mould/files/entities/npcs/mapnpc/sprite.xml" 
+		offset_x="0"
+		offset_y="0">
+	</SpriteComponent>
+
+    <InteractableComponent
+        radius="10"
+        ui_text=""
+        name="Sormi" >
+    </InteractableComponent>
+
+    <LuaComponent
+        script_interacting="mods/mould/files/entities/npcs/mapnpc/interact.lua"
+        script_source_file="mods/mould/files/entities/npcs/mapnpc/interact.lua"
+        execute_every_n_frame="1"
+        enable_coroutines="1" >
+    </LuaComponent>
+
+</Entity>
