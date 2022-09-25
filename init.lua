@@ -10,7 +10,10 @@ local xml = nxml.parse(content)
 xml:add_children(nxml.parse_many[[
     <Biome height_index="0" color="ff6649d8" biome_filename="mods/mould/files/biome/hiisibase/main.xml" />
     <Biome height_index="0" color="ff4e46ff" biome_filename="mods/mould/files/biome/hiisibase/other.xml" /> 
-    <Biome height_index="0" color="ff3d4229" biome_filename="mods/mould/files/biome/solid/cave.xml" /> 
+    <Biome height_index="0" color="ff4e67d5" biome_filename="mods/mould/files/biome/hiisibase/exit.xml" />
+    <Biome height_index="0" color="ff3d4229" biome_filename="mods/mould/files/biome/solid/empty.xml" /> 
+    <Biome height_index="0" color="ff020202" biome_filename="mods/mould/files/biome/solid/cave.xml" /> 
+    <Biome height_index="0" color="ff5d9135" biome_filename="mods/mould/files/biome/surface/grassy.xml" /> 
 ]])
 ModTextFileSetContent("data/biome/_biomes_all.xml", tostring(xml))
 

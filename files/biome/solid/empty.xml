@@ -1,0 +1,23 @@
+<Biome>
+  <Topology 
+    name="_EMPTY_"
+    type="BIOME_WANG_TILE"  
+
+    wang_template_file="" 
+    lua_script="mods/mould/files/biome/solid/empty.lua"
+    wang_map_width="256"
+    wang_map_height="256"
+    audio_music_2=""
+    audio_ambience=""
+  >
+
+  </Topology>
+
+  <Materials 
+    name="empty" 
+     >
+    
+  </Materials>
+
+</Biome>
+

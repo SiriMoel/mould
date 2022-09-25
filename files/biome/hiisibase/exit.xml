@@ -2,16 +2,9 @@
   <Topology 
     name="_EMPTY_"
     type="BIOME_WANG_TILE"
-	background_use_neighbor="0"
-    background_image="data/weather_gfx/background_coalmine.png"
-    background_edge_left="data/weather_gfx/edges/background_coalmine_left.png"
-    background_edge_right="data/weather_gfx/edges/background_coalmine_right.png"
-    background_edge_top="data/weather_gfx/edges/background_coalmine_top.png"
-    background_edge_bottom="data/weather_gfx/edges/background_coalmine_bottom.png"
-    background_edge_priority="10"     
 
     wang_template_file="" 
-    lua_script="mods/mould/files/biome/solid/solid.lua"
+    lua_script="mods/mould/files/biome/hiisibase/exit.lua"
     wang_map_width="256"
     wang_map_height="256"
     audio_music_2=""
@@ -21,7 +14,7 @@
   </Topology>
 
   <Materials 
-    name="cave" 
+    name="world" 
      >
     
     <MaterialComponent 
