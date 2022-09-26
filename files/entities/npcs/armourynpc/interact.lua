@@ -5,11 +5,12 @@ local x, y = EntityGetTransform(entity_id)
 local player = EntityGetInRadiusWithTag(x, y, 10, "player_unit")[1]
 
 function interacting( entity_who_interacted, entity_interacted, interactable_name )
+    local pname = ModSettingGet("mould.name")
     dialog_system.open_dialog( {
         name = "Pallo",
         portrait = "mods/mould/files/entities/npcs/armourynpc/portrait.png",
         typing_sound = "two",
-        text = "Ah! Hello ~Mina~. What can I do for you today?",
+        text = "Ah! Hello ~" .. pname .. "~. What can I do for you today?",
         options = {
             {
                 text="I need a weapon.",

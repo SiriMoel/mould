@@ -5,11 +5,12 @@ local x, y = EntityGetTransform(entity_id)
 local player = EntityGetInRadiusWithTag(x, y, 10, "player_unit")[1]
 
 function interacting( entity_who_interacted, entity_interacted, interactable_name )
+    local pname = ModSettingGet("mould.name")
     dialog_system.open_dialog( {
         name = "Tuoli",
         portrait = "mods/mould/files/entities/npcs/intronpc/portrait.png",
         typing_sound = "two",
-        text = "Hello ~Mina~. Do not worry yourself about the loss of the\n ~Throngler~, atleast the mages do not have it now eh? As for \nthe hearts... I may have a lead on how we can deal with them \nbut thats for future discussion.",
+        text = "Hello ~" .. pname .. "~. Do not worry yourself about the loss of the\n ~Throngler~, atleast the mages do not have it now eh? As for \nthe hearts... I may have a lead on how we can deal with them \nbut thats for future discussion.",
         options = {
             {
                 text="What should I be doing?", -- maybe expand this for a large portion of the story?

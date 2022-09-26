@@ -1,0 +1,14 @@
+<Entity name="Map" tags="hittable">
+
+    <SpriteComponent 
+		image_file="mods/mould/files/entities/misc/hiisimap/sprite.xml" 
+		offset_x="0"
+		offset_y="0">
+	</SpriteComponent>
+
+    <LuaComponent
+        script_source_file="mods/mould/files/entities/misc/hiisimap/repair.lua"
+        execute_every_n_frames="5"
+    ></LuaComponent>
+
+</Entity>

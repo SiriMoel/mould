@@ -1,0 +1,20 @@
+	<Sprite
+		filename="mods/mould/files/entities/misc/hiisimap/sprite.png"
+		offset_x="8"
+		offset_y="7.5"
+		default_animation="stand"
+	>
+
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="120"
+  frame_height="80"
+  frame_wait="0.2"
+  frames_per_row="1"
+  loop="1"   >
+ </RectAnimation>
+
+</Sprite>
