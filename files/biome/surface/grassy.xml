@@ -185,7 +185,8 @@
       tree_width="67" 
       visual_color="0x00FFFF" 
       visual_offset_x="0" 
-      visual_offset_y="4" >
+      visual_offset_y="4"
+      material_on_top_of="grass" >
     </VegetationComponent>
 
         <VegetationComponent 
@@ -202,7 +203,8 @@
       tree_width="89" 
       visual_color="0x00FFFF" 
       visual_offset_x="0" 
-      visual_offset_y="4" >
+      visual_offset_y="4"
+      material_on_top_of="grass" >
     </VegetationComponent>
 
         <VegetationComponent 
@@ -219,7 +221,8 @@
       tree_width="97" 
       visual_color="0x00FFFF" 
       visual_offset_x="0" 
-      visual_offset_y="4" >
+      visual_offset_y="4"
+      material_on_top_of="grass" >
     </VegetationComponent>
 
     <VegetationComponent 
@@ -236,7 +239,8 @@
       tree_width="101" 
       visual_color="0x00FFFF" 
       visual_offset_x="0" 
-      visual_offset_y="4" >
+      visual_offset_y="4"
+      material_on_top_of="grass" >
     </VegetationComponent>
 	
 	<VegetationComponent 
@@ -253,7 +257,8 @@
       tree_width="107" 
       visual_color="0x00FFFF" 
       visual_offset_x="0" 
-      visual_offset_y="7" >
+      visual_offset_y="7" 
+      material_on_top_of="grass" >
     </VegetationComponent>
 
  <VegetationComponent 
@@ -273,7 +278,7 @@
       visual_offset_y="7.5" 
       is_grass="1"
       grass_requires_neighbors="1"
-      material_on_top_of="sand_static"
+      material_on_top_of="grass"
       >
     </VegetationComponent>
 
@@ -329,6 +334,7 @@
       visual_color="0xff4d5d44" 
       visual_offset_x="15" 
       visual_offset_y="32" 
+      material_on_top_of="grass"
 	  >
     </VegetationComponent>
 
@@ -347,6 +353,7 @@
       visual_color="0xffb89f6c" 
       visual_offset_x="3" 
       visual_offset_y="7.5" 
+      material_on_top_of="grass"
 	  >
     </VegetationComponent>
 	
@@ -365,6 +372,7 @@
       visual_color="0xffb89f6c" 
       visual_offset_x="3" 
       visual_offset_y="7.5" 
+      material_on_top_of="grass"
 	  >
     </VegetationComponent>
 
@@ -385,7 +393,7 @@
       visual_offset_y="7.5" 
       is_grass="1"
       grass_requires_neighbors="0"
-      material_on_top_of="soil"
+      material_on_top_of="grass"
       >
     </VegetationComponent>
     
