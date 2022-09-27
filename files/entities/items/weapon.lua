@@ -1,4 +1,8 @@
-dofile_once("data/scripts/lib/utilities.lua")
+dofile("data/scripts/lib/utilities.lua")
+dofile("data/scripts/gun/procedural/gun_action_utils.lua")
+
+local z, x, c, v, b, n = GameGetDateAndTimeLocal()
+math.randomseed(z+x+c+v+b+n)
 
 local hiisiquirks = { -- PLACEHOLDERS
     "ELECTRIC_CHARGE",
@@ -6,9 +10,8 @@ local hiisiquirks = { -- PLACEHOLDERS
     "SPREAD_REDUCE",
 }
 
-function hgun( capacity, actions, quirkm, statsm ) -- hiisi gun
-    -- weapon capacity (to set), #actions in gun, quirk chance multiplier, stats max multiplier
-    local weapon = GetUpdatedEntityID()
+function hgun( weapon, capacity, actions, quirkm, statsm ) -- hiisi gun
+    -- weapon id, weapon capacity (to set), #actions in gun, quirk chance multiplier, stats max multiplier
     local mqc = capacity - actions -- max quirks count
 
     if statsm == nil then
@@ -23,53 +26,71 @@ function hgun( capacity, actions, quirkm, statsm ) -- hiisi gun
 
         --quirks
         local cqc = 0 -- current quirk count
-        while cqc <= mqc do
+        local cqt = 0 -- current quirk tries
+        while cqt <= mqc do
             quirkm = quirkm + math.floor( ( 1.1 ^ ( cqc + 1 ) ) + 0.5 )
             local quirk = hiisiquirks[math.random(1, #hiisiquirks)]
             local qc = math.floor( ( 3 * quirkm ) + 0.5 ) -- quirk chance
-            Print("quirk chance is " .. qc)
-            local ifquirk = math.random(1, qc)
+            print("quirk chance is " .. qc)
+            local ifquirk = 0
+            ifquirk = math.random(1, qc)
+            print("rolled a " .. ifquirk)
             if ifquirk == 2 then
                 AddGunAction( weapon, quirk )
                 cqc = cqc + 1
             end
+            cqt = cqt + 1
+            print("quirks rolled")
         end
 
         --stats
-        statsm = math.random( 100, (statsm * 100) )
-        statsm = statsm / 100
-        s( statsm )
+        local variable = 0
+        variable = math.random( 100, (statsm * 100) )
+        variable = variable / 100
+        s( variable )
     end
 end
 
 function w( capacity )
     local weapon = GetUpdatedEntityID()
-    local ac = EntityGetComponent( weapon, "AbilityComponent" )[1] -- abilitycomponent
-    local dc = tonumber( ComponentObjectGetValue( ac, "gun_config", "deck_capacity" ) ) -- deck capacity 
-    local dc = capacity
-    ComponentObjectSetValue( ac, "gun_config", "deck_capacity", tostring(dc) )
+    local acs = EntityGetComponentIncludingDisabled( weapon, "AbilityComponent" ) -- abilitycomponent
+    for i,ac in ipairs(acs) do
+        local dc = tonumber( ComponentObjectGetValue( ac, "gun_config", "deck_capacity" ) ) -- deck capacity 
+        local dc = capacity
+        ComponentObjectSetValue( ac, "gun_config", "deck_capacity", tostring(dc) )
+        print("capacity set")
+    end
 end
 
 function s( m )
     local weapon = GetUpdatedEntityID()
-    local ac = EntityGetComponent( weapon, "AbilityComponent" )[1]
+    local acs = EntityGetComponentIncludingDisabled( weapon, "AbilityComponent" )
 
     -- base stats should be the LOWEST possible
 
-    local rt = tonumber( ComponentObjectGetValue( ac, "gun_config", "reload_time" ) ) -- reload time
-    local sm = tonumber( ComponentObjectGetValue( ac, "gun_config", "speed_multiplier" ) ) -- speed multiplier
-    --local sd = tonumber( ComponentObjectGetValue( ac, "gun_config", "spread_degrees" ) ) -- spread degrees
-    local frw = tonumber( ComponentObjectGetValue( ac, "gunaction_config", "fire_rate_wait" ) ) -- fire rate wait
+    for i,ac in ipairs(acs) do
+        local rt = tonumber( ComponentObjectGetValue( ac, "gun_config", "reload_time" ) ) -- reload time
+        --local sm = tonumber( ComponentObjectGetValue( ac, "gun_config", "speed_multiplier" ) ) -- speed multiplier
+        --local sd = tonumber( ComponentObjectGetValue( ac, "gun_config", "spread_degrees" ) ) -- spread degrees
+        local frw = tonumber( ComponentObjectGetValue( ac, "gunaction_config", "fire_rate_wait" ) ) -- fire rate wait
 
-    rt = rt / (m * 0.6)
-    sm = sm * (m * 0.3)
-    --sd = sd * (m * 0.5)
-    frw = frw / (m * 0.6)
+        print("old rt " .. rt)
+        print("old frw " .. frw)
 
-    ComponentObjectSetValue( ac, "gun_config", "reload_time", tostring(rt) )
-    ComponentObjectSetValue( ac, "gun_config", "speed_multiplier", tostring(sm) )
-    --omponentObjectSetValue( ac, "gun_config", "spread_degrees", tostring(sd) )
-    ComponentObjectSetValue( ac, "gunaction_config", "fire_rate_wait", tostring(frw) )
+        rt = math.floor( ( rt / (m * 0.8) + 0.5 ) )
+        --sm = sm * (m * 0.3)
+        --sd = sd * (m * 0.5)
+        frw = math.floor( ( frw / (m * 0.8) + 0.5 ) )
 
-    Print("Weapon created with " .. m .. "x stats multiplier.") 
+        print("new rt " .. rt)
+        print("new frw " .. frw)
+
+        ComponentObjectSetValue( ac, "gun_config", "reload_time", tostring(rt) )
+        --ComponentObjectSetValue( ac, "gun_config", "speed_multiplier", tostring(sm) )
+        --omponentObjectSetValue( ac, "gun_config", "spread_degrees", tostring(sd) )
+        ComponentObjectSetValue( ac, "gunaction_config", "fire_rate_wait", tostring(frw) )
+
+        print("stats set")
+    end
+    print("Weapon created with " .. m .. "x stats multiplier.") 
 end
