@@ -29,7 +29,7 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                        } ) 
                     else
                         dialogue.show( {
-                            text="You need a weapon. The armoury is left and down. \nOnce you have selected a weapon I think ~Sormi~ in the \nmap room has a task for you. \nThe map room is just across from here.",
+                            text="You need a weapon. The armoury is west and down. \nOnce you have selected a weapon I think ~Sormi~ in the \nmap room has a task for you. \nThe map room is just across from here.",
                         } )
                     end
                 end,
