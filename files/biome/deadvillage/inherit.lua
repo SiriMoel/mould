@@ -5,6 +5,7 @@ dofile_once("data/scripts/lib/utilities.lua")
 
 RegisterSpawnFunction( 0xffffeedd, "init" )
 RegisterSpawnFunction( 0xff30ffff, "plant" )
+RegisterSpawnFunction( 0xffffc94f, "lamp" )
 
 local plants = {
     "data/entities/vegetation/tree_spruce_1.xml",
@@ -20,4 +21,8 @@ local plants = {
 function plant(x, y)
     local plant = plants[math.random(1,#plants)]
     EntityLoad(plant, x, y)
+end
+
+function lamp(x, y)
+    EntityLoad("data/entities/props/physics/lantern_small.xml", x, y)
 end
