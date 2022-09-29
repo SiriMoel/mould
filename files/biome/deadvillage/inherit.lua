@@ -6,6 +6,7 @@ dofile_once("data/scripts/lib/utilities.lua")
 RegisterSpawnFunction( 0xffffeedd, "init" )
 RegisterSpawnFunction( 0xff30ffff, "plant" )
 RegisterSpawnFunction( 0xffffc94f, "lamp" )
+RegisterSpawnFunction( 0xffffa776, "biglamp" )
 
 local plants = {
     "data/entities/vegetation/tree_spruce_1.xml",
@@ -25,4 +26,8 @@ end
 
 function lamp(x, y)
     EntityLoad("data/entities/props/physics/lantern_small.xml", x, y)
+end
+
+function biglamp(x, y)
+    EntityLoad("data/entities/props/physics_lantern.xml", x, y)
 end
