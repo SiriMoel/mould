@@ -1,3 +1,4 @@
+dofile("mods/mould/files/misc/goals.lua")
 local dialog_system = dofile_once("mods/mould/lib/DialogSystem/dialog_system.lua")
 
 local entity_id = GetUpdatedEntityID()
@@ -15,14 +16,13 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
             {
                 text="I need a weapon.",
                 func = function(dialogue)
-                    local flag = "objective_intro_armoury"
-                    if GameHasFlagRun(flag) == true then
+                    local flag = "intro_armoury"
+                    if checkactive(flag) then
                         dialogue.show( {
                             text="I see. I can give you the choice of three. \nThe ~shotgun~, the ~pistol~ or the ~sniper~."
                         } )
                         -- spawn starting weapons
-                        GameRemoveFlagRun(flag)
-                        GameAddFlagRun("DONE_" .. flag)
+                        completegoal(flag)
                     else
                         dialogue.show( {
                             text="You already have a weapon, do you not?"

@@ -71,5 +71,5 @@ end
 function plant(x, y)
     local plant = plants[math.random(1,#plants)]
     EntityLoad(plant, x, y)
-    spawn(animals, x, y)
+    spawn(animals, x, y-10)
 end

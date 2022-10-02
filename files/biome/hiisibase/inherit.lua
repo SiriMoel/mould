@@ -2,7 +2,7 @@ dofile_once("data/scripts/director_helpers.lua")
 dofile_once("data/scripts/biome_scripts.lua")
 dofile_once("data/scripts/lib/utilities.lua")
 
-RegisterSpawnFunction( 0xff80FF5A, "spawn_vines" )
+RegisterSpawnFunction( 0xff80ff5a, "spawn_vines" )
 RegisterSpawnFunction( 0xffff7b86, "intronpc" )
 RegisterSpawnFunction( 0xffff7bb6, "armourynpc" )
 RegisterSpawnFunction( 0xffff9fce, "mapnpc" )

@@ -1,4 +1,4 @@
-dofile("data/scripts/lib/utilities.lua")
+dofile("mods/mould/files/misc/utils.lua")
 dofile("data/scripts/gun/procedural/gun_action_utils.lua")
 
 local z, x, c, v, b, n = GameGetDateAndTimeLocal()
@@ -31,16 +31,16 @@ function hgun( weapon, capacity, actions, quirkm, statsm ) -- hiisi gun
             quirkm = quirkm + math.floor( ( 1.1 ^ ( cqc + 1 ) ) + 0.5 )
             local quirk = hiisiquirks[math.random(1, #hiisiquirks)]
             local qc = math.floor( ( 3 * quirkm ) + 0.5 ) -- quirk chance
-            print("quirk chance is " .. qc)
+            --print("quirk chance is " .. qc)
             local ifquirk = 0
             ifquirk = math.random(1, qc)
-            print("rolled a " .. ifquirk)
+            --print("rolled a " .. ifquirk)
             if ifquirk == 2 then
                 AddGunAction( weapon, quirk )
                 cqc = cqc + 1
             end
             cqt = cqt + 1
-            print("quirks rolled")
+            --print("quirks rolled")
         end
 
         --stats
@@ -58,7 +58,7 @@ function w( capacity )
         local dc = tonumber( ComponentObjectGetValue( ac, "gun_config", "deck_capacity" ) ) -- deck capacity 
         local dc = capacity
         ComponentObjectSetValue( ac, "gun_config", "deck_capacity", tostring(dc) )
-        print("capacity set")
+        --print("capacity set")
     end
 end
 
@@ -74,23 +74,23 @@ function s( m )
         --local sd = tonumber( ComponentObjectGetValue( ac, "gun_config", "spread_degrees" ) ) -- spread degrees
         local frw = tonumber( ComponentObjectGetValue( ac, "gunaction_config", "fire_rate_wait" ) ) -- fire rate wait
 
-        print("old rt " .. rt)
-        print("old frw " .. frw)
+        --print("old rt " .. rt)
+        --print("old frw " .. frw)
 
         rt = math.floor( ( rt / (m * 0.8) + 0.5 ) )
         --sm = sm * (m * 0.3)
         --sd = sd * (m * 0.5)
         frw = math.floor( ( frw / (m * 0.8) + 0.5 ) )
 
-        print("new rt " .. rt)
-        print("new frw " .. frw)
+        --print("new rt " .. rt)
+        --print("new frw " .. frw)
 
         ComponentObjectSetValue( ac, "gun_config", "reload_time", tostring(rt) )
         --ComponentObjectSetValue( ac, "gun_config", "speed_multiplier", tostring(sm) )
         --omponentObjectSetValue( ac, "gun_config", "spread_degrees", tostring(sd) )
         ComponentObjectSetValue( ac, "gunaction_config", "fire_rate_wait", tostring(frw) )
 
-        print("stats set")
+        --print("stats set")
     end
-    print("Weapon created with " .. m .. "x stats multiplier.") 
+    --print("Weapon created with " .. m .. "x stats multiplier.") 
 end

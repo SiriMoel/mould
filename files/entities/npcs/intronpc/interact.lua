@@ -1,3 +1,4 @@
+dofile("mods/mould/files/misc/goals.lua")
 local dialog_system = dofile_once("mods/mould/lib/DialogSystem/dialog_system.lua")
 
 local entity_id = GetUpdatedEntityID()
@@ -15,15 +16,11 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
             {
                 text="What should I be doing?", -- maybe expand this for a large portion of the story?
                 func = function(dialogue)
-                    local flag = "objective_intro_armoury"
-                    if GameHasFlagRun(flag) ~= true and GameHasFlagRun("DONE_" .. flag) ~= true then
-                        GameAddFlagRun(flag) -- this will be used for objectives
-                    end
-                    local flagtwo = "objective_intro_maproom"
-                    if GameHasFlagRun(flagtwo) ~= true and GameHasFlagRun("DONE_" .. flagtwo) ~= true then
-                        GameAddFlagRun(flagtwo)
-                    end
-                    if GameHasFlagRun("DONE_" .. flag) == true and GameHasFlagRun("DONE_" .. flagtwo) == true then
+                    local flag = "intro_armoury"
+                    local flagtwo = "intro_maproom"
+                    assigngoal(flag)
+                    assigngoal(flagtwo)
+                    if checkcompleted(flag) and checkcompleted(flagtwo) then
                         dialogue.show( { 
                             text="Oh... something?",
                        } ) 
