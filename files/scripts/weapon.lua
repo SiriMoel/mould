@@ -1,4 +1,4 @@
-dofile("mods/mould/files/misc/utils.lua")
+dofile("mods/mould/files/scripts/utils.lua")
 dofile("data/scripts/gun/procedural/gun_action_utils.lua")
 
 local z, x, c, v, b, n = GameGetDateAndTimeLocal()
@@ -44,11 +44,21 @@ function hgun( weapon, capacity, actions, quirkm, statsm ) -- hiisi gun
         end
 
         --stats
-        local variable = 0
-        variable = math.random( 100, (statsm * 100) )
-        variable = variable / 100
-        s( variable )
+        local sm = r(statsm)
+        s( sm )
     end
+end
+
+function glaive( weapon, capacity, statsm )
+    w( capacity )
+    local sm = r(statsm)
+    s( sm )
+    EntityAddComponent( weapon, "LuaComponent", {
+        _tags="enabled_in_hand",
+        script_source_file="mods/mould/files/scripts/glaive.lua",
+		execute_every_n_frame="3",
+		execute_times="-1",
+    } )
 end
 
 function w( capacity )
@@ -93,4 +103,11 @@ function s( m )
         --print("stats set")
     end
     --print("Weapon created with " .. m .. "x stats multiplier.") 
+end
+
+function r( sm )
+    local variable = 0
+    variable = math.random( 100, (sm * 100) )
+    variable = variable / 100
+    return variable
 end

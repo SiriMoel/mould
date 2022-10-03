@@ -1,4 +1,4 @@
-dofile("mods/mould/files/misc/utils.lua")
+dofile("mods/mould/files/scripts/utils.lua")
 
 local gd = 0 -- goals displayed
 local renderedgoals = {}

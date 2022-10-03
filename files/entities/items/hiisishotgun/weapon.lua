@@ -1,4 +1,4 @@
-dofile("mods/mould/files/entities/items/weapon.lua")
+dofile("mods/mould/files/scripts/weapon.lua")
 
 local weapon = GetUpdatedEntityID()
 
