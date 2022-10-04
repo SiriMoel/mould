@@ -4,6 +4,17 @@ dofile_once("mods/mould/lib/DialogSystem/init.lua")("mods/mould/lib/DialogSystem
 
 local nxml = dofile_once("mods/mould/lib/nxml.lua")
 
+-- translations
+local translations = ModTextFileGetContent( "data/translations/common.csv" );
+if translations ~= nil then
+	while translations:find("\r\n\r\n") do
+		translations = translations:gsub("\r\n\r\n","\r\n");
+	end
+	local new_translations = ModTextFileGetContent( "mods/mould/files/misc/t.csv" );
+	translations = translations .. new_translations;
+	ModTextFileSetContent( "data/translations/common.csv", translations );
+end
+
 -- biomes
 local content = ModTextFileGetContent("data/biome/_biomes_all.xml")
 local xml = nxml.parse(content)

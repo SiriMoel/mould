@@ -12,8 +12,8 @@
 	  limit_background_image="0"
     wang_template_file="mods/mould/files/biome/caverns/swamp/swamp.png" 
     lua_script="mods/mould/files/biome/caverns/swamp/swamp.lua"
-    wang_map_width="256"
-    wang_map_height="256"
+    wang_map_width="260"
+    wang_map_height="260"
     audio_music_2=""
     audio_ambience="cave"
 	>
