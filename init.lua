@@ -45,14 +45,17 @@ ModTextFileSetContent("data/biome/_biomes_all.xml", tostring(xml))
 ModTextFileSetContent( "data/biome/_pixel_scenes.xml", ModTextFileGetContent("mods/mould/files/set/_pixel_scenes.xml") )
 
 -- player
+local dx = 1732
+local dy = 1764
+--SetPlayerSpawnLocation( dx, dy )
+
 function OnPlayerSpawned( player ) 
     
     if GameHasFlagRun("mouldplayer") then return end
 
-    local dx = 1732
-    local dy = 1764
+    EntityLoad("mods/mould/files/entities/items/hiisishotgun/weapon.xml", dx, dy)
 
     EntitySetTransform(player, dx, dy)
-
+    
     GameAddFlagRun("mouldplayer")
 end

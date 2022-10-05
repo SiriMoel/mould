@@ -30,7 +30,7 @@ function hgun( weapon, capacity, actions, quirkm, statsm ) -- hiisi gun
         while cqt <= mqc do
             quirkm = quirkm + math.floor( ( 1.1 ^ ( cqc + 1 ) ) + 0.5 )
             local quirk = hiisiquirks[math.random(1, #hiisiquirks)]
-            local qc = math.floor( ( 3 * quirkm ) + 0.5 ) -- quirk chance
+            local qc = math.floor( ( 2 * quirkm ) + 0.5 ) -- quirk chance
             --print("quirk chance is " .. qc)
             local ifquirk = 0
             ifquirk = math.random(1, qc)
