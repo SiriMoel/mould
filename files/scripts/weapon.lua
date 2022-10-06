@@ -1,8 +1,10 @@
 dofile("mods/mould/files/scripts/utils.lua")
 dofile("data/scripts/gun/procedural/gun_action_utils.lua")
 
+local entity = GetUpdatedEntityID()
 local z, x, c, v, b, n = GameGetDateAndTimeLocal()
-math.randomseed(z+x+c+v+b+n)
+local x, y = EntityGetTransform(entity)
+math.randomseed(z+x+c+v+b+n+x+y)
 
 local hiisiquirks = { -- PLACEHOLDERS
     "ELECTRIC_CHARGE",
@@ -28,6 +30,17 @@ function hgun( weapon, capacity, actions, quirkm, statsm ) -- hiisi gun
         local cqc = 0 -- current quirk count
         local cqt = 0 -- current quirk tries
         while cqt <= mqc do
+            if cqt == mqc then return end
+            if quirkm > math.floor((#hiisiquirks * 1.3)) then
+                quirkm = 1
+            end
+            local quirk = hiisiquirks[math.random(1, #hiisiquirks + (math.floor((#hiisiquirks * 1.3) - quirkm )))]
+            if quirk ~= nil then
+                AddGunAction( weapon, quirk )
+                cqc = cqc + 1
+            end
+            cqt = cqt + 1
+            --[[
             quirkm = quirkm + math.floor( ( 1.1 ^ ( cqc + 1 ) ) + 0.5 )
             local quirk = hiisiquirks[math.random(1, #hiisiquirks)]
             local qc = math.floor( ( 2 * quirkm ) + 0.5 ) -- quirk chance
@@ -41,6 +54,7 @@ function hgun( weapon, capacity, actions, quirkm, statsm ) -- hiisi gun
             end
             cqt = cqt + 1
             --print("quirks rolled")
+            ]]--
         end
 
         --stats

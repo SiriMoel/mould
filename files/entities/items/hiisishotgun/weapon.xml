@@ -56,5 +56,54 @@
     <ManaReloaderComponent
         _tags="enabled_in_world,enabled_in_hand,enabled_in_inventory" >
     </ManaReloaderComponent>
+
+    <LuaComponent 
+        execute_on_added="1"
+        remove_after_executed="1"
+        script_source_file="mods/mould/files/scripts/ammo_init.lua"
+        >
+    </LuaComponent>
+
+    <VariableStorageComponent
+        _tags="ammo_max"
+        name="ammo_max"
+        value_int="27"
+        >
+    </VariableStorageComponent>
+
+    <VariableStorageComponent
+        _tags="ammo_count"
+        name="ammo_count"
+        value_int="27"
+        >
+    </VariableStorageComponent>
+
+    <VariableStorageComponent
+        _tags="ammo_recharge"
+        name="ammo_recharge"
+        value_int="60"
+        >
+    </VariableStorageComponent>
+
+    <VariableStorageComponent
+        _tags="ammo_recharge_count"
+        name="ammo_recharge_count"
+        value_int="1"
+        >
+    </VariableStorageComponent>
+
+    <VariableStorageComponent
+        _tags="ammo_use"
+        name="ammo_use"
+        value_int="1"
+        >
+    </VariableStorageComponent>
+
+    <VariableStorageComponent
+        _tags="ammo_type"
+        name="ammo_type"
+        value_string="hiisi"
+        >
+    </VariableStorageComponent>
     
 </Entity>
