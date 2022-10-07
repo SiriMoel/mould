@@ -12,7 +12,7 @@ local hiisiquirks = { -- PLACEHOLDERS
     "SPREAD_REDUCE",
 }
 
-function hgun( weapon, capacity, actions, quirkm, statsm ) -- hiisi gun
+function hgun( weapon, capacity, actions, statsm, doquirks ) -- hiisi gun
     -- weapon id, weapon capacity (to set), #actions in gun, quirk chance multiplier, stats max multiplier
     local mqc = capacity - actions -- max quirks count
 
@@ -26,50 +26,33 @@ function hgun( weapon, capacity, actions, quirkm, statsm ) -- hiisi gun
         --capacity
         w( capacity )
 
+        --stats
+        local sm = r(statsm)
+        s( sm )
+
         --quirks
         local cqc = 0 -- current quirk count
         local cqt = 0 -- current quirk tries
         while cqt <= mqc do
+            if not doquirks then return end
             if cqt == mqc then return end
-            if quirkm > math.floor((#hiisiquirks * 1.3)) then
-                quirkm = 1
-            end
-            local quirk = hiisiquirks[math.random(1, #hiisiquirks + (math.floor((#hiisiquirks * 1.3) - quirkm )))]
+            local quirk = hiisiquirks[math.random(1, #hiisiquirks + (math.floor((#hiisiquirks * 1.3) - 1 )))]
             if quirk ~= nil then
                 AddGunAction( weapon, quirk )
                 cqc = cqc + 1
             end
             cqt = cqt + 1
-            --[[
-            quirkm = quirkm + math.floor( ( 1.1 ^ ( cqc + 1 ) ) + 0.5 )
-            local quirk = hiisiquirks[math.random(1, #hiisiquirks)]
-            local qc = math.floor( ( 2 * quirkm ) + 0.5 ) -- quirk chance
-            --print("quirk chance is " .. qc)
-            local ifquirk = 0
-            ifquirk = math.random(1, qc)
-            --print("rolled a " .. ifquirk)
-            if ifquirk == 2 then
-                AddGunAction( weapon, quirk )
-                cqc = cqc + 1
-            end
-            cqt = cqt + 1
-            --print("quirks rolled")
-            ]]--
-        end
-
-        --stats
-        local sm = r(statsm)
-        s( sm )
+        end 
     end
 end
 
-function glaive( weapon, capacity, statsm )
+function frisbee( weapon, capacity, statsm )
     w( capacity )
     local sm = r(statsm)
     s( sm )
     EntityAddComponent( weapon, "LuaComponent", {
         _tags="enabled_in_hand",
-        script_source_file="mods/mould/files/scripts/glaive.lua",
+        script_source_file="mods/mould/files/scripts/frisbee.lua",
 		execute_every_n_frame="3",
 		execute_times="-1",
     } )

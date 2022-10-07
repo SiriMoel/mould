@@ -10,7 +10,8 @@ RegisterSpawnFunction( 0xffffa776, "biglamp" )
 RegisterSpawnFunction( 0xff7fb5ff, "alcoholbarrel" )
 RegisterSpawnFunction( 0xffe0af9f , "rat" )
 RegisterSpawnFunction( 0xffb6ac00, "mappart" )
-RegisterSpawnFunction( 0xff80ff5a, "spawn_vines" )
+RegisterSpawnFunction( 0xff80ff5a, "spawn_vines" ) 
+RegisterSpawnFunction( 0xffcb8cff, "wanderer" )
 
 local plants = {
     "data/entities/vegetation/tree_spruce_1.xml",
@@ -106,4 +107,8 @@ end
 
 function spawn_vines(x, y)
 	spawn(g_vines,x+5,y+5)
+end
+
+function wanderer(x, y)
+	EntityLoad("mods/mould/files/entities/npcs/wanderer/wanderer.xml", x, y)
 end

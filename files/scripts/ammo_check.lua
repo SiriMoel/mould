@@ -14,4 +14,4 @@ if ammocount <= 0 or ammocount <= ammouse + 1 then
     ComponentSetValue2( comp_ability, "mNextFrameUsable", GameGetFrameNum() + 2)
 end
 
-GamePrint("Ammo is " .. ammocount) -- for testing
+--GamePrint("Ammo is " .. ammocount) -- for testing

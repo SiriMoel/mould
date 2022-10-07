@@ -43,6 +43,7 @@ ModTextFileSetContent("data/biome/_biomes_all.xml", tostring(xml))
 
 -- set
 ModTextFileSetContent( "data/biome/_pixel_scenes.xml", ModTextFileGetContent("mods/mould/files/set/_pixel_scenes.xml") )
+ModTextFileSetContent( "data/scripts/items/drop_money.lua", ModTextFileGetContent("mods/mould/files/set/drop_money.lua") )
 
 -- player
 local dx = 1732
@@ -54,8 +55,10 @@ function OnPlayerSpawned( player )
     if GameHasFlagRun("mouldplayer") then return end
 
     EntityLoad("mods/mould/files/entities/items/hiisishotgun/weapon.xml", dx, dy-10)
-    --EntityLoad("mods/mould/files/entities/items/hiisishotgun/weapon.xml", dx, dy-12)
+    EntityLoad("mods/mould/files/entities/items/hiisisniper/weapon.xml", dx, dy-12)
     --EntityLoad("mods/mould/files/entities/items/hiisishotgun/weapon.xml", dx, dy-14)
+
+    --print(BiomeMapGetName(dx, dy))
 
     EntitySetTransform(player, dx, dy)
     
