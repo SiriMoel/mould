@@ -1,0 +1,12 @@
+<Mod
+name="Mould"
+description="
+welcome to mould: the mod of all time
+
+(make sure to set a difficulty and name before your run)
+"
+tags="total conversion,game modes,gameplay"
+dont_upload_folders=".assets" 
+dont_upload_files=""
+>
+</Mod>

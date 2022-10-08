@@ -1,6 +1,8 @@
 ModLuaFileAppend( "data/scripts/gun/gun_actions.lua", "mods/mould/files/actions.lua" )
 ModMagicNumbersFileAdd( "mods/mould/files/magic_numbers.xml" ) 
 dofile_once("mods/mould/lib/DialogSystem/init.lua")("mods/mould/lib/DialogSystem")
+dofile_once("mods/mould/lib/gusgui/gusgui.lua").init("mods/mould/lib/gusgui")
+
 
 local nxml = dofile_once("mods/mould/lib/nxml.lua")
 
@@ -63,4 +65,62 @@ function OnPlayerSpawned( player )
     EntitySetTransform(player, dx, dy)
     
     GameAddFlagRun("mouldplayer")
+
+    local damagemodels = EntityGetComponent( player_entity, "DamageModelComponent" )
+	if( damagemodels ~= nil ) then
+        local xx = 0
+        if ModSettingGet("mould.difficulty") == "easy" then
+            xx = 0.6
+        end
+        if ModSettingGet("mould.difficulty") == "normal" then
+            xx = 1
+        end
+        if ModSettingGet("mould.difficulty") == "hard" then
+            xx = 1.2
+        end
+        if ModSettingGet("mould.difficulty") == "expert" then
+            xx = 1.5
+        end
+
+		for i,damagemodel in ipairs(damagemodels) do
+			local melee = tonumber(ComponentObjectGetValue( damagemodel, "damage_multipliers", "melee" ) )
+			local projectile = tonumber(ComponentObjectGetValue( damagemodel, "damage_multipliers", "projectile" ) )
+			local explosion = tonumber(ComponentObjectGetValue( damagemodel, "damage_multipliers", "explosion" ) )
+			local electricity = tonumber(ComponentObjectGetValue( damagemodel, "damage_multipliers", "electricity" ) )
+			local fire = tonumber(ComponentObjectGetValue( damagemodel, "damage_multipliers", "fire" ) )
+			local drill = tonumber(ComponentObjectGetValue( damagemodel, "damage_multipliers", "drill" ) )
+			local slice = tonumber(ComponentObjectGetValue( damagemodel, "damage_multipliers", "slice" ) )
+			local ice = tonumber(ComponentObjectGetValue( damagemodel, "damage_multipliers", "ice" ) )
+			local healing = tonumber(ComponentObjectGetValue( damagemodel, "damage_multipliers", "healing" ) )
+			local physics_hit = tonumber(ComponentObjectGetValue( damagemodel, "damage_multipliers", "physics_hit" ) )
+			local radioactive = tonumber(ComponentObjectGetValue( damagemodel, "damage_multipliers", "radioactive" ) )
+			local poison = tonumber(ComponentObjectGetValue( damagemodel, "damage_multipliers", "poison" ) )
+
+			melee = melee * xx
+			projectile = projectile * xx
+			explosion = explosion * xx
+			electricity = electricity * xx
+			fire = fire * xx
+			drill = drill * xx
+			slice = slice * xx
+			ice = ice * xx
+            healing = healing * xx
+            physics_hit = physics_hit * xx
+			radioactive = radioactive * xx
+			poison = poison * xx
+
+			ComponentObjectSetValue( damagemodel, "damage_multipliers", "melee", tostring(melee) )
+			ComponentObjectSetValue( damagemodel, "damage_multipliers", "projectile", tostring(projectile) )
+			ComponentObjectSetValue( damagemodel, "damage_multipliers", "explosion", tostring(explosion) )
+			ComponentObjectSetValue( damagemodel, "damage_multipliers", "electricity", tostring(electricity) )
+			ComponentObjectSetValue( damagemodel, "damage_multipliers", "fire", tostring(fire) )
+			ComponentObjectSetValue( damagemodel, "damage_multipliers", "drill", tostring(drill) )
+			ComponentObjectSetValue( damagemodel, "damage_multipliers", "slice", tostring(slice) )
+			ComponentObjectSetValue( damagemodel, "damage_multipliers", "ice", tostring(ice) )
+			ComponentObjectSetValue( damagemodel, "damage_multipliers", "healing", tostring(healing) )
+			ComponentObjectSetValue( damagemodel, "damage_multipliers", "physics_hit", tostring(physics_hit) )
+			ComponentObjectSetValue( damagemodel, "damage_multipliers", "radioactive", tostring(radioactive) )
+			ComponentObjectSetValue( damagemodel, "damage_multipliers", "poison", tostring(poison) )
+		end
+    end
 end
