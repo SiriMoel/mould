@@ -1,0 +1,3 @@
+[submodule "lib/gusgui"]
+	path = lib/gusgui
+	url = https://github.com/ofoxsmith/gusgui.git
