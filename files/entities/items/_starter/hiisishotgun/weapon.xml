@@ -1,4 +1,4 @@
-<Entity tags="teleportable_NOT,wand,item,mould_weapon,mould_uses_ammo">
+<Entity tags="teleportable_NOT,wand,item,mould_weapon,mould_uses_ammo,mould_starter">
 
 	<AbilityComponent 
         amount_in_inventory="1"
@@ -49,14 +49,19 @@
    <LuaComponent 
         execute_on_added="1"
         remove_after_executed="1"
-        script_source_file="mods/mould/files/entities/items/hiisishotgun/weapon.lua"
+        script_source_file="mods/mould/files/entities/items/_starter/hiisishotgun/weapon.lua"
+        >
+    </LuaComponent>
+
+    <LuaComponent
+        script_item_picked_up="mods/mould/files/entities/items/_starter/pickup.lua"
         >
     </LuaComponent>
 
     <ManaReloaderComponent
         _tags="enabled_in_world,enabled_in_hand,enabled_in_inventory" >
     </ManaReloaderComponent>
-
+                                       
     <LuaComponent 
         execute_on_added="1"
         remove_after_executed="1"

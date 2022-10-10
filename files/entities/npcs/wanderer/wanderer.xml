@@ -1,7 +1,7 @@
-<Entity name="Tuoli" tags="hittable">
+<Entity name="Wanderer" tags="hittable">
 
     <SpriteComponent 
-		image_file="mods/mould/files/entities/npcs/intronpc/sprite.xml" 
+		image_file="mods/mould/files/entities/npcs/wanderer/sprite.xml" 
 		offset_x="0"
 		offset_y="0">
 	</SpriteComponent>
@@ -9,12 +9,12 @@
     <InteractableComponent
         radius="10"
         ui_text="[INTERACT]"
-        name="Tuoli" >
+        name="???" >
     </InteractableComponent>
 
     <LuaComponent
-        script_interacting="mods/mould/files/entities/npcs/intronpc/interact.lua"
-        script_source_file="mods/mould/files/entities/npcs/intronpc/interact.lua"
+        script_interacting="mods/mould/files/entities/npcs/wanderer/interact.lua"
+        script_source_file="mods/mould/files/entities/npcs/wanderer/interact.lua"
         execute_every_n_frame="1"
         enable_coroutines="1" >
     </LuaComponent>

@@ -8,7 +8,7 @@
 
     <InteractableComponent
         radius="10"
-        ui_text=""
+        ui_text="[INTERACT]"
         name="Sormi" >
     </InteractableComponent>
 

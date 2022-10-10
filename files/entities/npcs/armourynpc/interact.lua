@@ -22,10 +22,17 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                             text="I see. I can give you the choice of three. \nThe ~shotgun~, the ~pistol~ or the ~sniper~."
                         } )
                         -- spawn starting weapons
+                        local sx = 1850 -- spawn x
+                        local sy = 1890 -- spawn y
+
+                        EntityLoad("mods/mould/files/entities/items/_starter/hiisishotgun/weapon.xml", sx, sy)
+                        EntityLoad("mods/mould/files/entities/items/_starter/hiisisniper/weapon.xml", sx+30, sy)
+                        EntityLoad("mods/mould/files/entities/items/_starter/hiisishotgun/weapon.xml", sx+60, sy)
+
                         completegoal(flag)
                     else
                         dialogue.show( {
-                            text="You already have a weapon, do you not?"
+                            text="Hm?"
                         } )
                     end
                 end,

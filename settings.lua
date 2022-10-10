@@ -27,6 +27,14 @@ mod_settings = {
 		scope = MOD_SETTING_SCOPE_RUNTIME,
 		change_fn = mod_setting_change_callback -- Called when the user interact with the settings widget.
 	},
+	{
+		id = "difficulty",
+		ui_name = "Difficulty",
+		ui_description = "How \"fun\" you want your experience to be. Must be set at the beginning of a run.\n Sunlight. (cringe) (only for weak gamers)\n Twilight. (normal difficulty)\n Midnight. (skillful)\n Abyssal. (now i am become death) (more drops and cooler items)",
+		value_default = "normal",
+		values = { {"easy","Sunlight"}, {"normal","Twilight"}, {"hard","Midnight"}, {"expert", "Abyssal"} },
+		scope = MOD_SETTING_SCOPE_RUNTIME,
+	},
 }
 
 function ModSettingsUpdate( init_scope )

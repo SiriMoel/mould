@@ -1,4 +1,4 @@
-<Entity tags="teleportable_NOT,wand,item,mould_weapon,mould_uses_ammo">
+<Entity tags="teleportable_NOT,wand,item,mould_weapon,mould_uses_ammo,mould_starter">
 
 	<AbilityComponent 
         amount_in_inventory="1"
@@ -11,23 +11,23 @@
 		mana_max="400"
         max_amount_in_inventory="1"
         shooting_reduces_amount_in_inventory="0"
-        sprite_file="mods/mould/files/entities/items/hiisishotgun/sprite.xml"
+        sprite_file="mods/mould/files/entities/items/hiisisniper/sprite.xml"
         swim_propel_amount="0"
         throw_as_item="0"
-        ui_name="Hiisi Shotgun"
+        ui_name="Hiisi Sniper"
         use_gun_script="1"
 		add_these_child_actions=""
 		>
 		<gun_config 
             shuffle_deck_when_empty="0"
-            deck_capacity="4"
+            deck_capacity="1"
 			actions_per_round="1"
-            reload_time="70"
+            reload_time="95"
 			speed_multiplier="1"
 			spread_degrees="1" >
         </gun_config>
         <gunaction_config 
-            fire_rate_wait="70" >
+            fire_rate_wait="95" >
         </gunaction_config>
     </AbilityComponent>
 	
@@ -39,7 +39,7 @@
 	
     <Base file="data/entities/base_item.xml" >
         <ItemComponent
-            item_name="Hiisi Shotgun"
+            item_name="Hiisi Sniper"
             always_use_item_name_in_ui="1"
             remove_on_death="1"
             collect_nondefault_actions="1" >
@@ -49,7 +49,12 @@
    <LuaComponent 
         execute_on_added="1"
         remove_after_executed="1"
-        script_source_file="mods/mould/files/entities/items/hiisishotgun/weapon.lua"
+        script_source_file="mods/mould/files/entities/items/_starter/hiisisniper/weapon.lua"
+        >
+    </LuaComponent>
+
+    <LuaComponent
+        script_item_picked_up="mods/mould/files/entities/items/_starter/pickup.lua"
         >
     </LuaComponent>
 
@@ -67,21 +72,21 @@
     <VariableStorageComponent
         _tags="ammo_max"
         name="ammo_max"
-        value_int="27"
+        value_int="10"
         >
     </VariableStorageComponent>
 
     <VariableStorageComponent
         _tags="ammo_count"
         name="ammo_count"
-        value_int="27"
+        value_int="10"
         >
     </VariableStorageComponent>
 
     <VariableStorageComponent
         _tags="ammo_recharge"
         name="ammo_recharge"
-        value_int="60"
+        value_int="40"
         >
     </VariableStorageComponent>
 
@@ -105,5 +110,44 @@
         value_string="hiisi"
         >
     </VariableStorageComponent>
+
+    <Entity>
+
+        <InheritTransformComponent
+            _tags="enabled_in_hand"
+            parent_hotspot_tag="shoot_pos" 
+            always_use_immediate_parent_rotation="1" >
+            <Transform 
+            position.x="-4.5" 
+            position.y="-3.5">
+            </Transform>
+        </InheritTransformComponent>
+
+
+        <LaserEmitterComponent 
+            _tags="enabled_in_hand"
+            _enabled="1" 
+            emit_until_frame="-1" 
+            is_emitting="1" 
+            laser_angle_add_rad="0" >
+
+            <laser 
+                audio_enabled="0" 
+                audio_hit_always_enabled="0" 
+                beam_particle_chance="50" 
+                beam_particle_fade="0" 
+                beam_particle_fade_reverse="0" 
+                beam_particle_type="spark_red" 
+                beam_radius="0.5" 
+                damage_to_cells="0" 
+                damage_to_entities="0" 
+                hit_particle_chance="0" 
+                max_cell_durability_to_destroy="0" 
+                max_length="4000" 
+                root_entity_is_responsible_for_damage="0" >
+            </laser>
+
+        </LaserEmitterComponent>
+    </Entity>
     
 </Entity>
