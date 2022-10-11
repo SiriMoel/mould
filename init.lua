@@ -3,6 +3,7 @@ ModMagicNumbersFileAdd( "mods/mould/files/magic_numbers.xml" )
 dofile_once("mods/mould/lib/DialogSystem/init.lua")("mods/mould/lib/DialogSystem")
 dofile_once("mods/mould/lib/gusgui/gusgui.lua").init("mods/mould/lib/gusgui")
 
+dofile_once("mods/mould/files/gui.lua")
 
 local nxml = dofile_once("mods/mould/lib/nxml.lua")
 
@@ -46,6 +47,7 @@ ModTextFileSetContent("data/biome/_biomes_all.xml", tostring(xml))
 -- set
 ModTextFileSetContent( "data/biome/_pixel_scenes.xml", ModTextFileGetContent("mods/mould/files/set/_pixel_scenes.xml") )
 ModTextFileSetContent( "data/scripts/items/drop_money.lua", ModTextFileGetContent("mods/mould/files/set/drop_money.lua") )
+--ModTextFileSetContent( "data/entities/player_base.xml", ModTextFileGetContent("mods/mould/files/set/player_base.xml") )
 
 -- player
 local dx = 1732
@@ -64,9 +66,34 @@ function OnPlayerSpawned( player )
 
     EntitySetTransform(player, dx, dy)
     
-    GameAddFlagRun("mouldplayer")
+    GameAddFlagRun("mouldplayer") 
 
-    local damagemodels = EntityGetComponent( player_entity, "DamageModelComponent" )
+	EntityAddComponent( player, "LuaComponent", {
+		script_source_file="mods/mould/files/scripts/movement.lua",
+		execute_every_n_frame="1",
+	} )
+	EntityAddComponent( player, "VariableStorageComponent", {
+		_tags="movetimer",
+		name="movetimer",
+		value_int="0",
+	} )
+
+	local comp_cp = EntityGetFirstComponentIncludingDisabled( player, "CharacterPlatformingComponent" )
+
+	local velocity_min_x = ComponentGetValue2( comp_cp, "velocity_min_x" )
+    local velocity_max_x = ComponentGetValue2( comp_cp, "velocity_max_x" )
+    local velocity_min_y = ComponentGetValue2( comp_cp, "velocity_min_y" )
+    local velocity_max_y = ComponentGetValue2( comp_cp, "velocity_max_y" )
+	velocity_min_x = velocity_min_x * 2
+	velocity_max_x = velocity_max_x * 2
+	velocity_min_y = velocity_min_y * 3
+	velocity_max_y = velocity_max_y * 3
+	ComponentSetValue2( comp_cp, "velocity_min_x", velocity_min_x)
+    ComponentSetValue2( comp_cp, "velocity_max_x", velocity_max_x)
+    ComponentSetValue2( comp_cp, "velocity_min_y", velocity_min_y)
+    ComponentSetValue2( comp_cp, "velocity_max_y", velocity_max_y)
+	
+    local damagemodels = EntityGetComponent( player, "DamageModelComponent" )
 	if( damagemodels ~= nil ) then
         local xx = 0
         if ModSettingGet("mould.difficulty") == "easy" then
