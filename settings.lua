@@ -22,10 +22,10 @@ mod_settings = {
 		id = "name",
 		ui_name = "Player Name",
 		ui_description = "Self explanatory.",
-		value_default = "Mina",
+		value_default = "Protagonist",
 		text_max_length = 20,
 		scope = MOD_SETTING_SCOPE_RUNTIME,
-		change_fn = mod_setting_change_callback -- Called when the user interact with the settings widget.
+		change_fn = mod_setting_change_callback,
 	},
 	{
 		id = "difficulty",

@@ -1,0 +1,45 @@
+<Entity tags="playerkick" >
+    
+     <DamageModelComponent 
+        air_in_lungs="5" 
+        air_in_lungs_max="5" 
+        air_lack_of_damage="0.2" 
+        air_needed="0" 
+        falling_damage_damage_max="1.2" 
+        falling_damage_damage_min="0.1" 
+        falling_damage_height_max="5" 
+        falling_damage_height_min="5" 
+        falling_damages="1" 
+        fire_damage_amount="0.2" 
+        fire_probability_of_ignition="0.5" 
+        hp="0.1" 
+        is_on_fire="0" 
+        mAirAreWeInWater="0" 
+        mFallCount="0" 
+        mFallHighestY="3.40282e+038" 
+        mFallIsOnGround="0" 
+        mFireProbability="100" 
+        mIsOnFire="0"  
+        >
+    </DamageModelComponent>
+
+    <HitboxComponent 
+        aabb_max_x="3.5" 
+        aabb_max_y="4" 
+        aabb_min_x="-3.5" 
+        aabb_min_y="-3"
+        >
+    </HitboxComponent>
+
+    <LuaComponent
+        script_source_file="mods/mould/files/entities/misc/playerkick/move.lua"
+        execute_every_n_frame="1"
+    >
+    </LuaComponent>
+
+    <LuaComponent
+        script_death="mods/mould/files/entitites/misc/playerkick/death.lua"
+    >
+    </LuaComponent>
+
+</Entity>

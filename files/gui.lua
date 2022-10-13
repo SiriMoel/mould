@@ -7,36 +7,13 @@ local hp = 0
 local max_hp = 0
 local max_hp_old = 0
 
---[[function OnPlayerSpawned(player) -- this isnt necessary
-    comps_pdm = EntityGetComponentIncludingDisabled( player, "DamageModelComponent" )
-    print("the thing is " .. #comps_pdm)
-    for i,comp in ipairs(comps_pdm) do
-        if ComponentGetValue2(comp_pdm, "hp") ~= nil then
-            hp = ComponentGetValue2(comp_pdm, "hp")
-        end
-        if ComponentGetValue2(comp_pdm, "max_hp") ~= nil then
-            max_hp = ComponentGetValue2(comp_pdm, "max_hp")
-            max_hp_old = max_hp
-        end
-        if ComponentGetValue2(comp_pdm, "max_hp_old") ~= nil then
-            max_hp_old = ComponentGetValue2(comp_pdm, "max_hp")
-        end
-    end
-    if comp_pdm ~= nil then
-        print("comp_pdm isnt nil!")
-    else
-        print("comp_pdm is nil.")
-    end
-    hp = ComponentGetValue2(comp_pdm, "hp") )
-    max_hp = ComponentGetValue2(comp_pdm, "max_hp_old") )
-    max_hp_old = max_hp
-end]]--
-
 function OnWorldPreUpdate()
     local player = EntityGetWithTag("player_unit")[1]
     if player ~= nil then
+        --print("player is not nil")
         comp_pdm = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
         if comp_pdm ~= nil then
+            --print("comp is not nil")
             hp = ComponentGetValue2(comp_pdm, "hp")
             max_hp = ComponentGetValue2(comp_pdm, "max_hp")
             max_hp_old = ComponentGetValue2(comp_pdm, "max_hp_old") 
@@ -44,7 +21,7 @@ function OnWorldPreUpdate()
             Gui.state.hp = hp * 25
             Gui.state.maxhp = max_hp * 25
             Gui.state.maxhpold = max_hp_old * 25
-            GamePrint(hp)
+            --GamePrint(hp)
         end
     end
 end
@@ -53,149 +30,43 @@ function OnWorldPostUpdate()
     Gui:Render()
 end
 
---[[Gui:AddElement(gusgui.Elements.HLayout({
-    id = "Hotbar",
-    margin = { top = 50, left = 50 },
-    overrideZ = 1,
-    children = {gusgui.Elements.Image({
-        id = "HotbarBackground",
-        overrideZ = 1,
-        src = "mods/mould/files/gui/HotbarBackground.png",
-    })}
-}))]]--
-
 Gui:AddElement(gusgui.Elements.VLayout({
-    id = "HotbarSlots",
-    margin = { top = 30, left = 30 },
-    overrideZ = 15,
-    children = {
-        gusgui.Elements.ImageButton({
-            id = "HotbarSlot1",
-            margin = { left = 0, bottom = 10, },
-            overrideZ = 17,
-            src = "mods/mould/files/gui/HotbarSlot.png",
-            onClick = function(element, state) 
-                GamePrint("test")
-            end,
-        }),
-        gusgui.Elements.ImageButton({
-            id = "HotbarSlot2",
-            margin = { left = 0, bottom = 10, },
-            overrideZ = 17,
-            src = "mods/mould/files/gui/HotbarSlot.png",
-            onClick = function(element, state) 
-                GamePrint("test")
-            end,
-        }),
-        gusgui.Elements.ImageButton({
-            id = "HotbarSlot3",
-            margin = { left = 0, bottom = 10, },
-            overrideZ = 17,
-            src = "mods/mould/files/gui/HotbarSlot.png",
-            onClick = function(element, state) 
-                GamePrint("test")
-            end,
-        }),
-        gusgui.Elements.ImageButton({
-            id = "HotbarSlot4",
-            margin = { left = 0, bottom = 10, },
-            overrideZ = 17,
-            src = "mods/mould/files/gui/HotbarSlot.png",
-            onClick = function(element, state) 
-                GamePrint("test")
-            end,
-        }),
-        gusgui.Elements.ImageButton({
-            id = "HotbarSlot5",
-            margin = { left = 0, bottom = 10, },
-            overrideZ = 17,
-            src = "mods/mould/files/gui/HotbarSlot.png",
-            onClick = function(element, state) 
-                GamePrint("test")
-            end,
-        }),
-        gusgui.Elements.ImageButton({
-            id = "HotbarSlot6",
-            margin = { left = 0, bottom = 10, },
-            overrideZ = 17,
-            src = "mods/mould/files/gui/HotbarSlot.png",
-            onClick = function(element, state) 
-                GamePrint("test")
-            end,
-        }),
-        gusgui.Elements.ImageButton({
-            id = "HotbarSlot7",
-            margin = { left = 0, bottom = 10, },
-            overrideZ = 17,
-            src = "mods/mould/files/gui/HotbarSlot.png",
-            onClick = function(element, state) 
-                GamePrint("test")
-            end,
-        }),
-        gusgui.Elements.ImageButton({
-            id = "HotbarSlot8",
-            margin = { left = 0, bottom = 10, },
-            overrideZ = 17,
-            src = "mods/mould/files/gui/HotbarSlot.png",
-            onClick = function(element, state) 
-                GamePrint("test")
-            end,
-        }),
-    },
-}))
-
-Gui:AddElement(gusgui.Elements.VLayout({
-    id = "HotbarItems",
+    id = "HeldItem",
     margin = { top = 30, left = 30 },
     overrideZ = 18,
     children = {
         gusgui.Elements.ImageButton({
-            id = "HotbarItem1",
-            margin = { left = 0, bottom = 10, },
-            overrideZ = 20,
-            src = "",
+            id = "ItemDisplayImage",
+            margin = { left = 0, bottom = 70, },
+            overrideZ = 17,
+            scaleX = 5,
+            scaleY = 5,
+            src = "mods/mould/files/gui/HotbarSlot.png",
             onClick = function(element, state) 
                 GamePrint("test")
             end,
-            onBeforeRender = function(element, state) 
-                ShowItem(element, 1)
-            end,
-        }),
-        gusgui.Elements.ImageButton({
-            id = "HotbarItem2",
-            margin = { left = 0, bottom = 10, },
-            overrideZ = 20,
-            src = "",
-            onClick = function(element, state) 
-                GamePrint("test")
-            end,
-            onBeforeRender = function(element, state) 
-                ShowItem(element, 2)
-            end,
-        }),
-        gusgui.Elements.ImageButton({
-            id = "HotbarItem3",
-            margin = { left = 0, bottom = 10, },
-            overrideZ = 20,
-            src = "",
-            onClick = function(element, state) 
-                GamePrint("test")
-            end,
-            onBeforeRender = function(element, state) 
-                ShowItem(element, 3)
-            end,
-        }),
-        gusgui.Elements.ImageButton({
-            id = "HotbarItem4",
-            margin = { left = 0, bottom = 10, },
-            overrideZ = 20,
-            src = "",
-            onClick = function(element, state) 
-                GamePrint("test")
-            end,
-            onBeforeRender = function(element, state) 
-                ShowItem(element, 4)
-            end,
+            onBeforeRender = function(element, state)
+                local player = EntityGetWithTag("player_unit")[1]
+                local comp_inv2 = EntityGetFirstComponentIncludingDisabled(player, "Inventory2Component")
+                local active_item = ComponentGetValue2(comp_inv2, "mActiveItem")
+                local player_children = EntityGetAllChildren(player)
+                local invquick_children = {}
+                if player_children ~= nil then
+                    for i,v in ipairs(player_children) do
+                        if EntityGetName(v) == "inventory_quick" then
+                            invquick_children = EntityGetAllChildren(v)
+                        end
+                    end
+                end
+                if active_item ~=  nil then
+                    local comp_ability = EntityGetFirstComponentIncludingDisabled(active_item, "AbilityComponent")
+                    local sprite = ComponentGetValue2(comp_ability, "sprite_file")
+                    if sprite ~= "" then
+                        --GamePrint("sprite should work")
+                        element.config.src = sprite
+                    end
+                end
+            end
         }),
     },
 }))
@@ -209,37 +80,31 @@ Gui:AddElement(gusgui.Elements.VLayout({
             id = "HealthBar",
             width = 400,
             height = 20,
+            overrideZ = 16,
             barColour = "green",
             value = Gui:StateValue("hpbar"),
+        }),
+        gusgui.Elements.Text({
+            id = "HealthText",
+            overrideZ = 17,
+            value = "Health: ${hp} / ${maxhp}",
+            drawBorder = true,
+            drawBackground = true,  
         })
     },
 }))
 
-function ShowItem(elem, slot)
-    local player = EntityGetWithTag("player_unit")[1]
-    local comp_invgui = EntityGetFirstComponentIncludingDisabled(player, "InventoryGuiComponent")
-    local comp_inv2 = EntityGetFirstComponentIncludingDisabled(player, "Inventory2Component")
-    local active_item = ComponentGetValue2(comp_inv2, "mActiveItem")
+--[[ 
+gui plan
 
-    local inventory_quick = EntityGetWithName("inventory_quick")
-    local inventory_open = ComponentGetValue2(comp_invgui, "mActive")
+WHEN INV CLOSED
+bars bottom right
+held weapon and ammo bottom left
+objectives top right
 
-    --local item = EntityGetAllChildren(inventory_quick)[slot]
+WHEN INV OPEN
+inv screen
+equipped cloak/other accessories
+current fracture
 
-    --[[if item ~= nil then
-        --GamePrint(EntityGetName(item))
-        local comp_ability = EntityGetFirstComponentIncludingDisabled(item, "AbilityComponent")
-        local sprite = ComponentGetValue2(comp_ability, "sprite_file")
-        if sprite ~= "" then
-            elem.config.scr = sprite
-        end
-    end]]--
-    if active_item ~= nil then
-        local comp_ability = EntityGetFirstComponentIncludingDisabled(active_item, "AbilityComponent")
-        local sprite = ComponentGetValue2(comp_ability, "sprite_file")
-        if sprite ~= "" then
-            GamePrint("sprite should work")
-            elem.config.scr = sprite
-        end
-    end
-end
+]]--

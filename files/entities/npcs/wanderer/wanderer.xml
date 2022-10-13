@@ -1,4 +1,4 @@
-<Entity name="Wanderer" tags="hittable">
+<Entity name="Wanderer" tags="hittable,wanderernpc">
 
     <SpriteComponent 
 		image_file="mods/mould/files/entities/npcs/wanderer/sprite.xml" 

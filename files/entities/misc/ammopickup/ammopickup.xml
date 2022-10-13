@@ -38,8 +38,8 @@
 		_tags="enabled_in_world"
 		aabb_min_x="-3" 
 		aabb_max_x="3" 
-		aabb_min_y="-5" 
-		aabb_max_y="0" >
+		aabb_min_y="-3" 
+		aabb_max_y="3" >
 	</HitboxComponent>
 
 	<LifetimeComponent

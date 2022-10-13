@@ -78,24 +78,42 @@ function OnPlayerSpawned( player )
 		value_int="0",
 	} )
 
+	local comp_kick = EntityGetFirstComponentIncludingDisabled( player, "KickComponent" )
+	if comp_kick ~= nil then
+		ComponentSetValue2( comp_kick, "kick_entities", "mods/mould/files/entitites/misc/playerkick/kick.xml" )
+		ComponentSetValue2( comp_kick, "kick_radius", 3.5 )
+	end
+
+
 	local comp_cp = EntityGetFirstComponentIncludingDisabled( player, "CharacterPlatformingComponent" )
+	local comp_cd = EntityGetFirstComponentIncludingDisabled( player, "CharacterDataComponent" )
 
 	local velocity_min_x = ComponentGetValue2( comp_cp, "velocity_min_x" )
     local velocity_max_x = ComponentGetValue2( comp_cp, "velocity_max_x" )
     local velocity_min_y = ComponentGetValue2( comp_cp, "velocity_min_y" )
     local velocity_max_y = ComponentGetValue2( comp_cp, "velocity_max_y" )
+	local jumpvelox = ComponentGetValue2( comp_cp, "jump_velocity_x" ) 
+    local jumpveloy = ComponentGetValue2( comp_cp, "jump_velocity_y" )
+	local fly_speed_max_down = ComponentGetValue2( comp_cp, "fly_speed_max_down" )
 	velocity_min_x = velocity_min_x * 2
 	velocity_max_x = velocity_max_x * 2
-	velocity_min_y = velocity_min_y * 3
-	velocity_max_y = velocity_max_y * 3
-	ComponentSetValue2( comp_cp, "velocity_min_x", velocity_min_x)
-    ComponentSetValue2( comp_cp, "velocity_max_x", velocity_max_x)
-    ComponentSetValue2( comp_cp, "velocity_min_y", velocity_min_y)
-    ComponentSetValue2( comp_cp, "velocity_max_y", velocity_max_y)
+	velocity_min_y = velocity_min_y * 2
+	velocity_max_y = velocity_max_y * 2
+	jumpvelox = jumpvelox * 3
+	jumpveloy = jumpveloy * 3
+	fly_speed_max_down = fly_speed_max_down * 2
+	ComponentSetValue2( comp_cp, "velocity_min_x", velocity_min_x )
+    ComponentSetValue2( comp_cp, "velocity_max_x", velocity_max_x )
+    ComponentSetValue2( comp_cp, "velocity_min_y", velocity_min_y )
+    ComponentSetValue2( comp_cp, "velocity_max_y", velocity_max_y )
+	ComponentSetValue2( comp_cp, "jump_velocity_x", jumpvelox )
+    ComponentSetValue2( comp_cp, "jump_velocity_y", jumpveloy )
+	ComponentSetValue2( comp_cp, "fly_speed_max_down", fly_speed_max_down )
+	ComponentSetValue2( comp_cd, "fly_time_max", 0 )
 	
     local damagemodels = EntityGetComponent( player, "DamageModelComponent" )
 	if( damagemodels ~= nil ) then
-        local xx = 0
+        local xx = 1
         if ModSettingGet("mould.difficulty") == "easy" then
             xx = 0.6
         end

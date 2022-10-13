@@ -12,18 +12,18 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
         name="???",
         portrait = "mods/mould/files/entities/npcs/wanderer/portrait.png",
         typing_sound = "two",
-        text = "Hello #shard#.",
+        text = "What do you want, #construct#?",
         options = {
             {
                 text = "Hello?",
                 func = function(dialogue)
                     if BiomeMapGetName(x, y) == "Ruumishuone" then
                         dialogue.show( { 
-                            text="Down this well before us is the Caverns. \nA network of tunnels that many have tried to tame, \nbut none have succeeded. I wish you luck."
+                            text="Down this well before us are #the Caverns#. \nA network of tunnels that many have tried to tame, \nbut none have succeeded."
                         } )
                     else
                         dialogue.show( { 
-                            text="Leave."
+                            text="This isn't right."
                         } )
                     end
                 end,

@@ -145,26 +145,29 @@ function do_money_drop( amount_multiplier, trick_kill )
 			} )
 		end
 	end
+end
 
-    -- spawn ammo pickup
+function death( damage_type_bit_field, damage_message, entity_thats_responsible, drop_items )
+	do_money_drop( 1, false )
+
+	local e = GetUpdatedEntityID()
+	local xx, yy = EntityGetTransform(entity_thats_responsible)
+
+	-- spawn ammo pickup
     local pickupentity = "mods/mould/files/entitites/misc/ammopickup/ammopickup.xml"
     local spawned = 0
     local tries = 0
     local z, x, c, v, b, n = GameGetDateAndTimeLocal()
-    math.randomseed(z+x+c+v+b+n+x+y)
+    math.randomseed(z+x+c+v+b+n+xx+yy)
 
     if math.random(1, 3) == 3 then
-        EntityLoad(pickupentity, x, y )
+        EntityLoad(pickupentity, xx, yy )
         while tries <= 3 do
             if math.random(1, 2) == 2 then
-                EntityLoad(pickupentity, x, y)
+                EntityLoad(pickupentity, x, yy)
                 spawned = spawned + 1
             end
             tries = tries + 1
         end
     end
-end
-
-function death( damage_type_bit_field, damage_message, entity_thats_responsible, drop_items )
-	do_money_drop( 1, false )
 end
