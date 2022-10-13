@@ -18,14 +18,16 @@ else
     is_moving = false
 end
 
-timer = math.min( timer + 1, 160 )
-
 if is_moving ~= false then
     timer = timer + 1
 end
-
 if is_moving == false then
     --GamePrint("you are not moving")
+    timer = 0
+end
+
+if ComponentGetValue2( comp_controls, "mButtonDownKick" ) == true then
+    GamePrint("kick")
     timer = 0
 end
 

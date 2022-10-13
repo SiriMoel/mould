@@ -80,7 +80,7 @@ function OnPlayerSpawned( player )
 
 	local comp_kick = EntityGetFirstComponentIncludingDisabled( player, "KickComponent" )
 	if comp_kick ~= nil then
-		ComponentSetValue2( comp_kick, "kick_entities", "mods/mould/files/entitites/misc/playerkick/kick.xml" )
+		ComponentSetValue2( comp_kick, "kick_entities", "mods/mould/files/entities/misc/playerkick/kick.xml" )
 		ComponentSetValue2( comp_kick, "kick_radius", 3.5 )
 	end
 
@@ -99,9 +99,9 @@ function OnPlayerSpawned( player )
 	velocity_max_x = velocity_max_x * 2
 	velocity_min_y = velocity_min_y * 2
 	velocity_max_y = velocity_max_y * 2
-	jumpvelox = jumpvelox * 3
-	jumpveloy = jumpveloy * 3
-	fly_speed_max_down = fly_speed_max_down * 2
+	jumpvelox = jumpvelox * 2
+	jumpveloy = jumpveloy * 2
+	fly_speed_max_down = fly_speed_max_down * 3
 	ComponentSetValue2( comp_cp, "velocity_min_x", velocity_min_x )
     ComponentSetValue2( comp_cp, "velocity_max_x", velocity_max_x )
     ComponentSetValue2( comp_cp, "velocity_min_y", velocity_min_y )

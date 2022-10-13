@@ -10,10 +10,8 @@ local max_hp_old = 0
 function OnWorldPreUpdate()
     local player = EntityGetWithTag("player_unit")[1]
     if player ~= nil then
-        --print("player is not nil")
         comp_pdm = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
         if comp_pdm ~= nil then
-            --print("comp is not nil")
             hp = ComponentGetValue2(comp_pdm, "hp")
             max_hp = ComponentGetValue2(comp_pdm, "max_hp")
             max_hp_old = ComponentGetValue2(comp_pdm, "max_hp_old") 
@@ -21,8 +19,11 @@ function OnWorldPreUpdate()
             Gui.state.hp = hp * 25
             Gui.state.maxhp = max_hp * 25
             Gui.state.maxhpold = max_hp_old * 25
-            --GamePrint(hp)
         end
+        local comp_wallet = EntityGetFirstComponentIncludingDisabled( player, "WalletComponent" ) 
+        Gui.state.wallet = ComponentGetValue2(comp_wallet, "money")
+        local comp_movetimer = EntityGetFirstComponentIncludingDisabled( player, "VariableStorageComponent", "movetimer" )
+        Gui.state.movetimer = ComponentGetValue2( comp_movetimer, "value_int" )
     end
 end
 
@@ -37,13 +38,13 @@ Gui:AddElement(gusgui.Elements.VLayout({
     children = {
         gusgui.Elements.ImageButton({
             id = "ItemDisplayImage",
-            margin = { left = 0, bottom = 70, },
+            margin = { left = 20, top = 70, },
             overrideZ = 17,
-            scaleX = 5,
-            scaleY = 5,
+            scaleX = 10,
+            scaleY = 10,
             src = "mods/mould/files/gui/HotbarSlot.png",
             onClick = function(element, state) 
-                GamePrint("test")
+                --GamePrint("test")
             end,
             onBeforeRender = function(element, state)
                 local player = EntityGetWithTag("player_unit")[1]
@@ -61,7 +62,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
                 if active_item ~=  nil then
                     local comp_ability = EntityGetFirstComponentIncludingDisabled(active_item, "AbilityComponent")
                     local sprite = ComponentGetValue2(comp_ability, "sprite_file")
-                    if sprite ~= "" then
+                    if sprite ~= "" and sprite ~= nil then
                         --GamePrint("sprite should work")
                         element.config.src = sprite
                     end
@@ -72,25 +73,59 @@ Gui:AddElement(gusgui.Elements.VLayout({
 }))
 
 Gui:AddElement(gusgui.Elements.VLayout({
-    id = "Bars",
+    id = "Health",
     margin = { top = 390, left = 340, },
     overrideZ = 15,
     children = {
-        gusgui.Elements.ProgressBar({
+        --[[gusgui.Elements.ProgressBar({
             id = "HealthBar",
             width = 400,
             height = 20,
             overrideZ = 16,
             barColour = "green",
             value = Gui:StateValue("hpbar"),
-        }),
+        }),]]--
         gusgui.Elements.Text({
             id = "HealthText",
+            margin = { left = 120, top = 0, },
             overrideZ = 17,
             value = "Health: ${hp} / ${maxhp}",
-            drawBorder = true,
-            drawBackground = true,  
+            drawBorder = false,
+            drawBackground = false,  
         })
+    },
+}))
+
+Gui:AddElement(gusgui.Elements.Vlayout({
+    id = "TopRight",
+    margin = { left = 420, top = 20, },
+    overrizeZ = 15,
+    children = {
+        gusgui.Elements.HLayout({
+            id = "wallet",
+            margin = {},
+            overrideZ = 17,
+            children = {
+                gusgui.Elements.Text({
+                    id = "WalletText",
+                    margin = { left = 10, },
+                    overrideZ = 17,
+                    value = "${wallet}",
+                }),
+                gusgui.Elements.Image({
+                    id = "WalletIcon",
+                    margin = { left = 0, },
+                    overrideZ = 17,
+                    src = "data/ui_gfx/hud/money.png",
+                }),
+            },
+        }),
+        gusgui.Elements.Text({
+            id = "MoveTimerText",
+            margin = { top = 30, left = 10, },
+            overrideZ = 17,
+            value = "${movetimer}",
+        }),
     },
 }))
 
