@@ -96,7 +96,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
     },
 }))
 
-Gui:AddElement(gusgui.Elements.Vlayout({
+Gui:AddElement(gusgui.Elements.VLayout({
     id = "TopRight",
     margin = { left = 420, top = 20, },
     overrizeZ = 15,
