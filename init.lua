@@ -77,6 +77,11 @@ function OnPlayerSpawned( player )
 		name="movetimer",
 		value_int="0",
 	} )
+	EntityAddComponent( player, "VariableStorageComponent", {
+		_tags="kickcd",
+		name="kickcd",
+		value_int="0",
+	} )
 
 	local comp_kick = EntityGetFirstComponentIncludingDisabled( player, "KickComponent" )
 	if comp_kick ~= nil then

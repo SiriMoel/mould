@@ -3,11 +3,13 @@ dofile_once("mods/mould/files/scripts/utils.lua")
 local player = GetUpdatedEntityID()
 local comp_cp = EntityGetFirstComponentIncludingDisabled( player, "CharacterPlatformingComponent" )
 local comp_timer = EntityGetFirstComponentIncludingDisabled( player, "VariableStorageComponent", "movetimer" )
+local comp_cd = EntityGetFirstComponentIncludingDisabled( player, "VariableStorageComponent", "kickcd" )
 
 if comp_cp == nil or comp_timer == nil then return end
 
 local startframe = GameGetFrameNum()
 local timer = ComponentGetValue2( comp_timer, "value_int" )
+local cd = ComponentGetValue2( comp_cd, "value_int" )
 local is_moving = false
 local yes = 0
 
@@ -26,9 +28,17 @@ if is_moving == false then
     timer = 0
 end
 
+if cd > 0 then
+    cd = cd - 1
+end
+
 if ComponentGetValue2( comp_controls, "mButtonDownKick" ) == true then
-    GamePrint("kick")
-    timer = 0
+    if cd == 0 then
+        GamePrint("kick")
+        timer = 0 
+        cd = 60 * 1
+    end
 end
 
 ComponentSetValue2( comp_timer, "value_int", timer )
+ComponentSetValue2( comp_cd, "value_int", cd )

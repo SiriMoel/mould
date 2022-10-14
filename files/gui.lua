@@ -22,8 +22,27 @@ function OnWorldPreUpdate()
         end
         local comp_wallet = EntityGetFirstComponentIncludingDisabled( player, "WalletComponent" ) 
         Gui.state.wallet = ComponentGetValue2(comp_wallet, "money")
-        local comp_movetimer = EntityGetFirstComponentIncludingDisabled( player, "VariableStorageComponent", "movetimer" )
-        Gui.state.movetimer = ComponentGetValue2( comp_movetimer, "value_int" )
+        Gui.state.movetimer = ComponentGetValue2( EntityGetFirstComponentIncludingDisabled( player, "VariableStorageComponent", "movetimer" ), "value_int" )
+        Gui.state.kickcd = ComponentGetValue2( EntityGetFirstComponentIncludingDisabled( player, "VariableStorageComponent", "kickcd" ), "value_int" )
+        local comp_inv2 = EntityGetFirstComponentIncludingDisabled(player, "Inventory2Component")
+        local active_item = ComponentGetValue2(comp_inv2, "mActiveItem")
+        local player_children = EntityGetAllChildren(player)
+        local invquick_children = {}
+        if player_children ~= nil then
+            for i,v in ipairs(player_children) do
+                if EntityGetName(v) == "inventory_quick" then
+                    invquick_children = EntityGetAllChildren(v)
+                    end
+                end
+            end
+        if active_item ~=  nil then
+            local comp_ability = EntityGetFirstComponentIncludingDisabled(active_item, "AbilityComponent")
+            local sprite = ComponentGetValue2(comp_ability, "sprite_file")
+            if sprite ~= "" and sprite ~= nil then
+                --GamePrint("sprite should work")
+                Gui.state.helditem = sprite
+            end
+         end
     end
 end
 
@@ -42,7 +61,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
             overrideZ = 17,
             scaleX = 10,
             scaleY = 10,
-            src = "mods/mould/files/gui/HotbarSlot.png",
+            src = Gui:StateValue("helditem"),
             onClick = function(element, state) 
                 --GamePrint("test")
             end,
@@ -125,6 +144,12 @@ Gui:AddElement(gusgui.Elements.VLayout({
             margin = { top = 30, left = 10, },
             overrideZ = 17,
             value = "${movetimer}",
+        }),
+        gusgui.Elements.Text({
+            id = "KickCDText",
+            margin = { top = 35, left = 10, },
+            overrideZ = 17,
+            value = "${kickcd}",
         }),
     },
 }))
