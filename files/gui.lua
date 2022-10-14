@@ -56,7 +56,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
     overrideZ = 18,
     children = {
         gusgui.Elements.ImageButton({
-            id = "ItemDisplayImage",
+            id = "HeldItemImage",
             margin = { left = 20, top = 70, },
             overrideZ = 17,
             scaleX = 10,
@@ -65,28 +65,6 @@ Gui:AddElement(gusgui.Elements.VLayout({
             onClick = function(element, state) 
                 --GamePrint("test")
             end,
-            onBeforeRender = function(element, state)
-                local player = EntityGetWithTag("player_unit")[1]
-                local comp_inv2 = EntityGetFirstComponentIncludingDisabled(player, "Inventory2Component")
-                local active_item = ComponentGetValue2(comp_inv2, "mActiveItem")
-                local player_children = EntityGetAllChildren(player)
-                local invquick_children = {}
-                if player_children ~= nil then
-                    for i,v in ipairs(player_children) do
-                        if EntityGetName(v) == "inventory_quick" then
-                            invquick_children = EntityGetAllChildren(v)
-                        end
-                    end
-                end
-                if active_item ~=  nil then
-                    local comp_ability = EntityGetFirstComponentIncludingDisabled(active_item, "AbilityComponent")
-                    local sprite = ComponentGetValue2(comp_ability, "sprite_file")
-                    if sprite ~= "" and sprite ~= nil then
-                        --GamePrint("sprite should work")
-                        element.config.src = sprite
-                    end
-                end
-            end
         }),
     },
 }))
