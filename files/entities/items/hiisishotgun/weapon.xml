@@ -46,6 +46,12 @@
         </ItemComponent>
     </Base>
 
+    <VariableStorageComponent
+        _tags="sprite_file"
+        value_string="mods/mould/files/entities/items/hiisishotgun/sprite.png"        
+        >
+    </VariableStorageComponent>
+
    <LuaComponent 
         execute_on_added="1"
         remove_after_executed="1"

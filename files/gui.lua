@@ -20,29 +20,17 @@ function OnWorldPreUpdate()
             Gui.state.maxhp = max_hp * 25
             Gui.state.maxhpold = max_hp_old * 25
         end
+        local comp_inv2 = EntityGetFirstComponentIncludingDisabled(player, "Inventory2Component")
+        local active_item = ComponentGetValue2(comp_inv2, "mActiveItem")
+        if active_item ~=  nil then
+            local comp_activeitemsprite = EntityGetFirstComponentIncludingDisabled(active_item, "VariableStorageComponent", "sprite_file")
+            local sprite = ComponentGetValue2(comp_activeitemsprite, "value_string")
+            Gui.state.helditem = sprite
+        end
         local comp_wallet = EntityGetFirstComponentIncludingDisabled( player, "WalletComponent" ) 
         Gui.state.wallet = ComponentGetValue2(comp_wallet, "money")
         Gui.state.movetimer = ComponentGetValue2( EntityGetFirstComponentIncludingDisabled( player, "VariableStorageComponent", "movetimer" ), "value_int" )
         Gui.state.kickcd = ComponentGetValue2( EntityGetFirstComponentIncludingDisabled( player, "VariableStorageComponent", "kickcd" ), "value_int" )
-        local comp_inv2 = EntityGetFirstComponentIncludingDisabled(player, "Inventory2Component")
-        local active_item = ComponentGetValue2(comp_inv2, "mActiveItem")
-        local player_children = EntityGetAllChildren(player)
-        local invquick_children = {}
-        if player_children ~= nil then
-            for i,v in ipairs(player_children) do
-                if EntityGetName(v) == "inventory_quick" then
-                    invquick_children = EntityGetAllChildren(v)
-                    end
-                end
-            end
-        if active_item ~=  nil then
-            local comp_ability = EntityGetFirstComponentIncludingDisabled(active_item, "AbilityComponent")
-            local sprite = ComponentGetValue2(comp_ability, "sprite_file")
-            if sprite ~= "" and sprite ~= nil then
-                --GamePrint("sprite should work")
-                Gui.state.helditem = sprite
-            end
-         end
     end
 end
 
@@ -62,8 +50,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
             scaleX = 10,
             scaleY = 10,
             src = Gui:StateValue("helditem"),
-            onClick = function(element, state) 
-                --GamePrint("test")
+            onClick = function(element, state)
             end,
         }),
     },
