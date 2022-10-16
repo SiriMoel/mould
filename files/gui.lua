@@ -22,10 +22,12 @@ function OnWorldPreUpdate()
         end
         local comp_inv2 = EntityGetFirstComponentIncludingDisabled(player, "Inventory2Component")
         local active_item = ComponentGetValue2(comp_inv2, "mActiveItem")
-        if active_item ~= nil then
+        if active_item ~= 0 then
             local comp_activeitemsprite = EntityGetFirstComponentIncludingDisabled(active_item, "VariableStorageComponent", "sprite_file")
             local sprite = ComponentGetValue2(comp_activeitemsprite, "value_string")
             Gui.state.helditem = sprite
+        else 
+            Gui.state.helditem = ""
         end
         local comp_wallet = EntityGetFirstComponentIncludingDisabled( player, "WalletComponent" ) 
         Gui.state.wallet = ComponentGetValue2(comp_wallet, "money")
@@ -35,7 +37,9 @@ function OnWorldPreUpdate()
 end
 
 function OnWorldPostUpdate()
-    Gui:Render()
+    if EntityGetWithTag("player_unit")[1] ~= nil then
+        Gui:Render()
+    end
 end
 
 Gui:AddElement(gusgui.Elements.VLayout({
