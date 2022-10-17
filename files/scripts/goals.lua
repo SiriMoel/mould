@@ -22,25 +22,25 @@ Goals = {
     },
 }
 
-function Goals.assign(id)
+function Goals:assign(id)
     if GameHasFlagRun("goal_" .. id) ~= true and GameHasFlagRun("DONE_goal_" .. id) ~= true then
         GameAddFlagRun("goal_" .. id)
         rendergoal(id)
     end
 end
 
-function Goals.complete(id)
+function Goals:complete(id)
     GameRemoveFlagRun("goal_" .. id)
     GameAddFlagRun("DONE_goal_" .. id)
     stoprendergoal(id)
 end
 
-function Goals.remove(id)
+function Goals:remove(id)
     GameRemoveFlagRun("goal_" .. id)
     stoprendergoal(id)
 end
 
-function Goals.fail(id, addflag)
+function Goals:fail(id, addflag)
     GameRemoveFlagRun("goal_" .. id)
     for i,v in ipairs(Goals) do
         if v == id then
@@ -65,7 +65,7 @@ function Goals.fail(id, addflag)
     stoprendergoal(id)
 end
 
-function Goals.iscompleted(id)
+function Goals:iscompleted(id)
     if GameHasFlagRun("DONE_goal_" .. id) then
         return true
     else
@@ -73,7 +73,7 @@ function Goals.iscompleted(id)
     end
 end
 
-function Goals.isactive(id)
+function Goals:isactive(id)
     if GameHasFlagRun("goal_" .. id) then
         return true
     else
