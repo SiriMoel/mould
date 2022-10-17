@@ -18,9 +18,9 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                 func = function(dialogue)
                     local flag = "intro_armoury"
                     local flagtwo = "intro_maproom"
-                    Goals.assign(flag)
-                    Goals.assign(flagtwo)
-                    if Goals.iscompleted(flag) and Goals.iscompleted(flagtwo) then
+                    Goals:assign(flag)
+                    Goals:assign(flagtwo)
+                    if Goals:iscompleted(flag) and Goals:iscompleted(flagtwo) then
                         dialogue.show( { 
                             text="Oh... something?",
                        } ) 

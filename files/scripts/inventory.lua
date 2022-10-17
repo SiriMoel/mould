@@ -14,13 +14,15 @@ items = {
     },
 }
 
-inventory = {}
+local Inv = {
+    items = {}
+}
 
-function Inv.give( itemid ) 
+function Inv:give( itemid ) 
     for i,v in ipairs(items) do
         for i,v in ipairs(v) do
             if v.id == itemid then
-                table.insert( inventory, {
+                table.insert( self.items, {
                     id = itemid,
                     count = 1,
                 } )
@@ -29,19 +31,19 @@ function Inv.give( itemid )
     end
 end
 
-function Inv.take( itemid )
-    for i,v in ipairs(inventory) do
+function Inv:take( itemid )
+    for i,v in ipairs(self.items) do
         for i,v in ipairs(v) do
             if v.id == itemid then
-                table.remove(inventory, i)
+                table.remove(self.items, i)
                 return
             end
         end   
     end
 end
 
-function Inv.has( itemid )
-    for i,v in ipairs(inventory) do
+function Inv:has( itemid )
+    for i,v in ipairs(self.items) do
         for i,v in ipairs(v) do
             if v.id == itemid then
                 return true
@@ -49,3 +51,5 @@ function Inv.has( itemid )
         end
     end
 end
+
+return Inv

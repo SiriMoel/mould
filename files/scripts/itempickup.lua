@@ -6,5 +6,5 @@ local player = EntityGetInRadiusWithTag( x, y, 5, "player_unit" )
 
 if player ~= nil then
     local itemid = ComponentGetValue2( EntityGetFirstComponentIncludingDisabled( item, "VariableStorageComponent", "itemid" ), "value_string" )
-    Inv.give( itemid )
+    Inv:give( itemid )
 end

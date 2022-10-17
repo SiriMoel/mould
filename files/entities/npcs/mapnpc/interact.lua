@@ -39,17 +39,17 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                     func = function(dialogue)
                         local flag = "intro_maproom"
                         local objtext = "I need you to retrieve the ~lost part of my map~ from \nour old village before we were forced underground. \nIf you go west from the exit to our base \nyou should find the village's location easily."
-                        if Goals.isactive(flag) then
+                        if Goals:isactive(flag) then
                             dialogue.show( {
                                 text=objtext,
                             } )
-                            Goals.assign("retrievemap")
-                            Goals.complete(flag)
-                        elseif Goals.isactive("retrievemap") then
+                            Goals:assign("retrievemap")
+                            Goals:complete(flag)
+                        elseif Goals:isactive("retrievemap") then
                             dialogue.show( {
                                 text="I have told you this.\n " .. objtext,
                             } )
-                        elseif Goals.iscompleted("retrivemap") then
+                        elseif Goals:iscompleted("retrivemap") then
                             dialogue.show( {
                                 text="Thanks for retrieving my ~map~!",
                             } )
@@ -64,7 +64,7 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                 {
                     text="Here is what you requested!",
                     func = function(dialogue)
-                        if Goals.iscompleted("retrievemap") ~= true then
+                        if Goals:iscompleted("retrievemap") ~= true then
                             dialogue.show( {
                                 text="What?", 
                             } ) 

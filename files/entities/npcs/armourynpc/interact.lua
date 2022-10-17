@@ -17,7 +17,7 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                 text="I need a weapon.",
                 func = function(dialogue)
                     local flag = "intro_armoury"
-                    if Goals.isactive(flag) then
+                    if Goals:isactive(flag) then
                         dialogue.show( {
                             text="I see. I can give you the choice of three. \nThe ~shotgun~, the ~pistol~ or the ~sniper~."
                         } )
@@ -29,7 +29,7 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                         EntityLoad("mods/mould/files/entities/items/_starter/hiisisniper/weapon.xml", sx+30, sy)
                         EntityLoad("mods/mould/files/entities/items/_starter/hiisishotgun/weapon.xml", sx+60, sy)
 
-                        Goals.complete(flag)
+                        Goals:complete(flag)
                     else
                         dialogue.show( {
                             text="Hm?"
