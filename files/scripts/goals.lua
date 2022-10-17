@@ -1,10 +1,10 @@
 dofile("mods/mould/files/scripts/utils.lua")
 
-local gd = 0 -- goals displayed
-local renderedgoals = {}
-local failedgoals = {} -- this could be used when displayind end of run stats
+local gd = 0 -- Goals displayed
+local renderedGoals = {}
+local failedGoals = {} -- this could be used when displayind end of run stats
 
-goals = {
+Goals = {
     {
         id = "intro_armoury",
         name = "Acquire weapon",
@@ -22,27 +22,27 @@ goals = {
     },
 }
 
-function assigngoal(id)
+function Goals.assign(id)
     if GameHasFlagRun("goal_" .. id) ~= true and GameHasFlagRun("DONE_goal_" .. id) ~= true then
         GameAddFlagRun("goal_" .. id)
         rendergoal(id)
     end
 end
 
-function completegoal(id)
+function Goals.complete(id)
     GameRemoveFlagRun("goal_" .. id)
     GameAddFlagRun("DONE_goal_" .. id)
     stoprendergoal(id)
 end
 
-function removegoal(id)
+function Goals.remove(id)
     GameRemoveFlagRun("goal_" .. id)
     stoprendergoal(id)
 end
 
-function failgoal(id, addflag)
+function Goals.fail(id, addflag)
     GameRemoveFlagRun("goal_" .. id)
-    for i,v in ipairs(goals) do
+    for i,v in ipairs(Goals) do
         if v == id then
             if v["failfunc"] ~= nil then
                 failed = v["failfunc"]
@@ -58,14 +58,14 @@ function failgoal(id, addflag)
     end
     if addflag == true then
         GameAddFlagRun("FAILED_goal_" .. id)
-        if table.contains(failedgoals, id) ~= true then
-            table.insert(failedgoals, id)
+        if table.contains(failedGoals, id) ~= true then
+            table.insert(failedGoals, id)
         end
     end
     stoprendergoal(id)
 end
 
-function checkcompleted(id)
+function Goals.iscompleted(id)
     if GameHasFlagRun("DONE_goal_" .. id) then
         return true
     else
@@ -73,7 +73,7 @@ function checkcompleted(id)
     end
 end
 
-function checkactive(id)
+function Goals.isactive(id)
     if GameHasFlagRun("goal_" .. id) then
         return true
     else
@@ -81,24 +81,24 @@ function checkactive(id)
     end
 end
 
-function rendergoal(id)
+local function rendergoal(id)
     gd = gd + 1
     -- render goal
-    table.insert(renderedgoals, id)
+    table.insert(renderedGoals, id)
 end
 
-function stoprendergoal(id)
+local function stoprendergoal(id)
     if gd > 0 then 
         gd = gd - 1
     end
     -- stop rendering goal
-    for i,v in ipairs(renderedgoals) do
+    for i,v in ipairs(renderedGoals) do
         if v == id then
-            table.remove(renderedgoals, i)
+            table.remove(renderedGoals, i)
             break
         end
     end
-    for i,v in ipairs(renderedgoals) do
+    for i,v in ipairs(renderedGoals) do
         -- move up in gui location due to free stop
     end
 end

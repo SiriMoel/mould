@@ -44,7 +44,7 @@
 	<ItemComponent
 		_tags="enabled_in_world"
 		max_child_items="0"
-		is_pickable="1"
+		is_pickable="0"
 		is_equipable_forced="1"
 		ui_sprite="mods/mould/files/entities/items/mappiece/sprite/s.png"
 		preferred_inventory="QUICK"
@@ -75,5 +75,11 @@
 			deck_capacity="0"
 		></gun_config>
 	</AbilityComponent>
+
+	<VariableStorageComponent
+		_tags="itemid"
+		value_string="mappiece"
+	>
+	</VariableStorageComponent>
 
 </Entity>

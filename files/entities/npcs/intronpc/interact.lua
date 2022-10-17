@@ -1,4 +1,4 @@
-dofile("mods/mould/files/scripts/goals.lua")
+dofile("mods/mould/files/scripts/Goals.lua")
 local dialog_system = dofile_once("mods/mould/lib/DialogSystem/dialog_system.lua")
 
 local entity_id = GetUpdatedEntityID()
@@ -18,9 +18,9 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                 func = function(dialogue)
                     local flag = "intro_armoury"
                     local flagtwo = "intro_maproom"
-                    assigngoal(flag)
-                    assigngoal(flagtwo)
-                    if checkcompleted(flag) and checkcompleted(flagtwo) then
+                    Goals.assign(flag)
+                    Goals.assign(flagtwo)
+                    if Goals.iscompleted(flag) and Goals.iscompleted(flagtwo) then
                         dialogue.show( { 
                             text="Oh... something?",
                        } ) 

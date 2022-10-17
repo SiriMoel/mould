@@ -1,4 +1,4 @@
-dofile("mods/mould/files/scripts/goals.lua")
+dofile("mods/mould/files/scripts/Goals.lua")
 local dialog_system = dofile_once("mods/mould/lib/DialogSystem/dialog_system.lua")
 
 local entity_id = GetUpdatedEntityID()
@@ -39,17 +39,17 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                     func = function(dialogue)
                         local flag = "intro_maproom"
                         local objtext = "I need you to retrieve the ~lost part of my map~ from \nour old village before we were forced underground. \nIf you go west from the exit to our base \nyou should find the village's location easily."
-                        if checkactive(flag) then
+                        if Goals.isactive(flag) then
                             dialogue.show( {
                                 text=objtext,
                             } )
-                            assigngoal("retrievemap")
-                            completegoal(flag)
-                        elseif checkactive("retrievemap") then
+                            Goals.assign("retrievemap")
+                            Goals.complete(flag)
+                        elseif Goals.isactive("retrievemap") then
                             dialogue.show( {
                                 text="I have told you this.\n " .. objtext,
                             } )
-                        elseif checkcompleted("retrivemap") then
+                        elseif Goals.iscompleted("retrivemap") then
                             dialogue.show( {
                                 text="Thanks for retrieving my ~map~!",
                             } )
@@ -64,7 +64,7 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                 {
                     text="Here is what you requested!",
                     func = function(dialogue)
-                        if checkcompleted("retrievemap") ~= true then
+                        if Goals.iscompleted("retrievemap") ~= true then
                             dialogue.show( {
                                 text="What?", 
                             } ) 
