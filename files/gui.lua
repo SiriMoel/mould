@@ -7,6 +7,7 @@ local comp_pdm = 0
 local hp = 0
 local max_hp = 0
 local max_hp_old = 0
+local hpbar = 0
 local comp_controls = 0
 local showinv = false
 
@@ -19,8 +20,9 @@ function OnWorldPreUpdate()
             hp = ComponentGetValue2(comp_pdm, "hp")
             max_hp = ComponentGetValue2(comp_pdm, "max_hp")
             max_hp_old = ComponentGetValue2(comp_pdm, "max_hp_old") 
+            hpbar = (hp / max_hp_old) * 100
             Gui.state.hpbar = (hp / max_hp_old) * 100
-            Gui.state.hp = hp * 25
+            Gui.state.hp = math.floor((hp * 25) + 0.5)
             Gui.state.maxhp = max_hp * 25
             Gui.state.maxhpold = max_hp_old * 25
         end
@@ -35,14 +37,17 @@ function OnWorldPreUpdate()
             if comp_ammocount ~= nil and comp_ammomax ~= nil then
                 Gui.state.AmmoMax = ComponentGetValue2(comp_ammomax, "value_int")
                 Gui.state.AmmoCount = ComponentGetValue2(comp_ammocount, "value_int")
+                Gui.state.hideammo = false
             else
                 Gui.state.AmmoMax = "" 
                 Gui.state.AmmoCount = ""
+                Gui.state.hideammo = false
             end
         else 
             Gui.state.helditem = ""
             Gui.state.AmmoMax = ""
             Gui.state.AmmoCount = ""
+            Gui.state.hideammo = false
         end
         local comp_wallet = EntityGetFirstComponentIncludingDisabled( player, "WalletComponent" ) 
         Gui.state.wallet = ComponentGetValue2(comp_wallet, "money")
@@ -69,7 +74,7 @@ end
 
 Gui:AddElement(gusgui.Elements.VLayout({
     id = "HeldItem",
-    margin = { top = 50, left = 250 },
+    margin = { top = 280, left = 130 },
     overrideZ = 18,
     children = {
         gusgui.Elements.ImageButton({
@@ -78,6 +83,9 @@ Gui:AddElement(gusgui.Elements.VLayout({
             overrideZ = 17,
             scaleX = 10,
             scaleY = 10,
+            drawBackground = true,
+            drawBorder = true,
+            padding = 5,
             src = Gui:StateValue("helditem"),
             onClick = function(element, state)
             end,
@@ -86,7 +94,9 @@ Gui:AddElement(gusgui.Elements.VLayout({
             id = "AmmoText",
             margin = {},
             overrideZ = 19,
+            padding = 1,
             value = "Ammo: ${AmmoCount} / ${AmmoMax}",
+            --hidden = Gui:StateValue("hideammo"),
             drawBorder = true,
             drawBackground = true,
         }),
@@ -104,7 +114,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
             height = 20,
             overrideZ = 16,
             barColour = "green",
-            value = Gui:StateValue("hpbar"),
+            value = hpbar,
         }),
         gusgui.Elements.Text({
             id = "HealthText",
@@ -160,8 +170,15 @@ Gui:AddElement(gusgui.Elements.HLayout({
     id = "Inventory",
     margin = {},
     overrideZ = 19,
-    hidden = GuiState("showinv"),
-    children = {},
+    hidden = Gui:StateValue("showinv"),
+    children = {
+        --[[gusgui.Elements.Text({
+            id = "placeholdertext",
+            margin = { top = 30, left = 10, },
+            overrideZ = 17,
+            value = "text",
+        }),]]--
+    },
 }))
 
 --[[ 

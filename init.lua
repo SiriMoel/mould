@@ -85,7 +85,7 @@ function OnPlayerSpawned( player )
 
 	local comp_kick = EntityGetFirstComponentIncludingDisabled( player, "KickComponent" )
 	if comp_kick ~= nil then
-		ComponentSetValue2( comp_kick, "kick_entities", "mods/mould/files/entities/misc/playerkick/kick.xml" )
+		--ComponentSetValue2( comp_kick, "kick_entities", "mods/mould/files/entities/misc/playerkick/kick.xml" )
 		ComponentSetValue2( comp_kick, "kick_radius", 3.5 )
 	end
 

@@ -1,27 +1,37 @@
 <Entity tags="playerkick" >
-    
-     <DamageModelComponent 
-        air_in_lungs="5" 
-        air_in_lungs_max="5" 
-        air_lack_of_damage="0.2" 
-        air_needed="0" 
-        falling_damage_damage_max="1.2" 
-        falling_damage_damage_min="0.1" 
-        falling_damage_height_max="5" 
-        falling_damage_height_min="5" 
-        falling_damages="1" 
-        fire_damage_amount="0.2" 
-        fire_probability_of_ignition="0.5" 
-        hp="0.1" 
-        is_on_fire="0" 
-        mAirAreWeInWater="0" 
-        mFallCount="0" 
-        mFallHighestY="3.40282e+038" 
-        mFallIsOnGround="0" 
-        mFireProbability="100" 
-        mIsOnFire="0"  
-        >
-    </DamageModelComponent>
+
+<Base file="data/entities/base_projectile.xml" >
+		<VelocityComponent
+        gravity_y="20" 
+        air_friction="-2.0" 
+		mass="0.05"
+		>
+    </VelocityComponent>
+	</Base>
+
+   <ProjectileComponent 
+    _enabled="1" 
+    lob_min="0.8"
+    lob_max="1.1"
+    speed_min="1450"
+    speed_max="1650"
+    damage_scaled_by_speed="1"
+    on_death_explode="0"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="0"
+    explosion_dont_damage_shooter="1"
+    on_collision_die="1"
+    lifetime="50"
+    ground_penetration_coeff="2"
+    velocity_sets_scale="1"
+    camera_shake_when_shot="2.0"
+    shoot_light_flash_radius="64"
+    hit_particle_force_multiplier="0.1"
+    bounces_left="0"
+  muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_large.xml"
+  knockback_force="4.0"
+	>
+  </ProjectileComponent>
 
     <HitboxComponent 
         aabb_max_x="3.5" 
@@ -38,7 +48,8 @@
     </LuaComponent>
 
     <LuaComponent
-        script_death="mods/mould/files/entitites/misc/playerkick/death.lua"
+        script_source_file="mods/mould/files/entitites/misc/playerkick/death.lua"
+        execute_on_removed="1"
     >
     </LuaComponent>
 
