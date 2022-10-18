@@ -199,7 +199,7 @@
   <SpriteComponent 
     _tags="character,lukki_disable" 
     alpha="1" 
-    image_file="data/enemies_gfx/player.xml" 
+    image_file="mods/mould/files/player/player.xml" 
     next_rect_animation="" 
     offset_x="6" 
     offset_y="14" 
@@ -230,7 +230,7 @@
     <SpriteComponent 
       _tags="with_item" 
       alpha="1" 
-      image_file="data/enemies_gfx/player_arm.xml" 
+      image_file="mods/mould/files/player/player_arm.xml" 
       next_rect_animation="" 
       rect_animation="default" 
       z_index="0.59"

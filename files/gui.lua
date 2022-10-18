@@ -91,46 +91,32 @@ Gui:AddElement(gusgui.Elements.VLayout({
             onClick = function(element, state)
             end,
         }),
-        gusgui.Elements.HLayout({
-            id = "thing",
-            margin = {},
+        gusgui.Elements.Text({
+            id = "AmmoText",
             overrideZ = 19,
-            children = {
-                gusgui.Elements.Text({
-                    id = "AmmoText",
-                    margin = {},
-                    overrideZ = 19,
-                    value = "Ammo: ${AmmoCount} / ${AmmoMax}",
-                    --hidden = Gui:StateValue("hideammo"),
-                    padding = 1,
-                    drawBorder = true,
-                    drawBackground = true,
-                }),
-                gusgui.Elements.VLayout({
-                    id = "Health",
-                    margin = { top = 390, left = 340, },
-                    overrideZ = 19,
-                    children = {
-                        gusgui.Elements.ProgressBar({
-                            id = "HealthBar",
-                            width = 100,
-                            height = 10,
-                            overrideZ = 21,
-                            barColour = "green",
-                            value = Gui:StateValue("hpbar"),
-                        }),
-                        gusgui.Elements.Text({
-                            id = "HealthText",
-                            margin = { left = 120, top = 0, },
-                            overrideZ = 21,
-                            value = "Health: ${hp} / ${maxhp}",
-                            padding = 1,
-                            drawBorder = true,
-                            drawBackground = true,  
-                        })
-                    },
-                }),
-            },
+            value = "Ammo: ${AmmoCount} / ${AmmoMax}",
+            --hidden = Gui:StateValue("hideammo"),
+            padding = 1,
+            drawBorder = true,
+            drawBackground = true,
+        }),
+        gusgui.Elements.ProgressBar({
+            id = "HealthBar",
+            width = 100,
+            height = 10,
+            overrideZ = 21,
+            barColour = "green",
+            value = Gui:StateValue("hpbar"),
+        }),
+        gusgui.Elements.Text({
+            id = "HealthText",
+            overrideZ = 24,
+            margin = { top = -10, },
+            value = "Health: ${hp} / ${maxhp}",
+            colour = { 1, 1, 1 },
+            padding = 1,
+            drawBorder = false,
+            drawBackground = false,  
         }),
     },
 }))
@@ -161,12 +147,11 @@ Gui:AddElement(gusgui.Elements.VLayout({
 
 Gui:AddElement(gusgui.Elements.VLayout({
     id = "TopRight",
-    margin = { left = 500, top = 20, },
+    margin = { left = 600, top = 30, },
     overrizeZ = 15,
     children = {
         gusgui.Elements.HLayout({
             id = "wallet",
-            margin = {},
             overrideZ = 17,
             children = {
                 gusgui.Elements.Text({
@@ -191,7 +176,6 @@ Gui:AddElement(gusgui.Elements.VLayout({
         }),
         gusgui.Elements.Text({
             id = "KickCDText",
-            margin = { top = 0, left = 0, },
             overrideZ = 17,
             value = " Dash Cooldown: ${kickcd}",
         }),
