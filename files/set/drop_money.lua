@@ -154,7 +154,7 @@ function death( damage_type_bit_field, damage_message, entity_thats_responsible,
 	local xx, yy = EntityGetTransform(entity_thats_responsible)
 
 	-- spawn ammo pickup
-    local pickupentity = "mods/mould/files/entitites/misc/ammopickup/ammopickup.xml"
+    local pickupentity = "mods/mould/files/entities/misc/ammopickup/ammopickup.xml"
     local spawned = 0
     local tries = 0
     local z, x, c, v, b, n = GameGetDateAndTimeLocal()

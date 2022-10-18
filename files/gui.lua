@@ -20,8 +20,9 @@ function OnWorldPreUpdate()
             hp = ComponentGetValue2(comp_pdm, "hp")
             max_hp = ComponentGetValue2(comp_pdm, "max_hp")
             max_hp_old = ComponentGetValue2(comp_pdm, "max_hp_old") 
-            hpbar = (hp / max_hp_old) * 100
-            Gui.state.hpbar = (hp / max_hp_old) * 100
+            hpbar = (math.floor((hp * 25) + 0.5) / (max_hp * 25)) * 100
+            GamePrint("h " .. tostring(hpbar))
+            Gui.state.hpbar = hpbar
             Gui.state.hp = math.floor((hp * 25) + 0.5)
             Gui.state.maxhp = max_hp * 25
             Gui.state.maxhpold = max_hp_old * 25
@@ -114,7 +115,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
             height = 20,
             overrideZ = 16,
             barColour = "green",
-            value = hpbar,
+            value = Gui:StateValue("hpbar"),
         }),
         gusgui.Elements.Text({
             id = "HealthText",
