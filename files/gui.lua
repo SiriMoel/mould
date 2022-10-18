@@ -82,8 +82,8 @@ Gui:AddElement(gusgui.Elements.VLayout({
             id = "HeldItemImage",
             margin = { left = 0, top = 0, },
             overrideZ = 17,
-            scaleX = 10,
-            scaleY = 10,
+            scaleX = 5,
+            scaleY = 5,
             drawBackground = true,
             drawBorder = true,
             padding = 5,
@@ -91,20 +91,51 @@ Gui:AddElement(gusgui.Elements.VLayout({
             onClick = function(element, state)
             end,
         }),
-        gusgui.Elements.Text({
-            id = "AmmoText",
+        gusgui.Elements.HLayout({
+            id = "thing",
             margin = {},
             overrideZ = 19,
-            padding = 1,
-            value = "Ammo: ${AmmoCount} / ${AmmoMax}",
-            --hidden = Gui:StateValue("hideammo"),
-            drawBorder = true,
-            drawBackground = true,
+            children = {
+                gusgui.Elements.Text({
+                    id = "AmmoText",
+                    margin = {},
+                    overrideZ = 19,
+                    value = "Ammo: ${AmmoCount} / ${AmmoMax}",
+                    --hidden = Gui:StateValue("hideammo"),
+                    padding = 1,
+                    drawBorder = true,
+                    drawBackground = true,
+                }),
+                gusgui.Elements.VLayout({
+                    id = "Health",
+                    margin = { top = 390, left = 340, },
+                    overrideZ = 19,
+                    children = {
+                        gusgui.Elements.ProgressBar({
+                            id = "HealthBar",
+                            width = 100,
+                            height = 10,
+                            overrideZ = 21,
+                            barColour = "green",
+                            value = Gui:StateValue("hpbar"),
+                        }),
+                        gusgui.Elements.Text({
+                            id = "HealthText",
+                            margin = { left = 120, top = 0, },
+                            overrideZ = 21,
+                            value = "Health: ${hp} / ${maxhp}",
+                            padding = 1,
+                            drawBorder = true,
+                            drawBackground = true,  
+                        })
+                    },
+                }),
+            },
         }),
     },
 }))
 
-Gui:AddElement(gusgui.Elements.VLayout({
+--[[Gui:AddElement(gusgui.Elements.VLayout({
     id = "Health",
     margin = { top = 390, left = 340, },
     overrideZ = 15,
@@ -126,11 +157,11 @@ Gui:AddElement(gusgui.Elements.VLayout({
             drawBackground = false,  
         })
     },
-}))
+}))]]--
 
 Gui:AddElement(gusgui.Elements.VLayout({
     id = "TopRight",
-    margin = { left = 420, top = 20, },
+    margin = { left = 500, top = 20, },
     overrizeZ = 15,
     children = {
         gusgui.Elements.HLayout({
@@ -154,15 +185,15 @@ Gui:AddElement(gusgui.Elements.VLayout({
         }),
         gusgui.Elements.Text({
             id = "MoveTimerText",
-            margin = { top = 30, left = 10, },
+            margin = { top = 10, left = 0, },
             overrideZ = 17,
-            value = "${movetimer}",
+            value = "Moving for: ${movetimer}",
         }),
         gusgui.Elements.Text({
             id = "KickCDText",
-            margin = { top = 35, left = 10, },
+            margin = { top = 0, left = 0, },
             overrideZ = 17,
-            value = "${kickcd}",
+            value = " Dash Cooldown: ${kickcd}",
         }),
     },
 }))
@@ -170,7 +201,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
 Gui:AddElement(gusgui.Elements.HLayout({
     id = "Inventory",
     margin = {},
-    overrideZ = 19,
+    overrideZ = 30,
     hidden = Gui:StateValue("showinv"),
     children = {
         --[[gusgui.Elements.Text({
