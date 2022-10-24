@@ -211,7 +211,7 @@ Gui:AddElement(gusgui.Elements.HLayout({
     overrideZ = 30,
     hidden = Gui:StateValue("showinv"),
     onBeforeRender = function(element)
-        element.config.hidden = flipbool(GameIsInventoryOpen())
+        element.config.hidden = not GameIsInventoryOpen()
     end,
     children = {
             gusgui.Elements.VLayout({

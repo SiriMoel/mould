@@ -1,4 +1,5 @@
 dofile_once("mods/mould/files/scripts/inventory.lua")
+dofile_once("mods/mould/files/scripts/goals.lua")
 
 local map = GetUpdatedEntityID()
 local x, y = EntityGetTransform(map)
@@ -13,9 +14,6 @@ if player ~= nil then
         EntityRefreshSprite(map, spritecomp)
         GamePrint("Fixed!")
         EntityAddTag(map, "fixed")
-        local flag = "objective_retrievemap"
-        GameRemoveFlagRun(flag)
-        GameAddFlagRun("DONE_" .. flag)
+        Goals:complete("retrievemap")
     end
 end
-

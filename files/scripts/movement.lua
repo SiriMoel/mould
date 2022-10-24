@@ -40,21 +40,8 @@ end
 
 if ComponentGetValue2(comp_controls, "mButtonDownKick") == true then
     if cd <= 0 then
-        --GamePrint("kick")
         timer = 0
         cd = 30
-        -- shoot_projectile( player, "mods/mould/files/entities/misc/playerkick/kick.xml", x, y, "200", "200" )
-        --[[local comp = EntityGetFirstComponent(player, "CharacterDataComponent")
-        if comp ~= nil then
-            local posX, posY, angle, sclX, sclY = EntityGetTransform(player)
-            local velX, velY = ComponentGetValueVector2(comp, "mVelocity")
-            local offsetX = (sclX < 0) and posX - 100 or posX + 100
-            local offsetY = posY + 3
-            local l = math.sqrt((offsetX ^ 2) + (offsetY ^ 2))
-            local forceX, forceY = 50, 50 -- how powerful the movement is 
-            ComponentSetValue2(comp, "mVelocity", velX + (offsetX / l * forceX), velY + (offsetY / l * forceY))
-        end]]--
-
         --[[
             this is a copi thing
         ]]--
