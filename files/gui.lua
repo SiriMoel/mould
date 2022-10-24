@@ -21,7 +21,7 @@ function OnWorldPreUpdate()
             max_hp = ComponentGetValue2(comp_pdm, "max_hp")
             max_hp_old = ComponentGetValue2(comp_pdm, "max_hp_old") 
             hpbar = (math.floor((hp * 25) + 0.5) / (max_hp * 25)) * 100
-            GamePrint("h " .. tostring(hpbar))
+            --GamePrint("h " .. tostring(hpbar))
             Gui.state.hpbar = hpbar
             Gui.state.hp = math.floor((hp * 25) + 0.5)
             Gui.state.maxhp = max_hp * 25
@@ -53,17 +53,40 @@ function OnWorldPreUpdate()
         local comp_wallet = EntityGetFirstComponentIncludingDisabled( player, "WalletComponent" ) 
         Gui.state.wallet = ComponentGetValue2(comp_wallet, "money")
         Gui.state.movetimer = ComponentGetValue2( EntityGetFirstComponentIncludingDisabled( player, "VariableStorageComponent", "movetimer" ), "value_int" )
-        Gui.state.kickcd = ComponentGetValue2( EntityGetFirstComponentIncludingDisabled( player, "VariableStorageComponent", "kickcd" ), "value_int" )
-        if comp_controls ~= nil then
-            if ComponentGetValue2(comp_controls, "mButtonDownInventory") == true then
-                if showinv == false then
-                    showinv = true
-                elseif showinv == true then
-                    showinv = false
+        local comp_kickcd = EntityGetFirstComponentIncludingDisabled(player, "VariableStorageComponent", "kickcd")
+        Gui.state.kickcd = ComponentGetValue2( comp_kickcd, "value_int" )
+        Gui.state.kickbar = (ComponentGetValue2( comp_kickcd, "value_int" ) / 30) * 100
+        local comp_mt = EntityGetFirstComponentIncludingDisabled(player, "VariableStorageComponent", "movetimer")
+        --Gui.state.movebar = (ComponentGetValue2( comp_mt, "value_int" ) / 500) * 100
+
+        local pchildren = EntityGetAllChildren(player)
+        for i,v in ipairs(pchildren) do
+            if EntityGetName(v) == "inventory_quick" then
+                local we = EntityGetAllChildren(v)
+                if we ~= nil and #we ~= 0 then
+                    Gui.state.weaponone = EntityGetName(we[1]) or ""
+                    Gui.state.weapontwo = EntityGetName(we[2]) or ""
+                    Gui.state.weaponthree = EntityGetName(we[3]) or ""
+                    Gui.state.weaponfour = EntityGetName(we[4]) or ""
                 end
             end
         end
-        Gui.state.showinv = showinv
+    end
+end
+
+function dropitem(slot)
+    local player = EntityGetWithTag("player_unit")[1]
+    local x, y = EntityGetTransform(player)
+    local pchildren = EntityGetAllChildren(player)
+    for i,v in ipairs(pchildren) do
+        if EntityGetName(v) == "inventory_quick" then
+            local we = EntityGetAllChildren(v)
+            if we ~= nil and #we ~= 0 then
+                EntityRemoveFromParent(we[slot])
+                --GameDropPlayerInventoryItems(we[slot])
+                EntitySetTransform( we[slot], x, y )
+            end
+        end
     end
 end
 
@@ -74,9 +97,9 @@ function OnWorldPostUpdate()
 end
 
 Gui:AddElement(gusgui.Elements.VLayout({
-    id = "HeldItem",
-    margin = { top = 280, left = 130 },
-    overrideZ = 18,
+    id = "TheThings",
+    margin = { bottom = 10, left = 130},
+    overideZ = 18,
     children = {
         gusgui.Elements.ImageButton({
             id = "HeldItemImage",
@@ -91,63 +114,47 @@ Gui:AddElement(gusgui.Elements.VLayout({
             onClick = function(element, state)
             end,
         }),
-        gusgui.Elements.Text({
-            id = "AmmoText",
-            overrideZ = 19,
-            value = "Ammo: ${AmmoCount} / ${AmmoMax}",
-            --hidden = Gui:StateValue("hideammo"),
-            padding = 1,
-            drawBorder = true,
-            drawBackground = true,
-        }),
-        gusgui.Elements.ProgressBar({
-            id = "HealthBar",
-            width = 100,
-            height = 10,
-            overrideZ = 21,
-            barColour = "green",
-            value = Gui:StateValue("hpbar"),
-        }),
-        gusgui.Elements.Text({
-            id = "HealthText",
-            overrideZ = 24,
-            margin = { top = -10, },
-            value = "Health: ${hp} / ${maxhp}",
-            colour = { 1, 1, 1 },
-            padding = 1,
-            drawBorder = false,
-            drawBackground = false,  
-        }),
+        gusgui.Elements.HLayout({
+            id = "Things",
+            margin = {},
+            overideZ = 19,
+            children = {
+                gusgui.Elements.ProgressBar({
+                    id = "HealthBar",
+                    width = 100,
+                    height = 15,
+                    overrideZ = 21,
+                    barColour = "green",
+                    value = Gui:StateValue("hpbar"),
+                }),
+                gusgui.Elements.Text({
+                    id = "HealthText",
+                    overrideZ = 1000000000,
+                    margin = { left = -100, },
+                    value = "${hp}",
+                    --colour = { 148, 128, 100 },
+                    padding = 1,
+                    drawBorder = false,
+                    drawBackground = false,  
+                }), 
+                gusgui.Elements.Text({
+                    id = "AmmoText",
+                    overrideZ = 19,
+                    margin = { left = 100, },
+                    value = "Ammo: ${AmmoCount} / ${AmmoMax}",
+                    --hidden = Gui:StateValue("hideammo"),
+                    padding = 1,
+                    drawBorder = true,
+                    drawBackground = true,
+                }),    
+            },
+        })
     },
 }))
 
---[[Gui:AddElement(gusgui.Elements.VLayout({
-    id = "Health",
-    margin = { top = 390, left = 340, },
-    overrideZ = 15,
-    children = {
-        gusgui.Elements.ProgressBar({
-            id = "HealthBar",
-            width = 200,
-            height = 20,
-            overrideZ = 16,
-            barColour = "green",
-            value = Gui:StateValue("hpbar"),
-        }),
-        gusgui.Elements.Text({
-            id = "HealthText",
-            margin = { left = 120, top = 0, },
-            overrideZ = 17,
-            value = "Health: ${hp} / ${maxhp}",
-            drawBorder = false,
-            drawBackground = false,  
-        })
-    },
-}))]]--
-
 Gui:AddElement(gusgui.Elements.VLayout({
-    id = "TopRight",
-    margin = { left = 600, top = 30, },
+    id = "TheStuff",
+    margin = { left = 600, top = 380, },
     overrizeZ = 15,
     children = {
         gusgui.Elements.HLayout({
@@ -166,19 +173,35 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     overrideZ = 17,
                     src = "data/ui_gfx/hud/money.png",
                 }),
+                --[[gusgui.Elements.Text({
+                    id = "MoveTimerText",
+                    margin = { top = 0, left = 50, },
+                    overrideZ = 17,
+                    value = "${movetimer}",
+                }),]]--
             },
         }),
-        gusgui.Elements.Text({
-            id = "MoveTimerText",
-            margin = { top = 10, left = 0, },
-            overrideZ = 17,
-            value = "Moving for: ${movetimer}",
+        gusgui.Elements.ProgressBar({
+            id = "KickCDbar",
+            width = 100,
+            height = 15,
+            overrideZ = 18,
+            barColour = "white",
+            value = Gui:StateValue("kickbar")
         }),
-        gusgui.Elements.Text({
+        --[[gusgui.Elements.ProgressBar({
+            id = "MoveTimeBar",
+            width = 50,
+            height = 5,
+            overrideZ = 18,
+            barColour = "blue",
+            value = Gui:StateValue("movebar")
+        }),]]--
+       --[[gusgui.Elements.Text({
             id = "KickCDText",
             overrideZ = 17,
             value = " Dash Cooldown: ${kickcd}",
-        }),
+        }),]]--
     },
 }))
 
@@ -187,13 +210,57 @@ Gui:AddElement(gusgui.Elements.HLayout({
     margin = {},
     overrideZ = 30,
     hidden = Gui:StateValue("showinv"),
+    onBeforeRender = function(element)
+        element.config.hidden = flipbool(GameIsInventoryOpen())
+    end,
     children = {
-        --[[gusgui.Elements.Text({
-            id = "placeholdertext",
+            gusgui.Elements.VLayout({
+            id = "WeaponsEquipped",
             margin = { top = 30, left = 10, },
-            overrideZ = 17,
-            value = "text",
-        }),]]--
+            overrideZ = 31,
+            children = {
+                gusgui.Elements.Button({
+                    id = "WeaponOne",
+                    margin = { top = 30, left = 0, },
+                    overrideZ = 17,
+                    text = "Slot 1: ${weaponone}",
+                    --hidden = (Gui:StateValue("weaponone") == ""),
+                    onClick = function(element, state)
+                        dropitem(1)
+                    end,
+                }),
+                gusgui.Elements.Button({
+                    id = "WeaponTwo",
+                    margin = { top = 0, left = 0, },
+                    overrideZ = 17,
+                    text = "Slot 2: ${weapontwo}",
+                    --hidden = (Gui:StateValue("weapontwo") == ""),
+                    onClick = function(element, state)
+                        dropitem(2)
+                    end,
+                }),
+                gusgui.Elements.Button({
+                    id = "WeaponThree",
+                    margin = { top = 0, left = 0, },
+                    overrideZ = 17,
+                    text = "Slot 3: ${weaponthree}",
+                    --hidden = (Gui:StateValue("weaponthree") == ""),
+                    onClick = function(element, state)
+                        dropitem(3)
+                    end,
+                }),
+                gusgui.Elements.Button({
+                    id = "WeaponFour",
+                    margin = { top = 0, left = 0, },
+                    overrideZ = 17,
+                    text = "Slot 4: ${weaponfour}",
+                    --hidden = (Gui:StateValue("weaponfour") == ""),
+                    onClick = function(element, state)
+                        dropitem(4)
+                    end,
+                }),
+            },
+        }),
     },
 }))
 

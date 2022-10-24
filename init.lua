@@ -100,12 +100,12 @@ function OnPlayerSpawned( player )
 	local jumpvelox = ComponentGetValue2( comp_cp, "jump_velocity_x" ) 
     local jumpveloy = ComponentGetValue2( comp_cp, "jump_velocity_y" )
 	local fly_speed_max_down = ComponentGetValue2( comp_cp, "fly_speed_max_down" )
-	velocity_min_x = velocity_min_x * 2
-	velocity_max_x = velocity_max_x * 2
-	velocity_min_y = velocity_min_y * 2
-	velocity_max_y = velocity_max_y * 2
-	jumpvelox = jumpvelox * 2
-	jumpveloy = jumpveloy * 2
+	velocity_min_x = velocity_min_x * 1.2
+	velocity_max_x = velocity_max_x * 1.2
+	velocity_min_y = velocity_min_y * 1.2
+	velocity_max_y = velocity_max_y * 1.2
+	jumpvelox = jumpvelox * 1.5
+	jumpveloy = jumpveloy * 1.5
 	fly_speed_max_down = fly_speed_max_down * 3
 	ComponentSetValue2( comp_cp, "velocity_min_x", velocity_min_x )
     ComponentSetValue2( comp_cp, "velocity_max_x", velocity_max_x )

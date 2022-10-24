@@ -8,3 +8,12 @@ function table.contains(table, element)
     end
     return false
 end
+
+function flipbool( boolean )
+    if boolean == true then
+        return false
+    end
+    if boolean == false then
+        return true
+    end
+end

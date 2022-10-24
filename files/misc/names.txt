@@ -8,4 +8,4 @@ MAGE NAMES
 Vihreä
 Sininen
 Punainen
-Valkoinen
+Valkoinen (archmage)
