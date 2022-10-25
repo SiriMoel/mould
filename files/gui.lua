@@ -22,7 +22,6 @@ function OnWorldPreUpdate()
             max_hp = ComponentGetValue2(comp_pdm, "max_hp")
             max_hp_old = ComponentGetValue2(comp_pdm, "max_hp_old") 
             hpbar = (math.floor((hp * 25) + 0.5) / (max_hp * 25)) * 100
-            --GamePrint("h " .. tostring(hpbar))
             Gui.state.hpbar = hpbar
             Gui.state.hp = math.floor((hp * 25) + 0.5)
             Gui.state.maxhp = max_hp * 25
@@ -68,9 +67,11 @@ function OnWorldPreUpdate()
                         local comp_ability = EntityGetFirstComponentIncludingDisabled( v, "AbilityComponent" )
                         local rt = ComponentObjectGetValue2( comp_ability, "gun_config", "reload_time" )
                         local cd = ComponentObjectGetValue2( comp_ability, "gunaction_config", "fire_rate_wait" )
-                        Gui.state["weapon" .. tostring(i)] = EntityGetName(v) or ""
-                        Gui.state["weapon" .. tostring(i) .. "_rt"] = "RT: " .. rt or ""
-                        Gui.state["weapon" .. tostring(i) .. "_cd"] = "CD: " .. cd or ""
+                        if comp_ability ~= nil then
+                            Gui.state["weapon" .. tostring(i)] = EntityGetName(v) or ""
+                            Gui.state["weapon" .. tostring(i) .. "_rt"] = "RT: " .. rt or ""
+                            Gui.state["weapon" .. tostring(i) .. "_cd"] = "CD: " .. cd or ""
+                        end
                         local wchildren = EntityGetAllChildren(v)
                     end
                 end
@@ -157,7 +158,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     onBeforeRender = function(element)
                         element.config.hidden = active_item == 0
                     end,
-                }),    
+                }), 
             },
         })
     },
