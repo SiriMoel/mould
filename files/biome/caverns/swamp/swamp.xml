@@ -30,7 +30,7 @@
       material_index="9" 
       material_max="100" 
       material_min="-100" 
-      material_name="rock_static" 
+      material_name="mould_swamp_rock_static" 
     ></MaterialComponent>
     
   </Materials>

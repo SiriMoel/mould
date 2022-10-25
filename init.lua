@@ -1,5 +1,6 @@
 ModLuaFileAppend( "data/scripts/gun/gun_actions.lua", "mods/mould/files/actions.lua" )
 ModMagicNumbersFileAdd( "mods/mould/files/magic_numbers.xml" ) 
+ModMaterialsFileAdd("mods/mould/files/materials.xml")
 dofile_once("mods/mould/lib/DialogSystem/init.lua")("mods/mould/lib/DialogSystem")
 dofile_once("mods/mould/lib/gusgui/gusgui.lua").init("mods/mould/lib/gusgui")
 

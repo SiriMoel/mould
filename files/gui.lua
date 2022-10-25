@@ -9,6 +9,7 @@ local max_hp = 0
 local max_hp_old = 0
 local hpbar = 0
 local comp_controls = 0
+local active_item = 0
 local showinv = false
 
 function OnWorldPreUpdate()
@@ -28,7 +29,7 @@ function OnWorldPreUpdate()
             Gui.state.maxhpold = max_hp_old * 25
         end
         local comp_inv2 = EntityGetFirstComponentIncludingDisabled(player, "Inventory2Component")
-        local active_item = ComponentGetValue2(comp_inv2, "mActiveItem")
+        active_item = ComponentGetValue2(comp_inv2, "mActiveItem")
         if active_item ~= 0 then
             local comp_activeitemsprite = EntityGetFirstComponentIncludingDisabled(active_item, "VariableStorageComponent", "sprite_file")
             local sprite = ComponentGetValue2(comp_activeitemsprite, "value_string")
@@ -44,7 +45,7 @@ function OnWorldPreUpdate()
                 Gui.state.AmmoCount = ""
                 Gui.state.hideammo = false
             end
-        else 
+        else
             Gui.state.helditem = ""
             Gui.state.AmmoMax = ""
             Gui.state.AmmoCount = ""
@@ -58,16 +59,20 @@ function OnWorldPreUpdate()
         Gui.state.kickbar = (ComponentGetValue2( comp_kickcd, "value_int" ) / 30) * 100
         local comp_mt = EntityGetFirstComponentIncludingDisabled(player, "VariableStorageComponent", "movetimer")
         --Gui.state.movebar = (ComponentGetValue2( comp_mt, "value_int" ) / 500) * 100
-
         local pchildren = EntityGetAllChildren(player)
         for i,v in ipairs(pchildren) do
             if EntityGetName(v) == "inventory_quick" then
                 local we = EntityGetAllChildren(v)
                 if we ~= nil and #we ~= 0 then
-                    Gui.state.weaponone = EntityGetName(we[1]) or ""
-                    Gui.state.weapontwo = EntityGetName(we[2]) or ""
-                    Gui.state.weaponthree = EntityGetName(we[3]) or ""
-                    Gui.state.weaponfour = EntityGetName(we[4]) or ""
+                    for i,v in ipairs(we) do
+                        local comp_ability = EntityGetFirstComponentIncludingDisabled( v, "AbilityComponent" )
+                        local rt = ComponentObjectGetValue2( comp_ability, "gun_config", "reload_time" )
+                        local cd = ComponentObjectGetValue2( comp_ability, "gunaction_config", "fire_rate_wait" )
+                        Gui.state["weapon" .. tostring(i)] = EntityGetName(v) or ""
+                        Gui.state["weapon" .. tostring(i) .. "_rt"] = "RT: " .. rt or ""
+                        Gui.state["weapon" .. tostring(i) .. "_cd"] = "CD: " .. cd or ""
+                        local wchildren = EntityGetAllChildren(v)
+                    end
                 end
             end
         end
@@ -111,6 +116,9 @@ Gui:AddElement(gusgui.Elements.VLayout({
             drawBorder = true,
             padding = 5,
             src = Gui:StateValue("helditem"),
+            onBeforeRender = function(element)
+                element.config.hidden = active_item == 0
+            end,
             onClick = function(element, state)
             end,
         }),
@@ -146,6 +154,9 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     padding = 1,
                     drawBorder = true,
                     drawBackground = true,
+                    onBeforeRender = function(element)
+                        element.config.hidden = active_item == 0
+                    end,
                 }),    
             },
         })
@@ -223,8 +234,7 @@ Gui:AddElement(gusgui.Elements.HLayout({
                     id = "WeaponOne",
                     margin = { top = 30, left = 0, },
                     overrideZ = 17,
-                    text = "Slot 1: ${weaponone}",
-                    --hidden = (Gui:StateValue("weaponone") == ""),
+                    text = "${weapon1} ${weapon1_rt} ${weapon1_cd} ACTIONS: ",
                     onClick = function(element, state)
                         dropitem(1)
                     end,
@@ -233,8 +243,7 @@ Gui:AddElement(gusgui.Elements.HLayout({
                     id = "WeaponTwo",
                     margin = { top = 0, left = 0, },
                     overrideZ = 17,
-                    text = "Slot 2: ${weapontwo}",
-                    --hidden = (Gui:StateValue("weapontwo") == ""),
+                    text = "${weapon2} ${weapon2_rt} ${weapon2_cd} ACTIONS: ",
                     onClick = function(element, state)
                         dropitem(2)
                     end,
@@ -243,8 +252,7 @@ Gui:AddElement(gusgui.Elements.HLayout({
                     id = "WeaponThree",
                     margin = { top = 0, left = 0, },
                     overrideZ = 17,
-                    text = "Slot 3: ${weaponthree}",
-                    --hidden = (Gui:StateValue("weaponthree") == ""),
+                    text = "${weapon3} ${weapon3_rt} ${weapon3_cd} ACTIONS: ",
                     onClick = function(element, state)
                         dropitem(3)
                     end,
@@ -253,8 +261,7 @@ Gui:AddElement(gusgui.Elements.HLayout({
                     id = "WeaponFour",
                     margin = { top = 0, left = 0, },
                     overrideZ = 17,
-                    text = "Slot 4: ${weaponfour}",
-                    --hidden = (Gui:StateValue("weaponfour") == ""),
+                    text = "${weapon4} ${weapon4_rt} ${weapon4_cd} ACTIONS: ",
                     onClick = function(element, state)
                         dropitem(4)
                     end,
@@ -263,18 +270,3 @@ Gui:AddElement(gusgui.Elements.HLayout({
         }),
     },
 }))
-
---[[ 
-gui plan
-
-WHEN INV CLOSED
-bars bottom right
-held weapon and ammo bottom left
-objectives top right
-
-WHEN INV OPEN
-inv screen
-equipped cloak/other accessories
-current fracture
-
-]]--
