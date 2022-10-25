@@ -3,44 +3,50 @@ dofile_once("mods/mould/files/scripts/inventory.lua")
 local gusgui = dofile_once("mods/mould/lib/gusgui/Gui.lua")
 local Gui = gusgui.Create()
 
-local comp_pdm = 0
+local comp_pdm, comp_controls
 local hp = 0
 local max_hp = 0
 local max_hp_old = 0
 local hpbar = 0
-local comp_controls = 0
 local active_item = 0
 local showinv = false
 
 function OnWorldPreUpdate()
     local player = EntityGetWithTag("player_unit")[1]
     if player ~= nil then
-        comp_controls = EntityGetFirstComponentIncludingDisabled( player, "ControlsComponent" )
-        comp_pdm = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
+        comp_controls = EntityGetFirstComponentIncludingDisabled(player, "ControlsComponent")
+        comp_pdm = EntityGetFirstComponentIncludingDisabled(player, "DamageModelComponent")
+        local comp_wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent")
+        local comp_inv2 = EntityGetFirstComponentIncludingDisabled(player, "Inventory2Component")
+        local comp_kickcd = EntityGetFirstComponentIncludingDisabled(player, "VariableStorageComponent", "kickcd")
         if comp_pdm ~= nil then
             hp = ComponentGetValue2(comp_pdm, "hp")
             max_hp = ComponentGetValue2(comp_pdm, "max_hp")
-            max_hp_old = ComponentGetValue2(comp_pdm, "max_hp_old") 
+            max_hp_old = ComponentGetValue2(comp_pdm, "max_hp_old")
             hpbar = (math.floor((hp * 25) + 0.5) / (max_hp * 25)) * 100
             Gui.state.hpbar = hpbar
             Gui.state.hp = math.floor((hp * 25) + 0.5)
             Gui.state.maxhp = max_hp * 25
             Gui.state.maxhpold = max_hp_old * 25
         end
-        local comp_inv2 = EntityGetFirstComponentIncludingDisabled(player, "Inventory2Component")
-        active_item = ComponentGetValue2(comp_inv2, "mActiveItem")
-        if active_item ~= 0 then
-            local comp_activeitemsprite = EntityGetFirstComponentIncludingDisabled(active_item, "VariableStorageComponent", "sprite_file")
-            local sprite = ComponentGetValue2(comp_activeitemsprite, "value_string")
-            Gui.state.helditem = sprite
-            local comp_ammocount = EntityGetFirstComponentIncludingDisabled(active_item, "VariableStorageComponent", "ammo_count")
-            local comp_ammomax = EntityGetFirstComponentIncludingDisabled(active_item, "VariableStorageComponent", "ammo_max")
+        if comp_inv2 ~= nil and ComponentGetValue2(comp_inv2, "mActiveItem") ~= 0 then
+            active_item = ComponentGetValue2(comp_inv2, "mActiveItem")
+            local comp_activeitemsprite = EntityGetFirstComponentIncludingDisabled(active_item,
+                "VariableStorageComponent", "sprite_file")
+            if comp_activeitemsprite ~= nil then
+                local sprite = ComponentGetValue2(comp_activeitemsprite, "value_string")
+                Gui.state.helditem = sprite
+            end
+            local comp_ammocount = EntityGetFirstComponentIncludingDisabled(active_item, "VariableStorageComponent",
+                "ammo_count")
+            local comp_ammomax = EntityGetFirstComponentIncludingDisabled(active_item, "VariableStorageComponent",
+                "ammo_max")
             if comp_ammocount ~= nil and comp_ammomax ~= nil then
                 Gui.state.AmmoMax = ComponentGetValue2(comp_ammomax, "value_int")
                 Gui.state.AmmoCount = ComponentGetValue2(comp_ammocount, "value_int")
                 Gui.state.hideammo = false
             else
-                Gui.state.AmmoMax = "" 
+                Gui.state.AmmoMax = ""
                 Gui.state.AmmoCount = ""
                 Gui.state.hideammo = false
             end
@@ -50,29 +56,34 @@ function OnWorldPreUpdate()
             Gui.state.AmmoCount = ""
             Gui.state.hideammo = false
         end
-        local comp_wallet = EntityGetFirstComponentIncludingDisabled( player, "WalletComponent" ) 
-        Gui.state.wallet = ComponentGetValue2(comp_wallet, "money")
-        Gui.state.movetimer = ComponentGetValue2( EntityGetFirstComponentIncludingDisabled( player, "VariableStorageComponent", "movetimer" ), "value_int" )
-        local comp_kickcd = EntityGetFirstComponentIncludingDisabled(player, "VariableStorageComponent", "kickcd")
-        Gui.state.kickcd = ComponentGetValue2( comp_kickcd, "value_int" )
-        Gui.state.kickbar = (ComponentGetValue2( comp_kickcd, "value_int" ) / 30) * 100
-        local comp_mt = EntityGetFirstComponentIncludingDisabled(player, "VariableStorageComponent", "movetimer")
+        if comp_wallet then
+            Gui.state.wallet = ComponentGetValue2(comp_wallet, "money")
+        end
+        local moveTimeVSC = EntityGetFirstComponentIncludingDisabled(player, "VariableStorageComponent", "movetimer")
+        if moveTimeVSC then Gui.state.movetimer = ComponentGetValue2(moveTimeVSC, "value_int") end
+        if comp_kickcd then
+            Gui.state.kickcd = ComponentGetValue2(comp_kickcd, "value_int")
+            Gui.state.kickbar = (ComponentGetValue2(comp_kickcd, "value_int") / 30) * 100
+        end
         --Gui.state.movebar = (ComponentGetValue2( comp_mt, "value_int" ) / 500) * 100
         local pchildren = EntityGetAllChildren(player)
-        for i,v in ipairs(pchildren) do
+        for i, v in ipairs(pchildren) do
             if EntityGetName(v) == "inventory_quick" then
                 local we = EntityGetAllChildren(v)
-                if we ~= nil and #we ~= 0 then
-                    for i,v in ipairs(we) do
-                        local comp_ability = EntityGetFirstComponentIncludingDisabled( v, "AbilityComponent" )
-                        local rt = ComponentObjectGetValue2( comp_ability, "gun_config", "reload_time" )
-                        local cd = ComponentObjectGetValue2( comp_ability, "gunaction_config", "fire_rate_wait" )
-                        if comp_ability ~= nil then
-                            Gui.state["weapon" .. tostring(i)] = EntityGetName(v) or ""
-                            Gui.state["weapon" .. tostring(i) .. "_rt"] = "RT: " .. rt or ""
-                            Gui.state["weapon" .. tostring(i) .. "_cd"] = "CD: " .. cd or ""
-                        end
-                        local wchildren = EntityGetAllChildren(v)
+                if we == nil then we = {} end
+                for weapon = 1, 4 do
+                    local wp = we[weapon]
+                    local comp_ability = EntityGetFirstComponentIncludingDisabled(wp, "AbilityComponent")
+                    if comp_ability ~= nil then
+                        local rt = ComponentObjectGetValue2(comp_ability, "gun_config", "reload_time")
+                        local cd = ComponentObjectGetValue2(comp_ability, "gunaction_config", "fire_rate_wait")
+                        Gui.state["weapon" .. tostring(weapon)] = EntityGetName(wp) or ""
+                        Gui.state["weapon" .. tostring(weapon) .. "_rt"] = "RT: " .. (rt or "")
+                        Gui.state["weapon" .. tostring(weapon) .. "_cd"] = "CD: " .. (cd or "")
+                    else
+                        Gui.state["weapon" .. tostring(weapon)] = "No weapon in slot " .. tostring(weapon)
+                        Gui.state["weapon" .. tostring(weapon) .. "_rt"] = "RT: NA"
+                        Gui.state["weapon" .. tostring(weapon) .. "_cd"] = "CD: NA"
                     end
                 end
             end
@@ -84,13 +95,13 @@ function dropitem(slot)
     local player = EntityGetWithTag("player_unit")[1]
     local x, y = EntityGetTransform(player)
     local pchildren = EntityGetAllChildren(player)
-    for i,v in ipairs(pchildren) do
+    for i, v in ipairs(pchildren) do
         if EntityGetName(v) == "inventory_quick" then
             local we = EntityGetAllChildren(v)
             if we ~= nil and #we ~= 0 then
                 EntityRemoveFromParent(we[slot])
                 --GameDropPlayerInventoryItems(we[slot])
-                EntitySetTransform( we[slot], x, y )
+                EntitySetTransform(we[slot], x, y)
             end
         end
     end
@@ -104,7 +115,7 @@ end
 
 Gui:AddElement(gusgui.Elements.VLayout({
     id = "TheThings",
-    margin = { bottom = 10, left = 130},
+    margin = { bottom = 10, left = 130 },
     overideZ = 18,
     children = {
         gusgui.Elements.ImageButton({
@@ -144,8 +155,8 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     --colour = { 148, 128, 100 },
                     padding = 1,
                     drawBorder = false,
-                    drawBackground = false,  
-                }), 
+                    drawBackground = false,
+                }),
                 gusgui.Elements.Text({
                     id = "AmmoText",
                     overrideZ = 19,
@@ -158,7 +169,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     onBeforeRender = function(element)
                         element.config.hidden = active_item == 0
                     end,
-                }), 
+                }),
             },
         })
     },
@@ -190,7 +201,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     margin = { top = 0, left = 50, },
                     overrideZ = 17,
                     value = "${movetimer}",
-                }),]]--
+                }),]] --
             },
         }),
         gusgui.Elements.ProgressBar({
@@ -208,12 +219,12 @@ Gui:AddElement(gusgui.Elements.VLayout({
             overrideZ = 18,
             barColour = "blue",
             value = Gui:StateValue("movebar")
-        }),]]--
-       --[[gusgui.Elements.Text({
+        }),]] --
+        --[[gusgui.Elements.Text({
             id = "KickCDText",
             overrideZ = 17,
             value = " Dash Cooldown: ${kickcd}",
-        }),]]--
+        }),]] --
     },
 }))
 
@@ -226,7 +237,7 @@ Gui:AddElement(gusgui.Elements.HLayout({
         element.config.hidden = not GameIsInventoryOpen()
     end,
     children = {
-            gusgui.Elements.VLayout({
+        gusgui.Elements.VLayout({
             id = "WeaponsEquipped",
             margin = { top = 30, left = 10, },
             overrideZ = 31,
