@@ -14,7 +14,7 @@ items = {
     },
 }
 
-local Inv = {
+Inv = {
     items = {}
 }
 
@@ -52,4 +52,21 @@ function Inv:has( itemid )
     end
 end
 
-return Inv
+function Inv:drop( itemid, x, y )
+    for i,v in ipairs(self.items) do
+        for i,v in ipairs(v) do
+            if v.id == itemid then
+                local path = ""
+                for i,v in ipairs(items) do
+                    for i,v in ipairs(v) do
+                        if v.id == itemid then
+                            path = v.path
+                        end
+                    end
+                end
+                Inv:take(itemid)
+                EntityLoad(path, x, y)
+            end
+        end
+    end
+end

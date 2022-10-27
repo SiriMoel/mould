@@ -31,6 +31,7 @@ function OnWorldPreUpdate()
         end
         if comp_inv2 ~= nil and ComponentGetValue2(comp_inv2, "mActiveItem") ~= 0 then
             active_item = ComponentGetValue2(comp_inv2, "mActiveItem")
+            Gui.state.helditemname = EntityGetName(active_item) or ""
             local comp_activeitemsprite = EntityGetFirstComponentIncludingDisabled(active_item,
                 "VariableStorageComponent", "sprite_file")
             if comp_activeitemsprite ~= nil then
@@ -67,23 +68,30 @@ function OnWorldPreUpdate()
         end
         --Gui.state.movebar = (ComponentGetValue2( comp_mt, "value_int" ) / 500) * 100
         local pchildren = EntityGetAllChildren(player)
-        for i, v in ipairs(pchildren) do
+        for i,v in ipairs(pchildren) do
             if EntityGetName(v) == "inventory_quick" then
                 local we = EntityGetAllChildren(v)
                 if we == nil then we = {} end
-                for weapon = 1, 4 do
+                for weapon = 1, 8 do
                     local wp = we[weapon]
                     local comp_ability = EntityGetFirstComponentIncludingDisabled(wp, "AbilityComponent")
                     if comp_ability ~= nil then
                         local rt = ComponentObjectGetValue2(comp_ability, "gun_config", "reload_time")
                         local cd = ComponentObjectGetValue2(comp_ability, "gunaction_config", "fire_rate_wait")
+                        local actions = "   "
+                        local deck = GetActionsOnWand(wp)
+                        for i,v in ipairs(deck) do
+                            actions = actions .. tostring(GetActionInfo(v, "name")) .. ", "
+                        end
                         Gui.state["weapon" .. tostring(weapon)] = EntityGetName(wp) or ""
                         Gui.state["weapon" .. tostring(weapon) .. "_rt"] = "RT: " .. (rt or "")
                         Gui.state["weapon" .. tostring(weapon) .. "_cd"] = "CD: " .. (cd or "")
+                        Gui.state["weapon" .. tostring(weapon) .. "_ac"] = (actions or "")
                     else
-                        Gui.state["weapon" .. tostring(weapon)] = "No weapon in slot " .. tostring(weapon)
-                        Gui.state["weapon" .. tostring(weapon) .. "_rt"] = "RT: NA"
-                        Gui.state["weapon" .. tostring(weapon) .. "_cd"] = "CD: NA"
+                        Gui.state["weapon" .. tostring(weapon)] = "No item in slot " .. tostring(weapon)
+                        Gui.state["weapon" .. tostring(weapon) .. "_rt"] = ""
+                        Gui.state["weapon" .. tostring(weapon) .. "_cd"] = ""
+                        Gui.state["weapon" .. tostring(weapon) .. "_ac"] = ""
                     end
                 end
             end
@@ -99,9 +107,13 @@ function dropitem(slot)
         if EntityGetName(v) == "inventory_quick" then
             local we = EntityGetAllChildren(v)
             if we ~= nil and #we ~= 0 then
-                EntityRemoveFromParent(we[slot])
-                --GameDropPlayerInventoryItems(we[slot])
-                EntitySetTransform(we[slot], x, y)
+                local dropped = EntityCreateNew(EntityGetName(we[slot]))
+                local comps = EntityGetAllComponents(we[slot])
+                for i,v in ipairs(comps) do
+                    EntityAddComponent( dropped, ComponentGetTypeName(v), ComponentGetMembers(v) )
+                end
+                EntitySetTransform(dropped, x, y)
+                Entitykill(we[slot])
             end
         end
     end
@@ -118,21 +130,33 @@ Gui:AddElement(gusgui.Elements.VLayout({
     margin = { bottom = 10, left = 130 },
     overideZ = 18,
     children = {
-        gusgui.Elements.ImageButton({
-            id = "HeldItemImage",
-            margin = { left = 0, top = 0, },
-            overrideZ = 17,
-            scaleX = 5,
-            scaleY = 5,
-            drawBackground = true,
-            drawBorder = true,
-            padding = 5,
-            src = Gui:StateValue("helditem"),
-            onBeforeRender = function(element)
-                element.config.hidden = active_item == 0
-            end,
-            onClick = function(element, state)
-            end,
+        gusgui.Elements.HLayout({
+            id = "HeldItem",
+            overideZ = 18,
+            children = {
+                gusgui.Elements.ImageButton({
+                    id = "HeldItemImage",
+                    margin = { left = 0, top = 0, },
+                    overrideZ = 19,
+                    scaleX = 5,
+                    scaleY = 5,
+                    drawBackground = true,
+                    drawBorder = true,
+                    padding = 5,
+                    src = Gui:StateValue("helditem"),
+                    onBeforeRender = function(element)
+                        element.config.hidden = active_item == 0
+                    end,
+                    onClick = function(element, state)
+                    end,
+                }),
+                gusgui.Elements.Text({
+                    id = "HeldItemText",
+                    value = "${helditemname}",
+                    drawBackground = true,
+                    drawBorder = true,
+                }),
+            },
         }),
         gusgui.Elements.HLayout({
             id = "Things",
@@ -246,7 +270,7 @@ Gui:AddElement(gusgui.Elements.HLayout({
                     id = "WeaponOne",
                     margin = { top = 30, left = 0, },
                     overrideZ = 17,
-                    text = "${weapon1} ${weapon1_rt} ${weapon1_cd} ACTIONS: ",
+                    text = "${weapon1} ${weapon1_rt} ${weapon1_cd} ${weapon1_ac}",
                     onClick = function(element, state)
                         dropitem(1)
                     end,
@@ -255,7 +279,7 @@ Gui:AddElement(gusgui.Elements.HLayout({
                     id = "WeaponTwo",
                     margin = { top = 0, left = 0, },
                     overrideZ = 17,
-                    text = "${weapon2} ${weapon2_rt} ${weapon2_cd} ACTIONS: ",
+                    text = "${weapon2} ${weapon2_rt} ${weapon2_cd} ${weapon2_ac}",
                     onClick = function(element, state)
                         dropitem(2)
                     end,
@@ -264,7 +288,7 @@ Gui:AddElement(gusgui.Elements.HLayout({
                     id = "WeaponThree",
                     margin = { top = 0, left = 0, },
                     overrideZ = 17,
-                    text = "${weapon3} ${weapon3_rt} ${weapon3_cd} ACTIONS: ",
+                    text = "${weapon3} ${weapon3_rt} ${weapon3_cd} ${weapon3_ac}",
                     onClick = function(element, state)
                         dropitem(3)
                     end,
@@ -273,9 +297,41 @@ Gui:AddElement(gusgui.Elements.HLayout({
                     id = "WeaponFour",
                     margin = { top = 0, left = 0, },
                     overrideZ = 17,
-                    text = "${weapon4} ${weapon4_rt} ${weapon4_cd} ACTIONS: ",
+                    text = "${weapon4} ${weapon4_rt} ${weapon4_cd} ${weapon4_ac}",
                     onClick = function(element, state)
                         dropitem(4)
+                    end,
+                }),
+                gusgui.Elements.Button({ -- not a weapon
+                    id = "WeaponFive",
+                    overrideZ = 17,
+                    text = "${weapon5}",
+                    onClick = function(element, state)
+                        dropitem(5)
+                    end,
+                }),
+                gusgui.Elements.Button({ -- not a weapon
+                    id = "WeaponSix",
+                    overrideZ = 17,
+                    text = "${weapon6}",
+                    onClick = function(element, state)
+                        dropitem(6)
+                    end,
+                }),
+                gusgui.Elements.Button({ -- not a weapon
+                    id = "WeaponSeven",
+                    overrideZ = 17,
+                    text = "${weapon7}",
+                    onClick = function(element, state)
+                        dropitem(7)
+                    end,
+                }),
+                gusgui.Elements.Button({ -- not a weapon
+                    id = "WeaponEight",
+                    overrideZ = 17,
+                    text = "${weapon8}",
+                    onClick = function(element, state)
+                        dropitem(8)
                     end,
                 }),
             },

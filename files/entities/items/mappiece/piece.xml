@@ -1,4 +1,4 @@
-<Entity tags="hittable,mould_mappiece">
+<Entity name = "Lost Map Piece" tags="hittable,mould_mappiece">
 
 	<UIInfoComponent
 		name="Lost Map Piece"
@@ -44,7 +44,7 @@
 	<ItemComponent
 		_tags="enabled_in_world"
 		max_child_items="0"
-		is_pickable="0"
+		is_pickable="1"
 		is_equipable_forced="1"
 		ui_sprite="mods/mould/files/entities/items/mappiece/sprite/s.png"
 		preferred_inventory="QUICK"
@@ -77,14 +77,9 @@
 	</AbilityComponent>
 
 	<VariableStorageComponent
-		_tags="itemid"
-		value_string="mappiece"
-	>
-	</VariableStorageComponent>
-
-	<LuaComponent
-		script_source_file="mods/mould/files/scripts/itempickup.lua"
-		execute_every_n_frame="2"
-	></LuaComponent>
+        _tags="sprite_file"
+        value_string="mods/mould/files/entities/items/mappiece/sprite/s.png"        
+        >
+    </VariableStorageComponent>
 
 </Entity>

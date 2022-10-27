@@ -1,7 +1,8 @@
 local to_insert = {
     {
 		id = "MOULD_HIISISHOTGUN",
-		name = "Hiisi Shotgun",
+		--name = "Hiisi Shotgun",
+		name = "",
 		description = "Fires 3 projectiles.",
 		--sprite = "data/ui_gfx/inventory/icon_info.png",
         sprite = "mods/mould/files/misc/icon_proj.png",
@@ -21,7 +22,8 @@ local to_insert = {
 	},
 	{
 		id = "MOULD_HIISISNIPER",
-		name = "Hiisi Sniper",
+		--name = "Hiisi Sniper",
+		name = "",
 		description = "Fires a powerful projectile.",
 		--sprite = "data/ui_gfx/inventory/icon_info.png",
         sprite = "mods/mould/files/misc/icon_proj.png",
@@ -31,7 +33,6 @@ local to_insert = {
 		spawn_probability = "",
 		price = 0,
 		mana = 0,
-        --custom_xml_file = "mods/mould/files/entities/items/hiisishotgun/card.xml",
 		action = function()
 			add_projectile("mods/mould/files/entities/items/hiisisniper/projectile.xml")
 		end,
