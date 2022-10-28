@@ -87,7 +87,7 @@
     <VariableStorageComponent
         _tags="ammo_recharge"
         name="ammo_recharge"
-        value_int="40"
+        value_int="180"
         >
     </VariableStorageComponent>
 

@@ -1,5 +1,5 @@
-dofile("mods/mould/files/scripts/utils.lua")
-dofile("data/scripts/gun/procedural/gun_action_utils.lua")
+dofile_once("mods/mould/files/scripts/utils.lua")
+dofile_once("data/scripts/gun/procedural/gun_action_utils.lua")
 
 local entity = GetUpdatedEntityID()
 local z, x, c, v, b, n = GameGetDateAndTimeLocal()
@@ -11,6 +11,14 @@ local hiisiquirks = { -- PLACEHOLDERS
     "SPEED",
     "SPREAD_REDUCE",
 }
+
+function init(weapon)
+    EntityAddComponent( weapon, "LuaComponent", {
+        _tags="enabled_in_hand",
+        script_source_file="mods/mould/files/scripts/weaponthrow.lua",
+        execute_every_n_frame="1",
+    } )
+end
 
 function hgun( weapon, capacity, actions, statsm, doquirks ) -- hiisi gun
     -- weapon id, weapon capacity (to set), #actions in gun, quirk chance multiplier, stats max multiplier

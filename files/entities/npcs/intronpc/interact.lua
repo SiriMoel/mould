@@ -1,4 +1,4 @@
-dofile("mods/mould/files/scripts/Goals.lua")
+dofile_once("mods/mould/files/scripts/goals.lua")
 local dialog_system = dofile_once("mods/mould/lib/DialogSystem/dialog_system.lua")
 
 local entity_id = GetUpdatedEntityID()

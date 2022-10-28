@@ -31,7 +31,7 @@ function OnWorldPreUpdate()
         end
         if comp_inv2 ~= nil and ComponentGetValue2(comp_inv2, "mActiveItem") ~= 0 then
             active_item = ComponentGetValue2(comp_inv2, "mActiveItem")
-            Gui.state.helditemname = EntityGetName(active_item)[1] or ""
+            --Gui.state.helditemname = EntityGetName(active_item)[1] or ""
             local comp_activeitemsprite = EntityGetFirstComponentIncludingDisabled(active_item,
                 "VariableStorageComponent", "sprite_file")
             if comp_activeitemsprite ~= nil then
@@ -107,10 +107,7 @@ function dropitem(slot)
         if EntityGetName(v) == "inventory_quick" then
             local we = EntityGetAllChildren(v)
             if we ~= nil and #we ~= 0 and we[slot] ~= nil then
-                --GameShootProjectile( player, x, y, x, y, we[slot] )
-                EntityRemoveFromParent(we[slot])
-                GameKillInventoryItem(we[slot])
-                EntitySetTransform(we[slot], x, y)
+                -- no
             end
         end
     end
@@ -126,6 +123,13 @@ Gui:AddElement(gusgui.Elements.VLayout({
     id = "TheThings",
     margin = { bottom = 10, left = 130 },
     overideZ = 18,
+    onBeforeRender = function(element)
+        local e = true
+        if active_item ~= 0 then
+            e = false
+        end
+        element.config.hidden = e
+    end,
     children = {
         gusgui.Elements.HLayout({
             id = "HeldItem",
@@ -149,7 +153,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
                 }),
                 gusgui.Elements.Text({
                     id = "HeldItemText",
-                    value = "${helditemname}",
+                    value = "", --"${helditemname}",
                     drawBackground = true,
                     drawBorder = true,
                 }),
@@ -157,7 +161,6 @@ Gui:AddElement(gusgui.Elements.VLayout({
         }),
         gusgui.Elements.HLayout({
             id = "Things",
-            margin = {},
             overideZ = 19,
             children = {
                 gusgui.Elements.ProgressBar({
@@ -191,12 +194,38 @@ Gui:AddElement(gusgui.Elements.VLayout({
                         element.config.hidden = active_item == 0
                     end,
                 }),
+                gusgui.Elements.HLayout({
+                    id = "wallet",
+                    overrideZ = 17,
+                    children = {
+                        gusgui.Elements.Text({
+                            id = "WalletText",
+                            margin = { left = 10, },
+                            overrideZ = 17,
+                            value = "${wallet}",
+                        }),
+                        gusgui.Elements.Image({
+                            id = "WalletIcon",
+                            margin = { left = 0, },
+                            overrideZ = 17,
+                            src = "data/ui_gfx/hud/money.png",
+                        }),
+                    },
+                }),
+                gusgui.Elements.ProgressBar({
+                    id = "KickCDbar",
+                    width = 100,
+                    height = 15,
+                    overrideZ = 18,
+                    barColour = "white",
+                    value = Gui:StateValue("kickbar")
+                }),
             },
         })
     },
 }))
 
-Gui:AddElement(gusgui.Elements.VLayout({
+--[[Gui:AddElement(gusgui.Elements.VLayout({
     id = "TheStuff",
     margin = { left = 600, top = 380, },
     overrizeZ = 15,
@@ -222,7 +251,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     margin = { top = 0, left = 50, },
                     overrideZ = 17,
                     value = "${movetimer}",
-                }),]] --
+                }),
             },
         }),
         gusgui.Elements.ProgressBar({
@@ -245,9 +274,9 @@ Gui:AddElement(gusgui.Elements.VLayout({
             id = "KickCDText",
             overrideZ = 17,
             value = " Dash Cooldown: ${kickcd}",
-        }),]] --
+        }),
     },
-}))
+}))]]--
 
 Gui:AddElement(gusgui.Elements.HLayout({
     id = "Inventory",
