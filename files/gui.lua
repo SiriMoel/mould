@@ -31,7 +31,7 @@ function OnWorldPreUpdate()
         end
         if comp_inv2 ~= nil and ComponentGetValue2(comp_inv2, "mActiveItem") ~= 0 then
             active_item = ComponentGetValue2(comp_inv2, "mActiveItem")
-            Gui.state.helditemname = EntityGetName(active_item) or ""
+            Gui.state.helditemname = EntityGetName(active_item)[1] or ""
             local comp_activeitemsprite = EntityGetFirstComponentIncludingDisabled(active_item,
                 "VariableStorageComponent", "sprite_file")
             if comp_activeitemsprite ~= nil then
@@ -106,14 +106,11 @@ function dropitem(slot)
     for i, v in ipairs(pchildren) do
         if EntityGetName(v) == "inventory_quick" then
             local we = EntityGetAllChildren(v)
-            if we ~= nil and #we ~= 0 then
-                local dropped = EntityCreateNew(EntityGetName(we[slot]))
-                local comps = EntityGetAllComponents(we[slot])
-                for i,v in ipairs(comps) do
-                    EntityAddComponent( dropped, ComponentGetTypeName(v), ComponentGetMembers(v) )
-                end
-                EntitySetTransform(dropped, x, y)
-                Entitykill(we[slot])
+            if we ~= nil and #we ~= 0 and we[slot] ~= nil then
+                --GameShootProjectile( player, x, y, x, y, we[slot] )
+                EntityRemoveFromParent(we[slot])
+                GameKillInventoryItem(we[slot])
+                EntitySetTransform(we[slot], x, y)
             end
         end
     end
