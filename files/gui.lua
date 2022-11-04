@@ -278,6 +278,39 @@ Gui:AddElement(gusgui.Elements.VLayout({
     },
 }))]]--
 
+local circuitrysize = 2
+Gui:AddElement(gusgui.Elements.VLayout({
+    id = "circuitry",
+    margin = { top = 50, right = 50, },
+    overrideZ = 49,
+    hidden = Gui:StateValue("showinv"),
+    onBeforeRender = function(element)
+        element.config.hidden = not GameIsInventoryOpen()
+    end,
+    children = {
+        gusgui.Elements.Image({
+            id = "shards",
+            margin = {},
+            overrideZ = 51,
+            src = "",
+            scaleX = circuitrysize,
+            scaleY = circuitrysize,
+            onBeforeRender = function(element)
+                local shardcount = 9 --GlobalsGetValue("shardcount")
+                element.config.src = "mods/mould/files/gui/shard/" .. 9 .. ".png"
+            end,
+        }),
+        gusgui.Elements.Image({
+            id = "background",
+            margin = { top = -300, },
+            overrideZ = 50,
+            src = "mods/mould/files/gui/inv_background.png",
+            scaleX = circuitrysize,
+            scaleY = circuitrysize,
+        }),
+    },
+}))
+
 Gui:AddElement(gusgui.Elements.HLayout({
     id = "Inventory",
     margin = {},

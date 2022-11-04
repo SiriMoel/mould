@@ -22,7 +22,7 @@ mod_settings = {
 		id = "name",
 		ui_name = "Player Name",
 		ui_description = "Self explanatory.",
-		value_default = "Protagonist",
+		value_default = "Kaksijalkaa",
 		text_max_length = 20,
 		scope = MOD_SETTING_SCOPE_RUNTIME,
 		change_fn = mod_setting_change_callback,
@@ -30,7 +30,7 @@ mod_settings = {
 	{
 		id = "difficulty",
 		ui_name = "Difficulty",
-		ui_description = "How \"fun\" you want your experience to be. Must be set at the beginning of a run.\n Sunlight. (cringe) (only for weak gamers)\n Twilight. (normal difficulty)\n Midnight. (skillful)\n Abyssal. (now i am become death) (more drops and cooler items)",
+		ui_description = "How \"fun\" you want your experience to be. Must be set at the beginning of a run.\n Sunlight. (cringe) (only for weak gamers)\n Twilight. (normal difficulty)\n Midnight. (skillful)\n Abyssal. (now i am become death) (some special item drops)",
 		value_default = "normal",
 		values = { {"easy","Sunlight"}, {"normal","Twilight"}, {"hard","Midnight"}, {"expert", "Abyssal"} },
 		scope = MOD_SETTING_SCOPE_RUNTIME,

@@ -12,7 +12,7 @@ local hiisiquirks = { -- PLACEHOLDERS
     "SPREAD_REDUCE",
 }
 
-function init(weapon)
+function init( weapon )
     EntityAddComponent( weapon, "LuaComponent", {
         _tags="enabled_in_hand",
         script_source_file="mods/mould/files/scripts/weaponthrow.lua",
