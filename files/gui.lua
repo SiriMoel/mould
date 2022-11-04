@@ -225,59 +225,6 @@ Gui:AddElement(gusgui.Elements.VLayout({
     },
 }))
 
---[[Gui:AddElement(gusgui.Elements.VLayout({
-    id = "TheStuff",
-    margin = { left = 600, top = 380, },
-    overrizeZ = 15,
-    children = {
-        gusgui.Elements.HLayout({
-            id = "wallet",
-            overrideZ = 17,
-            children = {
-                gusgui.Elements.Text({
-                    id = "WalletText",
-                    margin = { left = 10, },
-                    overrideZ = 17,
-                    value = "${wallet}",
-                }),
-                gusgui.Elements.Image({
-                    id = "WalletIcon",
-                    margin = { left = 0, },
-                    overrideZ = 17,
-                    src = "data/ui_gfx/hud/money.png",
-                }),
-                --[[gusgui.Elements.Text({
-                    id = "MoveTimerText",
-                    margin = { top = 0, left = 50, },
-                    overrideZ = 17,
-                    value = "${movetimer}",
-                }),
-            },
-        }),
-        gusgui.Elements.ProgressBar({
-            id = "KickCDbar",
-            width = 100,
-            height = 15,
-            overrideZ = 18,
-            barColour = "white",
-            value = Gui:StateValue("kickbar")
-        }),
-        --[[gusgui.Elements.ProgressBar({
-            id = "MoveTimeBar",
-            width = 50,
-            height = 5,
-            overrideZ = 18,
-            barColour = "blue",
-            value = Gui:StateValue("movebar")
-        }),]] --
-        --[[gusgui.Elements.Text({
-            id = "KickCDText",
-            overrideZ = 17,
-            value = " Dash Cooldown: ${kickcd}",
-        }),
-    },
-}))]]--
-
 local circuitrysize = 2
 Gui:AddElement(gusgui.Elements.VLayout({
     id = "circuitry",
