@@ -226,6 +226,10 @@ Gui:AddElement(gusgui.Elements.VLayout({
 }))
 
 local circuitrysize = 2
+local shards_count = tostring(GlobalsGetValue("shardcount"))
+local shards_rendered = 0
+local shards_rendered_on = 0
+local shards_rendered_off = 0
 Gui:AddElement(gusgui.Elements.VLayout({
     id = "circuitry",
     margin = { top = 50, right = 50, },
@@ -236,24 +240,50 @@ Gui:AddElement(gusgui.Elements.VLayout({
     end,
     children = {
         gusgui.Elements.Image({
-            id = "shards",
-            margin = {},
-            overrideZ = 51,
-            src = "",
-            scaleX = circuitrysize,
-            scaleY = circuitrysize,
-            onBeforeRender = function(element)
-                local shardcount = 9 --GlobalsGetValue("shardcount")
-                element.config.src = "mods/mould/files/gui/shard/" .. 9 .. ".png"
-            end,
-        }),
-        gusgui.Elements.Image({
             id = "background",
-            margin = { top = -300, },
+            margin = {},
             overrideZ = 50,
             src = "mods/mould/files/gui/inv_background.png",
             scaleX = circuitrysize,
             scaleY = circuitrysize,
+        }),
+        gusgui.Elements.HLayout({
+            id = "shards",
+            margin = { left = 3, top = -300, },
+            overrideZ = 51,
+            scaleX = circuitrysize,
+            scaleY = circuitrysize,
+            children = {},
+            onBeforeRender = function(element)
+                if GameHasFlagRun("mould_noshards") then
+                    element.config.children = {}
+                    GameRemoveFlagRun("mould_noshards")
+                end
+                while shards_rendered > 9 do
+                    if shards_count < shards_rendered_on then
+                        shards_rendered_on = shards_rendered_on + 1
+                        table.insert( element.config.children, gusgui.Elements.Image({
+                            id = "shard_" .. shards_rendered,
+                            margin = {},
+                            overrideZ = 52,
+                            src = "mods/mould/files/gui/shard_yes.png",
+                            scaleX = circuitrysize,
+                            scaleY = circuitrysize,
+                        }) )
+                    else
+                        shards_rendered_off = shards_rendered_off + 1
+                        table.insert( element.config.children, gusgui.Elements.Image({
+                            id = "shard_" .. shards_rendered,
+                            margin = {},
+                            overrideZ = 52,
+                            src = "mods/mould/files/gui/shard_no.png",
+                            scaleX = circuitrysize,
+                            scaleY = circuitrysize,
+                        }) )
+                    end
+                    shards_rendered = shards_rendered + 1
+                end
+            end,
         }),
     },
 }))

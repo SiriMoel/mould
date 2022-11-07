@@ -38,10 +38,10 @@
     aiming_reticle_distance_from_character="60"
     camera_max_distance_from_character="50"
     move_camera_with_aim="1"
-    eating_area_min.x="-6"
-    eating_area_max.x="6"
-    eating_area_min.y="-4"
-    eating_area_max.y="6"
+    eating_area_min.x="0"
+    eating_area_max.x="0"
+    eating_area_min.y="0"
+    eating_area_max.y="0"
     eating_cells_per_frame="2"
   ></PlatformShooterPlayerComponent>
   
@@ -364,7 +364,7 @@
   
   <!-- ingestion -->
 
-  <MaterialInventoryComponent 
+  <!--MaterialInventoryComponent 
       _tags="ingestion"
       drop_as_item="0"
       on_death_spill="0"
@@ -378,7 +378,7 @@
   ></IngestionComponent>
 
   <DrugEffectComponent>
-  </DrugEffectComponent>
+  </DrugEffectComponent-->
 
   <!-- --> 
 

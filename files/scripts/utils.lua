@@ -33,3 +33,14 @@ function GetActionInfo(action_id, info)
         end
     end
 end
+
+function DropShards()
+    local shardcount = GlobalsGetValue("shardcount")
+    local x, y = EntityGetTransform(EntityGetWithTag("player_unit")[1])
+    for i=1,shardcount do
+        EntityLoad("", x, y)
+        x = x + 5
+    end
+    GlobalsSetValue("shardcount", "0")
+    GameAddFlagRun("mould_noshards")
+end

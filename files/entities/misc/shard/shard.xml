@@ -1,0 +1,92 @@
+<Entity name="Glass Shard" tags="item_physics,glass_shard_entity" >
+
+	<!-- physical presence -->
+	<UIInfoComponent
+		_tags="enabled_in_world"
+		name="Glass Shard">
+	</UIInfoComponent>
+
+	<PhysicsBodyComponent 
+		_tags="enabled_in_world"
+		uid="1" 
+		allow_sleep="1" 
+		angular_damping="0" 
+		fixed_rotation="0" 
+		is_bullet="0" 
+		linear_damping="0"
+		auto_clean="0"
+		hax_fix_going_through_ground="1"
+		on_death_leave_physics_body="1" >
+	</PhysicsBodyComponent>
+
+	<PhysicsImageShapeComponent 
+		body_id="1"
+		centered="1"
+		image_file="mods/mould/files/entities/misc/shard/s.png"
+		material="rock_box2d_hard"
+	></PhysicsImageShapeComponent>
+	
+	<!-- item -->
+
+	<ItemComponent
+		_tags="enabled_in_world"
+		auto_pickup="1"
+		item_name="Glass Shard"
+		stats_count_as_item_pick_up="0"
+		max_child_items="0"
+		is_pickable="0"
+		ui_sprite=""
+		ui_description=""
+		play_pick_sound="0"
+		preferred_inventory="FULL" >
+	</ItemComponent>
+
+	<HitboxComponent 
+		_tags="enabled_in_world"
+		aabb_min_x="-3" 
+		aabb_max_x="3" 
+		aabb_min_y="-3" 
+		aabb_max_y="3" >
+	</HitboxComponent>
+
+	<LifetimeComponent
+		_tags="enabled_in_world"
+		lifetime="1300" >
+	</LifetimeComponent>
+	
+	<LuaComponent
+		_tags="enabled_in_world,enabled_in_inventory,enabled_in_hand"
+		script_source_file="mods/mould/files/entities/misc/shard/pickup.lua" 
+		execute_every_n_frame="1">
+	</LuaComponent>
+
+	<!--ParticleEmitterComponent 
+        _tags="enabled_in_world"
+		emitted_material_name="spark_green"
+		gravity.y="0.0"
+		lifetime_min="1"
+		lifetime_max="2"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		count_min="25"
+		count_max="45"
+		render_on_grid="1"
+		fade_based_on_lifetime="0"
+		area_circle_radius.min="1"
+		area_circle_radius.max="1"
+		cosmetic_force_create="1"
+		collide_with_grid="0"
+		airflow_force="0.051"
+		airflow_time="1.01"
+		airflow_scale="0.03"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		velocity_always_away_from_center="11"
+		render_back="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent-->
+
+</Entity>
