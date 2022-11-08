@@ -59,8 +59,6 @@ function OnPlayerSpawned( player )
     
     if GameHasFlagRun("mouldplayer") then return end
 
-	GlobalsSetValue("shardcount", "1")
-
     EntityLoad("mods/mould/files/entities/items/hiisishotgun/weapon.xml", dx, dy-10)
     EntityLoad("mods/mould/files/entities/items/hiisisniper/weapon.xml", dx, dy-12)
     --EntityLoad("mods/mould/files/entities/items/hiisishotgun/weapon.xml", dx, dy-14)

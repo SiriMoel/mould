@@ -1,4 +1,4 @@
-<Entity name="Glass Shard" tags="item_physics,glass_shard_entity" >
+<Entity name="Glass Shard" tags="item_physics,mould_shard" >
 
 	<!-- physical presence -->
 	<UIInfoComponent
@@ -59,6 +59,11 @@
 		script_source_file="mods/mould/files/entities/misc/shard/pickup.lua" 
 		execute_every_n_frame="1">
 	</LuaComponent>
+
+	<VariableStorageComponent
+		_tags="shard_id"
+		value_int=""
+	></VariableStorageComponent>
 
 	<!--ParticleEmitterComponent 
         _tags="enabled_in_world"

@@ -34,13 +34,74 @@ function GetActionInfo(action_id, info)
     end
 end
 
-function DropShards()
-    local shardcount = GlobalsGetValue("shardcount")
-    local x, y = EntityGetTransform(EntityGetWithTag("player_unit")[1])
-    for i=1,shardcount do
-        EntityLoad("", x, y)
-        x = x + 5
+local shardpath = "mods/mould/files/entities/misc/shard/shard.xml"
+shards_list = {
+    {
+        id = 1,
+        collected = true,
+        path = shardpath,
+    },
+    {
+        id = 2,
+        collected = false,
+        path = shardpath,
+    },
+    {
+        id = 3,
+        collected = false,
+        path = shardpath,
+    },
+    {
+        id = 4,
+        collected = false,
+        path = shardpath,
+    },
+    {
+        id = 5,
+        collected = false,
+        path = shardpath,
+    },
+    {
+        id = 6,
+        collected = false,
+        path = shardpath,
+    },
+    {
+        id = 7,
+        collected = false,
+        path = shardpath,
+    },
+    {
+        id = 8,
+        collected = false,
+        path = shardpath,
+    },
+    {
+        id = 9,
+        collected = false,
+        path = shardpath,
+    },
+}
+
+function SpawnShard(id, x, y)
+    local pathtoload = ""
+    for i,v in ipairs(shards_list) do
+        if v["id"] == id then
+            pathtoload = v["path"]
+        end
     end
-    GlobalsSetValue("shardcount", "0")
-    GameAddFlagRun("mould_noshards")
+    local shard = EntityLoad( pathtoload, x, y )
+    local comp = EntityGetFirstComponentIncludingDisabled( shard, "VariableStorageComponent", "shard_id" )
+    ComponentSetValue2( comp, "value_int", id )
+end
+
+function DropShards()
+    local x, y = EntityGetTransform(EntityGetWithTag("player_unit")[1])
+    for i,v in ipairs(shards_list) do
+        if v["collected"] == true then
+            SpawnShard( v["id"], x, y )
+            x = x + 5
+            v["collected"] = false
+        end
+    end
 end
