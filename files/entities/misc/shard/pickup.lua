@@ -10,4 +10,5 @@ if player ~= nil then
     shardcount = shardcount + 1
     GlobalsSetValue("shardcount", tostring(shardcount))
     EntityKill(entity)
+    GameAddFlagRun("mould_noshards")
 end

@@ -226,10 +226,14 @@ Gui:AddElement(gusgui.Elements.VLayout({
 }))
 
 local circuitrysize = 2
-local shards_count = tostring(GlobalsGetValue("shardcount"))
+local shards_count = tonumber(GlobalsGetValue("shardcount"))
+if shards_count == nil or shards_count == 0 then
+    shards_count = "1"
+end
 local shards_rendered = 0
 local shards_rendered_on = 0
 local shards_rendered_off = 0
+local inverse_shards_count = 9 - shards_count
 Gui:AddElement(gusgui.Elements.VLayout({
     id = "circuitry",
     margin = { top = 50, right = 50, },
@@ -247,21 +251,32 @@ Gui:AddElement(gusgui.Elements.VLayout({
             scaleX = circuitrysize,
             scaleY = circuitrysize,
         }),
-        gusgui.Elements.HLayout({
+        --[[gusgui.Elements.HLayoutForEach({
             id = "shards",
             margin = { left = 3, top = -300, },
             overrideZ = 51,
             scaleX = circuitrysize,
             scaleY = circuitrysize,
+            numTimes = 9,
+            type = "executeNTimes",
+            func = function (iter) 
+                -- WHAT DOES THIS EVEN MEAN
+            end,
+        }),]]--
+        gusgui.Elements.HLayout({
             children = {},
             onBeforeRender = function(element)
                 if GameHasFlagRun("mould_noshards") then
                     element.config.children = {}
+                    shards_rendered = 0
+                    shards_rendered_on = 0
+                    shards_rendered_off = 0
                     GameRemoveFlagRun("mould_noshards")
                 end
-                while shards_rendered > 9 do
-                    if shards_count < shards_rendered_on then
+                if shards_rendered < 9 then
+                    for i=1,shards_count do
                         shards_rendered_on = shards_rendered_on + 1
+                        shards_rendered = shards_rendered + 1
                         table.insert( element.config.children, gusgui.Elements.Image({
                             id = "shard_" .. shards_rendered,
                             margin = {},
@@ -270,8 +285,10 @@ Gui:AddElement(gusgui.Elements.VLayout({
                             scaleX = circuitrysize,
                             scaleY = circuitrysize,
                         }) )
-                    else
+                    end
+                    for i=1,inverse_shards_count do
                         shards_rendered_off = shards_rendered_off + 1
+                        shards_rendered = shards_rendered + 1
                         table.insert( element.config.children, gusgui.Elements.Image({
                             id = "shard_" .. shards_rendered,
                             margin = {},
@@ -281,7 +298,6 @@ Gui:AddElement(gusgui.Elements.VLayout({
                             scaleY = circuitrysize,
                         }) )
                     end
-                    shards_rendered = shards_rendered + 1
                 end
             end,
         }),
