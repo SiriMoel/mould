@@ -68,6 +68,7 @@ function OnWorldPreUpdate()
         end
         --Gui.state.movebar = (ComponentGetValue2( comp_mt, "value_int" ) / 500) * 100
         local pchildren = EntityGetAllChildren(player)
+        if pchildren == nil then return end
         for i,v in ipairs(pchildren) do
             if EntityGetName(v) == "inventory_quick" then
                 local we = EntityGetAllChildren(v)
@@ -103,6 +104,7 @@ function dropitem(slot)
     local player = EntityGetWithTag("player_unit")[1]
     local x, y = EntityGetTransform(player)
     local pchildren = EntityGetAllChildren(player)
+    if pchildren == nil then return end
     for i, v in ipairs(pchildren) do
         if EntityGetName(v) == "inventory_quick" then
             local we = EntityGetAllChildren(v)
