@@ -79,7 +79,7 @@ function OnWorldPreUpdate()
                     if comp_ability ~= nil then
                         local rt = ComponentObjectGetValue2(comp_ability, "gun_config", "reload_time")
                         local cd = ComponentObjectGetValue2(comp_ability, "gunaction_config", "fire_rate_wait")
-                        local actions = "   "
+                        local actions = ""
                         local deck = GetActionsOnWand(wp)
                         for i,v in ipairs(deck) do
                             actions = actions .. tostring(GetActionInfo(v, "name")) .. ", "
@@ -247,7 +247,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
         }),
         gusgui.Elements.HLayout({
             id = "shards",
-            margin = { left = 3, top = -300, },
+            margin = { left = 6, top = -305, },
             overrideZ = 51,
             scaleX = circuitrysize,
             scaleY = circuitrysize,
@@ -261,8 +261,8 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     scaleY = circuitrysize,
                     onBeforeRender = function(element)
                         for i,v in ipairs(shards_list) do
-                            if v["id"] == 1 then
-                                if v["collected"] == true then
+                            if v.id == 1 then
+                                if v.collected == true then
                                     element.config.src = "mods/mould/files/gui/shard_yes.png"
                                 else
                                     element.config.src = "mods/mould/files/gui/shard_no.png"
@@ -280,8 +280,8 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     scaleY = circuitrysize,
                     onBeforeRender = function(element)
                         for i,v in ipairs(shards_list) do
-                            if v["id"] == 2 then
-                                if v["collected"] == true then
+                            if v.id == 2 then
+                                if v.collected == true then
                                     element.config.src = "mods/mould/files/gui/shard_yes.png"
                                 else
                                     element.config.src = "mods/mould/files/gui/shard_no.png"
@@ -299,8 +299,8 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     scaleY = circuitrysize,
                     onBeforeRender = function(element)
                         for i,v in ipairs(shards_list) do
-                            if v["id"] == 3 then
-                                if v["collected"] == true then
+                            if v.id == 3 then
+                                if v.collected == true then
                                     element.config.src = "mods/mould/files/gui/shard_yes.png"
                                 else
                                     element.config.src = "mods/mould/files/gui/shard_no.png"
@@ -318,8 +318,8 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     scaleY = circuitrysize,
                     onBeforeRender = function(element)
                         for i,v in ipairs(shards_list) do
-                            if v["id"] == 4 then
-                                if v["collected"] == true then
+                            if v.id == 4 then
+                                if v.collected == true then
                                     element.config.src = "mods/mould/files/gui/shard_yes.png"
                                 else
                                     element.config.src = "mods/mould/files/gui/shard_no.png"
@@ -337,8 +337,8 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     scaleY = circuitrysize,
                     onBeforeRender = function(element)
                         for i,v in ipairs(shards_list) do
-                            if v["id"] == 5 then
-                                if v["collected"] == true then
+                            if v.id == 5 then
+                                if v.collected == true then
                                     element.config.src = "mods/mould/files/gui/shard_yes.png"
                                 else
                                     element.config.src = "mods/mould/files/gui/shard_no.png"
@@ -356,8 +356,8 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     scaleY = circuitrysize,
                     onBeforeRender = function(element)
                         for i,v in ipairs(shards_list) do
-                            if v["id"] == 6 then
-                                if v["collected"] == true then
+                            if v.id == 6 then
+                                if v.collected == true then
                                     element.config.src = "mods/mould/files/gui/shard_yes.png"
                                 else
                                     element.config.src = "mods/mould/files/gui/shard_no.png"
@@ -375,8 +375,8 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     scaleY = circuitrysize,
                     onBeforeRender = function(element)
                         for i,v in ipairs(shards_list) do
-                            if v["id"] == 7 then
-                                if v["collected"] == true then
+                            if v.id == 7 then
+                                if v.collected == true then
                                     element.config.src = "mods/mould/files/gui/shard_yes.png"
                                 else
                                     element.config.src = "mods/mould/files/gui/shard_no.png"
@@ -394,8 +394,8 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     scaleY = circuitrysize,
                     onBeforeRender = function(element)
                         for i,v in ipairs(shards_list) do
-                            if v["id"] == 8 then
-                                if v["collected"] == true then
+                            if v.id == 8 then
+                                if v.collected == true then
                                     element.config.src = "mods/mould/files/gui/shard_yes.png"
                                 else
                                     element.config.src = "mods/mould/files/gui/shard_no.png"
@@ -413,8 +413,8 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     scaleY = circuitrysize,
                     onBeforeRender = function(element)
                         for i,v in ipairs(shards_list) do
-                            if v["id"] == 9 then
-                                if v["collected"] == true then
+                            if v.id == 9 then
+                                if v.collected == true then
                                     element.config.src = "mods/mould/files/gui/shard_yes.png"
                                 else
                                     element.config.src = "mods/mould/files/gui/shard_no.png"
