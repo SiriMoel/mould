@@ -13,6 +13,7 @@ end
 function GetActionsOnWand(entity_id)
     local wand_deck = {}
     local wand_deck_children = EntityGetAllChildren(entity_id)
+    if wand_deck_children == nil then return {} end
     for i,v in ipairs(wand_deck_children) do
         local item = EntityGetFirstComponentIncludingDisabled(v, "ItemComponent")
         local item_action = EntityGetFirstComponentIncludingDisabled(v, "ItemActionComponent")
@@ -92,6 +93,9 @@ function SpawnShard(id, x, y)
     end
     local shard = EntityLoad( pathtoload, x, y )
     local comp = EntityGetFirstComponentIncludingDisabled( shard, "VariableStorageComponent", "shard_id" )
+    if comp == nil then 
+        error("Couldn't find shard id VSC")
+    end
     ComponentSetValue2( comp, "value_int", id )
 end
 

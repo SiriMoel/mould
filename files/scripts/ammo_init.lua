@@ -2,14 +2,13 @@ dofile_once("mods/mould/files/scripts/utils.lua")
 dofile_once("data/scripts/gun/procedural/gun_action_utils.lua")
 
 local weapon = GetUpdatedEntityID()
-
 local comp_ammomax = EntityGetFirstComponentIncludingDisabled(weapon, "VariableStorageComponent", "ammo_max")
 local comp_ammocount = EntityGetFirstComponentIncludingDisabled(weapon, "VariableStorageComponent", "ammo_count")
 local comp_ammorecharge = EntityGetFirstComponentIncludingDisabled(weapon, "VariableStorageComponent", "ammo_recharge")
 local comp_ammorechargecount = EntityGetFirstComponentIncludingDisabled(weapon, "VariableStorageComponent", "ammo_recharge_count")
 local comp_ammouse = EntityGetFirstComponentIncludingDisabled(weapon, "VariableStorageComponent", "ammo_use")
 local comp_ammotype = EntityGetFirstComponentIncludingDisabled(weapon, "VariableStorageComponent", "ammo_type")
-
+if not comp_ammomax or not comp_ammocount or not comp_ammorecharge or not comp_ammorechargecount or not comp_ammouse or not comp_ammotype then return end
 local ammomax = ComponentGetValue2(comp_ammomax, "value_int")
 local ammocount = ComponentGetValue2(comp_ammocount, "value_int")
 local ammorecharge = ComponentGetValue2(comp_ammorecharge, "value_int")

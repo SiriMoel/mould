@@ -4,9 +4,10 @@ local player = GetUpdatedEntityID()
 local comp_cp = EntityGetFirstComponentIncludingDisabled(player, "CharacterPlatformingComponent")
 local comp_timer = EntityGetFirstComponentIncludingDisabled(player, "VariableStorageComponent", "movetimer")
 local comp_cd = EntityGetFirstComponentIncludingDisabled(player, "VariableStorageComponent", "kickcd")
+local comp_controls = EntityGetFirstComponentIncludingDisabled(player, "ControlsComponent")
 local x, y = EntityGetTransform(player)
 
-if comp_cp == nil or comp_timer == nil then
+if comp_cp == nil or comp_cd == nil or comp_timer == nil or comp_controls == nil then
     return
 end
 
@@ -16,7 +17,6 @@ local cd = ComponentGetValue2(comp_cd, "value_int")
 local is_moving = false
 local yes = 0
 
-local comp_controls = EntityGetFirstComponentIncludingDisabled(player, "ControlsComponent")
 if ComponentGetValue2(comp_controls, "mButtonDownUp") == true or ComponentGetValue2(comp_controls, "mButtonDownLeft") ==
     true or ComponentGetValue2(comp_controls, "mButtonDownRight") == true then
     is_moving = true

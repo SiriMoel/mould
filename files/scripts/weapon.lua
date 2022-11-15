@@ -69,6 +69,7 @@ end
 function w( capacity )
     local weapon = GetUpdatedEntityID()
     local acs = EntityGetComponentIncludingDisabled( weapon, "AbilityComponent" ) -- abilitycomponent
+    if acs == nil then return end
     for i,ac in ipairs(acs) do
         local dc = tonumber( ComponentObjectGetValue( ac, "gun_config", "deck_capacity" ) ) -- deck capacity 
         local dc = capacity
@@ -82,7 +83,7 @@ function s( m )
     local acs = EntityGetComponentIncludingDisabled( weapon, "AbilityComponent" )
 
     -- base stats should be the LOWEST possible
-
+    if acs == nil then return end
     for i,ac in ipairs(acs) do
         local rt = tonumber( ComponentObjectGetValue( ac, "gun_config", "reload_time" ) ) -- reload time
         --local sm = tonumber( ComponentObjectGetValue( ac, "gun_config", "speed_multiplier" ) ) -- speed multiplier

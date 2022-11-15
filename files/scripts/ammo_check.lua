@@ -6,7 +6,7 @@ local weapon = GetUpdatedEntityID()
 local comp_ammocount = EntityGetFirstComponentIncludingDisabled(weapon, "VariableStorageComponent", "ammo_count")
 local comp_ammouse = EntityGetFirstComponentIncludingDisabled(weapon, "VariableStorageComponent", "ammo_use")
 local comp_ability = EntityGetFirstComponentIncludingDisabled(weapon, "AbilityComponent")
-
+if not comp_ammocount or not comp_ammouse or not comp_ability then return end
 local ammocount = ComponentGetValue2(comp_ammocount, "value_int")
 local ammouse = ComponentGetValue2(comp_ammouse, "value_int")
 
