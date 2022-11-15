@@ -38,11 +38,11 @@
     aiming_reticle_distance_from_character="60"
     camera_max_distance_from_character="50"
     move_camera_with_aim="1"
-    eating_area_min.x="0"
-    eating_area_max.x="0"
-    eating_area_min.y="0"
-    eating_area_max.y="0"
-    eating_cells_per_frame="2"
+    eating_area_min.x="-6"
+    eating_area_max.x="6"
+    eating_area_min.y="-4"
+    eating_area_max.y="6"
+    eating_cells_per_frame="1"
   ></PlatformShooterPlayerComponent>
   
   <PathFindingGridMarkerComponent
@@ -372,7 +372,7 @@
   ></MaterialInventoryComponent>
   
   <IngestionComponent 
-    ingestion_capacity="0"
+    ingestion_capacity="7500"
     overingestion_damage="0.002"
     blood_healing_speed="0.0016"
   ></IngestionComponent>
