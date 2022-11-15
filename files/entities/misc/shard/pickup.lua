@@ -9,8 +9,8 @@ local id = ComponentGetValue2( comp, "value_int" )
 
 if player ~= nil then
     for i,v in ipairs(shards_list) do
-        if v["id"] == id then
-            v["collected"] = true
+        if v.id == id then
+            v.collected = true
         end
     end
     EntityKill(entity)

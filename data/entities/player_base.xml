@@ -364,7 +364,7 @@
   
   <!-- ingestion -->
 
-  <!--MaterialInventoryComponent 
+  <MaterialInventoryComponent 
       _tags="ingestion"
       drop_as_item="0"
       on_death_spill="0"
@@ -372,15 +372,13 @@
   ></MaterialInventoryComponent>
   
   <IngestionComponent 
-    ingestion_capacity="7500"
+    ingestion_capacity="0"
     overingestion_damage="0.002"
     blood_healing_speed="0.0016"
   ></IngestionComponent>
 
   <DrugEffectComponent>
-  </DrugEffectComponent-->
-
-  <!-- --> 
+  </DrugEffectComponent>
 
   <WalletComponent>
   </WalletComponent>

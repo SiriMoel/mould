@@ -1,0 +1,22 @@
+<Entity 
+  name="unknown" 
+  tags="vegetation,pixelsprite" >
+  
+  <PixelSpriteComponent 
+    _enabled="1" 
+    image_file="mods/mould/files/biome/caverns/swamp/bogstructures/tree2.png" 
+    anchor_x="29" 
+    anchor_y="85"
+    clean_overlapping_pixels="0"
+  >
+  </PixelSpriteComponent>
+
+  <SimplePhysicsComponent 
+    can_go_up="0"
+    >
+  </SimplePhysicsComponent >
+  
+  <VelocityComponent />
+  
+</Entity>
+

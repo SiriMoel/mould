@@ -79,7 +79,6 @@ g_vines =
 	},
 }
 
-
 function plant(x, y)
     local plant = plants[math.random(1,#plants)]
     EntityLoad(plant, x, y)

@@ -1,6 +1,10 @@
 dofile_once("data/scripts/lib/utilities.lua")
 dofile_once("data/scripts/gun/gun_actions.lua")
 
+function flipbool(boolean) -- the real function flipbool()
+    return not boolean
+end
+
 function table.contains(table, element)
         for _, value in pairs(table) do
             if value == element then
@@ -27,9 +31,9 @@ end
 
 function GetActionInfo(action_id, info)
     for i,v in ipairs(actions) do
-        if v["id"] == action_id then
-            if v[info] ~= nil then
-                return v[info]
+        if v.id == action_id then
+            if v.info ~= nil then
+                return v.info
             end
         end
     end
@@ -87,8 +91,8 @@ shards_list = {
 function SpawnShard(id, x, y)
     local pathtoload = ""
     for i,v in ipairs(shards_list) do
-        if v["id"] == id then
-            pathtoload = v["path"]
+        if v.id == id then
+            pathtoload = v.path
         end
     end
     local shard = EntityLoad( pathtoload, x, y )
@@ -102,10 +106,10 @@ end
 function DropShards()
     local x, y = EntityGetTransform(EntityGetWithTag("player_unit")[1])
     for i,v in ipairs(shards_list) do
-        if v["collected"] == true then
-            SpawnShard( v["id"], x, y )
+        if v.collected == true then
+            SpawnShard( v.id, x, y )
             x = x + 5
-            v["collected"] = false
+            v.collected = false
         end
     end
 end
