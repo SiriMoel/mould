@@ -6,13 +6,15 @@ dofile_once("data/scripts/biome_scripts.lua")
 RegisterSpawnFunction( 0xffffeedd, "init" )
 RegisterSpawnFunction( 0xffb4a700, "bogstructure" )
 RegisterSpawnFunction( 0xffc7a1dc, "enemy_ground") --[[
+    slime-possessed hiisi shotgunner
+    slimey mass
 ]]--
 RegisterSpawnFunction( 0xffe80000, "enemy_flying" ) --[[
-    small gelatinous cube (slightly ominous cube, fast but clunky movement, drops kinda random loot)
+    slightly ominous cube (fast but clunky movement, drops kinda random loot)
     slime-possessed guns (shotgun, pistol, sniper)
 ]]--
 RegisterSpawnFunction( 0xff1635ff, "enemy_miniboss" ) --[[
-    large gelatinous cube (very ominous cube, fast but clunky movement, drops very random loot)
+    very ominous cube (fast but clunky movement, drops very random loot)
 ]]--
 
 local structures = { -- these are placeholders (for now)
@@ -20,6 +22,26 @@ local structures = { -- these are placeholders (for now)
     "mods/mould/files/biome/caverns/swamp/bogstructures/tree2.xml",
     "mods/mould/files/biome/caverns/swamp/bogstructures/tree3.xml",
 }
+
+g_enemy_ground = {}
+
+g_enemy_flying = {
+    total_prob = 0,
+    {
+        prob = 0.5,
+        min_count = 0,
+        max_count = 0,
+        entity = ""
+    },
+    {
+        prob = 1,
+        min_count = 1,
+        max_count = 2,
+        entity = "mods/mould/files/entities/animals/slime_shotgun/entity.xml"
+    },
+}
+
+g_enemy_minoboss = {}
 
 function init( x, y, w, h ) end
 

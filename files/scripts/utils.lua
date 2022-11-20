@@ -5,6 +5,10 @@ function flipbool(boolean) -- the real function flipbool()
     return not boolean
 end
 
+function setbool(toset)
+    return toset
+end
+
 function table.contains(table, element)
         for _, value in pairs(table) do
             if value == element then

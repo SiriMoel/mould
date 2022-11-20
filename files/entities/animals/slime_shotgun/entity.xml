@@ -1,0 +1,5 @@
+<Entity name="Slime-Possessed Shotgun">
+
+    <Base file="data/entities/base_enemy_flying.xml" > </Base>
+
+</Entity>

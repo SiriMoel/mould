@@ -12,5 +12,15 @@
   </Entity>
   <Entity name="inventory_full"/>
 
+  <LuaComponent
+    script_source_file="mods/mould/files/scripts/status_init.lua"
+    execute_on_added="1"
+  ></LuaComponent>
+
+  <LuaComponent
+    script_source_file="mods/mould/files/scripts/status.lua"
+    execute_every_n_frame="1"
+  ></LuaComponent>
+
 </Entity>
 

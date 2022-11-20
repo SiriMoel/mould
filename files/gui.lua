@@ -1,5 +1,6 @@
 dofile_once("mods/mould/files/scripts/utils.lua")
 dofile_once("mods/mould/files/scripts/inventory.lua")
+dofile_once("mods/mould/files/scripts/status_list.lua")
 local gusgui = dofile_once("mods/mould/lib/gusgui/Gui.lua")
 local Gui = gusgui.Create()
 
@@ -9,6 +10,7 @@ local max_hp = 0
 local max_hp_old = 0
 local hpbar = 0
 local active_item = 0
+local statuses = ""
 local showinv = false
 
 function OnWorldPreUpdate()
@@ -95,6 +97,13 @@ function OnWorldPreUpdate()
                         Gui.state["weapon" .. tostring(weapon) .. "_ac"] = ""
                     end
                 end
+            end
+        end
+        statuses = "EMPTY_STRING"
+        for i,v in ipairs(status_list) do
+            if v.on == true then
+                statuses = statuses .. v.name .. " " .. v.duration .. " " .. v.stacks .. ", "
+                Gui.state.statuses = statuses
             end
         end
     end
@@ -221,6 +230,12 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     overrideZ = 18,
                     barColour = "white",
                     value = Gui:StateValue("kickbar")
+                }),
+                gusgui.Elements.Text({
+                    id = "StatusEffects",
+                    margin = { left = 10, },
+                    overrideZ = 20,
+                    value = "${statuses}",
                 }),
             },
         })
