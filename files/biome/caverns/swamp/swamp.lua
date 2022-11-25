@@ -6,15 +6,20 @@ dofile_once("data/scripts/biome_scripts.lua")
 RegisterSpawnFunction( 0xffffeedd, "init" )
 RegisterSpawnFunction( 0xffb4a700, "bogstructure" )
 RegisterSpawnFunction( 0xffc7a1dc, "enemy_ground") --[[
-    slime-possessed hiisi shotgunner
-    slimey mass
+    slime-possessed hiisi shotgunner (hiisi shotgunner with special slime attack)
+    slimey mass (zombie-like thing that lunges at player)
+    slightly ominous cube
 ]]--
 RegisterSpawnFunction( 0xffe80000, "enemy_flying" ) --[[
-    slightly ominous cube (fast but clunky movement, drops kinda random loot)
+    slightly ominous cube (gelatinous cube (dnd) but cooler, fast but clunky movement, drops kinda random loot)
     slime-possessed guns (shotgun, pistol, sniper)
 ]]--
 RegisterSpawnFunction( 0xff1635ff, "enemy_miniboss" ) --[[
-    very ominous cube (fast but clunky movement, drops very random loot)
+    very ominous cube (gelatinous cube (dnd) but coolerer, fast but clunky movement, drops very random loot)
+]]--
+
+--[[
+ominous cubes could be pseudo-lukki? to ensure they closish to terrain (this would be like maurice ultrakill)
 ]]--
 
 local structures = { -- these are placeholders (for now)
@@ -23,7 +28,21 @@ local structures = { -- these are placeholders (for now)
     "mods/mould/files/biome/caverns/swamp/bogstructures/tree3.xml",
 }
 
-g_enemy_ground = {}
+g_enemy_ground = {
+    total_prob = 0,
+    {
+        prob = 0.5,
+        min_count = 0,
+        max_count = 0,
+        entity = "",
+    },
+    {
+        prob = 0.5,
+        min_count = 1,
+        max_count = 1,
+        entity = "mods/mould/files/entities/animals/ominous_cube_weak/entity.xml",
+    },
+}
 
 g_enemy_flying = {
     total_prob = 0,
@@ -31,17 +50,25 @@ g_enemy_flying = {
         prob = 0.5,
         min_count = 0,
         max_count = 0,
-        entity = ""
+        entity = "",
     },
     {
         prob = 1,
         min_count = 1,
         max_count = 2,
-        entity = "mods/mould/files/entities/animals/slime_shotgun/entity.xml"
+        entity = "mods/mould/files/entities/animals/slime_shotgun/entity.xml",
     },
+    --[[{
+        prob = 0.2,
+        min_count = 1,
+        max_count = 1,
+        entity = "mods/mould/files/entities/animals/ominous_cube_weak/entity.xml",
+    },]]--
 }
 
-g_enemy_minoboss = {}
+g_enemy_minoboss = {
+    total_prob = 0,
+}
 
 function init( x, y, w, h ) end
 
@@ -50,8 +77,14 @@ function bogstructure( x, y )
     EntityLoad(structure, x, y)
 end
 
-function enemy_ground( x, y ) end
+function enemy_ground( x, y ) 
+    spawn(g_enemy_ground, x, y)
+end
 
-function enemy_flying( x, y ) end
+function enemy_flying( x, y )
+    spawn(g_enemy_flying, x, y)
+end
 
-function enemy_miniboss( x, y ) end
+function enemy_miniboss( x, y ) 
+    spawn(g_enemy_miniboss, x, y)
+end

@@ -115,7 +115,7 @@
 
   <Reaction probability="2"
 	input_cell1="mould_swamp_rock_static" 		input_cell2="air"
-	output_cell1="grass" 		output_cell2="air"  >
+	output_cell1="soil" 		output_cell2="air"  >
   </Reaction>
 
 </Materials>

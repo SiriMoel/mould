@@ -42,6 +42,9 @@ xml:add_children(nxml.parse_many[[
     <Biome height_index="0" color="ff002f25" biome_filename="mods/mould/files/biome/caverns/solidborder_1.xml" />
     <Biome height_index="0" color="ff9fff18" biome_filename="mods/mould/files/biome/caverns/enter.xml" />
     <Biome height_index="0" color="ff76ce12" biome_filename="mods/mould/files/biome/caverns/swamp/swamp.xml" />
+	<Biome height_index="0" color="ff514343" biome_filename="mods/mould/files/biome/caverns/charcoal/charcoal.xml" />
+	<Biome height_index="0" color="ff82c151" biome_filename="mods/mould/files/biome/caverns/moss/moss.xml" />
+	<Biome height_index="0" color="ff86d9ff" biome_filename="mods/mould/files/biome/caverns/heartlair/heartlair.xml" />
 ]])
 ModTextFileSetContent("data/biome/_biomes_all.xml", tostring(xml))
 
@@ -91,8 +94,8 @@ function OnPlayerSpawned( player )
 	end
 
 
-	local comp_cp = EntityGetFirstComponentIncludingDisabled( player, "CharacterPlatformingComponent" )
-	local comp_cd = EntityGetFirstComponentIncludingDisabled( player, "CharacterDataComponent" )
+	local comp_cp = EntityGetFirstComponentIncludingDisabled( player, "CharacterPlatformingComponent" ) or 0
+	local comp_cd = EntityGetFirstComponentIncludingDisabled( player, "CharacterDataComponent" ) or 0
 
 	local velocity_min_x = ComponentGetValue2( comp_cp, "velocity_min_x" )
     local velocity_max_x = ComponentGetValue2( comp_cp, "velocity_max_x" )

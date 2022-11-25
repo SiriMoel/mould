@@ -9,13 +9,40 @@ function ApplyStatus(status, duration, stacks)
             end
             if v.stackable == true then
                 v.on = true
-                v.stacks = stacks
+                v.stacks = v.stacks + stacks
                 v.duration = duration
             else
                 v.on = true
                 v.stacks = 1
                 v.duration = duration
             end
+            for _=1,stacks do
+                v.onAdded()
+            end
+        end
+    end
+end
+
+function RemoveStatus(status, dofunc)
+    for i,v in ipairs(status_list) do
+        if v.id == status then
+            v.on = false
+            v.stacks = 0
+            v.duration = 0
+            if dofunc == true then
+                v.onRemoved(v.stacks)
+            end
+        end
+    end
+end
+
+function ClearStatuses( dofunc )
+    for i,v in ipairs(status_list) do
+        v.on = false
+        v.stacks = 0
+        v.duration = 0
+        if dofunc == true then
+            v.onRemoved(v.stacks)
         end
     end
 end

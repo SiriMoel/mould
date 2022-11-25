@@ -1,3 +1,4 @@
+---@diagnostic disable: redundant-parameter
 local ffi = nil
 if require then
     pcall(function()

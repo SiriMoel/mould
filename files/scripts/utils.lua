@@ -5,8 +5,21 @@ function flipbool(boolean) -- the real function flipbool()
     return not boolean
 end
 
+---@param bool boolean
+---this is the greatest function of all time, it flips a boolean. true -> false and false -> true.
+function flipboolean(bool) -- honestly quite incredible.
+    if string.sub(tostring(bool), 1, 1) == "t" then
+        bool = false
+        return bool
+    elseif string.sub(tostring(bool), 1, 1) == "f" then
+        bool = true
+        return bool
+    end 
+end
+
 function setbool(toset)
-    return toset
+    bool = toset
+    return bool
 end
 
 function table.contains(table, element)

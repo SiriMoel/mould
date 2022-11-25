@@ -11,7 +11,6 @@ local max_hp_old = 0
 local hpbar = 0
 local active_item = 0
 local statuses = ""
-local showinv = false
 
 function OnWorldPreUpdate()
     local player = EntityGetWithTag("player_unit")[1]

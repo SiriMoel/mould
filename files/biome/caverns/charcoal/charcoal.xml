@@ -1,0 +1,36 @@
+<Biome>
+  <Topology 
+    name="Charcoal Grotto"
+    type="BIOME_WANG_TILE"
+    background_image="data/weather_gfx/background_coalmine.png"
+    background_edge_left="data/weather_gfx/edges/background_coalmine_left.png"
+    background_edge_right="data/weather_gfx/edges/background_coalmine_right.png"
+    background_edge_top="data/weather_gfx/edges/background_coalmine_top.png"
+    background_edge_bottom="data/weather_gfx/edges/background_coalmine_bottom.png"
+    background_edge_priority="10"
+	  limit_background_image="0"
+    lua_script="mods/mould/files/biome/caverns/charcoal/charcoal.lua"
+    wang_template_file="mods/mould/files/biome/caverns/swamp/swamp.png" 
+    wang_map_width="300"
+    wang_map_height="300"
+    audio_music_2=""
+    audio_ambience="cave"
+	>
+  </Topology>
+
+  <Materials 
+    name="charcoal" 
+     >
+    
+    <MaterialComponent 
+      _enabled="1" 
+      is_rare="0" 
+      material_index="9" 
+      material_max="100" 
+      material_min="-100" 
+      material_name="mould_swamp_rock_static" 
+    ></MaterialComponent>
+    
+  </Materials>
+
+</Biome>
