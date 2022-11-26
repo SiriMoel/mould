@@ -83,7 +83,7 @@ function OnWorldPreUpdate()
                         local actions = ""
                         local deck = GetActionsOnWand(wp)
                         for i,v in ipairs(deck) do
-                            actions = actions .. tostring(GetActionInfo(v, "name")) .. ", "
+                            actions = actions .. tostring(GetActionInfo(v, "name")) or "" .. ", "
                         end
                         Gui.state["weapon" .. tostring(weapon)] = EntityGetName(wp) or ""
                         Gui.state["weapon" .. tostring(weapon) .. "_rt"] = "RT: " .. (rt or "")
@@ -98,11 +98,11 @@ function OnWorldPreUpdate()
                 end
             end
         end
-        statuses = "EMPTY_STRING"
+        statuses = ""
         for i,v in ipairs(status_list) do
             if v.on == true then
                 statuses = statuses .. v.name .. " " .. v.duration .. " " .. v.stacks .. ", "
-                Gui.state.statuses = statuses
+                Gui.state.statuses = tostring(statuses)
             end
         end
     end
@@ -230,12 +230,12 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     barColour = "white",
                     value = Gui:StateValue("kickbar")
                 }),
-                gusgui.Elements.Text({
+                --[[gusgui.Elements.Text({
                     id = "StatusEffects",
                     margin = { left = 10, },
                     overrideZ = 20,
-                    value = "${statuses}",
-                }),
+                    value =  Gui:StateValue("statuses"),
+                }),]]--
             },
         })
     },

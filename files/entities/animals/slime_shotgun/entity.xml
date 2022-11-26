@@ -20,7 +20,7 @@
 		</AnimalAIComponent>
 
         <DamageModelComponent
-            hp="2"
+            hp="1"
             ragdoll_material="mould_toxic_slime"
 			blood_material="mould_toxic_slime"
 			blood_spray_material="mould_toxic_slime"
