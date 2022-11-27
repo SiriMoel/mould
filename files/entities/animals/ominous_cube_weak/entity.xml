@@ -23,6 +23,15 @@
     >
     </SpriteComponent>
 
+	<HitboxComponent 
+		_tags=""
+		aabb_min_x="-10" 
+		aabb_max_x="10" 
+		aabb_min_y="-10" 
+		aabb_max_y="10"
+		damage_multiplier="1.0" >
+	</HitboxComponent>
+
     <LimbBossComponent
 		state = "1">
 	</LimbBossComponent>
@@ -91,7 +100,7 @@
 	</PhysicsShapeComponent>
 
     <DamageModelComponent 
-		hp="4" 
+		hp="3.5" 
 		air_needed="0" 
 		falling_damages="0" 
 		fire_damage_amount="0.2" 
@@ -113,13 +122,8 @@
 		>
 		<damage_multipliers
 			melee="2.0"
-			projectile="0.2"
 			explosion="0.8"
             radioactive="0"
-			electricity="0.6"
-			fire="1.2" 
-			slice="2.0"
-			ice="1.2"
 			>
 		</damage_multipliers>
 	</DamageModelComponent>

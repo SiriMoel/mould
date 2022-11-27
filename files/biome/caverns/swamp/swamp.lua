@@ -31,7 +31,7 @@ local structures = { -- these are placeholders (for now)
 g_enemy_ground = {
     total_prob = 0,
     {
-        prob = 0.5,
+        prob = 1,
         min_count = 0,
         max_count = 0,
         entity = "",
@@ -47,7 +47,7 @@ g_enemy_ground = {
 g_enemy_flying = {
     total_prob = 0,
     {
-        prob = 0.5,
+        prob = 0.3,
         min_count = 0,
         max_count = 0,
         entity = "",

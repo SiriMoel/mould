@@ -21,7 +21,7 @@
 	show_in_creative_mode="1"
 	>
     <Graphics
-		texture_file="data/materials_gfx/rock.png"
+		texture_file="data/materials_gfx/rock_alt2.png"
 		color="ff313b36"
 		pixel_all_around="ff313b36"
 		>
@@ -90,6 +90,7 @@
 	show_in_creative_mode="1"
 	>
 	<Graphics
+	texture_file="data/materials_gfx/slime_green.png"
 	color="44B4FF10"
 	>
     </Graphics>
@@ -113,7 +114,7 @@
 	</ParticleEffect>
   </CellData>
 
-  <Reaction probability="2"
+  <Reaction probability="90"
 	input_cell1="mould_swamp_rock_static" 		input_cell2="air"
 	output_cell1="soil" 		output_cell2="air"  >
   </Reaction>

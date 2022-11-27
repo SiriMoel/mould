@@ -6,8 +6,9 @@ function death( damage_type_bit_field, damage_message, entity_thats_responsible,
     local z, x, c, v, b, n = GameGetDateAndTimeLocal()
     math.randomseed(z+x+c+v+b+n+x+y)
 
-    local a = math.random(1, 4)
-    if a == 1 then
-        EntityLoad("mods/mould/entities/items/hiisishotgun/weapon.xml")
+    local a = math.random(1, 3)
+    GamePrint(tostring(a))
+    if a == 2 then
+        EntityLoad("mods/mould/entities/items/hiisishotgun/weapon.xml", x, y)
     end
 end
