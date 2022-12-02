@@ -68,7 +68,7 @@
   <CellData
 	name="mould_toxic_slime"
 	ui_name="Toxic Slime"
-  	tags="[liquid],[corrodible],[soluble],[radioactive],[impure],[liquid_common]"
+  	tags="[liquid],[corrodible],[soluble],[radioactive],[impure],[water]"
 	burnable="0"
 	density="3"
 	cell_type="liquid"

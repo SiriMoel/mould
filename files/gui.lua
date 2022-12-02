@@ -2,6 +2,7 @@ dofile_once("mods/mould/files/scripts/utils.lua")
 dofile_once("mods/mould/files/scripts/inventory.lua")
 dofile_once("mods/mould/files/scripts/status_list.lua")
 dofile_once("mods/mould/files/scripts/goals.lua")
+dofile_once("data/scripts/gun/gun_actions.lua")
 local gusgui = dofile_once("mods/mould/lib/gusgui/Gui.lua")
 local Gui = gusgui.Create()
 
@@ -11,7 +12,6 @@ local max_hp = 0
 local max_hp_old = 0
 local hpbar = 0
 local active_item = 0
-local statuses = ""
 
 function OnWorldPreUpdate()
     local player = EntityGetWithTag("player_unit")[1]
@@ -84,7 +84,7 @@ function OnWorldPreUpdate()
                         local actions = ""
                         local deck = GetActionsOnWand(wp)
                         for i,v in ipairs(deck) do
-                            actions = actions .. tostring(GetActionInfo(v, "name")) or "" .. ", "
+                            actions = actions .. (GetActionInfo(v, "name") or "") .. ", "
                         end
                         Gui.state["weapon" .. tostring(weapon)] = EntityGetName(wp) or ""
                         Gui.state["weapon" .. tostring(weapon) .. "_rt"] = "RT: " .. (rt or "")
@@ -99,13 +99,6 @@ function OnWorldPreUpdate()
                 end
             end
         end
-        statuses = ""
-        for i,v in ipairs(status_list) do
-            if v.on == true then
-                statuses = statuses .. v.name .. " " .. v.duration .. " " .. v.stacks .. ", "
-                Gui.state.statuses = tostring(statuses)
-            end
-        end
     end
 end
 
@@ -117,7 +110,7 @@ function OnWorldPostUpdate()
     end
 end
 
-Gui:AddElement(gusgui.Elements.VLayout({
+--[[Gui:AddElement(gusgui.Elements.VLayout({
     id = "goals",
     margin = {},
     overideZ = 18,
@@ -139,7 +132,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
         end
     end,
     children = {},
-}))
+}))]]--
 
 Gui:AddElement(gusgui.Elements.VLayout({
     id = "TheThings",
@@ -247,8 +240,14 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     margin = { left = 10, },
                     overrideZ = 20,
                     value = "",
-                    onBeforeRender = function(element)
-                        element.config.value = Gui:StateValue("statuses")
+                    onBeforeRender = function(element)          
+                        statuses = ""
+                        for i,v in ipairs(status_list) do
+                            if v.on == true then
+                                statuses = statuses .. v.name .. " " .. v.duration .. " " .. v.stacks .. ", "
+                                element.config.value = statuses
+                            end
+                        end
                     end,
                 }),
             },
@@ -259,7 +258,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
 local circuitrysize = 2
 Gui:AddElement(gusgui.Elements.VLayout({
     id = "circuitry",
-    margin = { top = 50, right = 50, },
+    margin = { top = 25, right = 25, },
     overrideZ = 49,
     hidden = Gui:StateValue("showinv"),
     onBeforeRender = function(element)
@@ -483,7 +482,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
         }),
         gusgui.Elements.Image({
             id = "shardicons",
-            margin = { top = -305 },
+            margin = { top = -90, left = 6, },
             overrideZ = 55,
             src = "mods/mould/files/gui/shard_icons.png",
             scaleX = circuitrysize,

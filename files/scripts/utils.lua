@@ -49,8 +49,8 @@ end
 function GetActionInfo(action_id, info)
     for i,v in ipairs(actions) do
         if v.id == action_id then
-            if v.info ~= nil then
-                return v.info
+            if v[info] ~= nil then
+                return v[info]
             end
         end
     end

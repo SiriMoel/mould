@@ -7,6 +7,7 @@ local comp = EntityGetFirstComponentIncludingDisabled( entity, "VariableStorageC
 local effect = ComponentGetValue2( comp, "value_string" )
 
 function material_area_checker_success( pos_x, pos_y )
+    GamePrint("real!")
     if player ~= nil and effect ~= nil then
         for i,v in ipairs(status_list) do
             if v.id == effect then

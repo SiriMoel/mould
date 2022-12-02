@@ -122,7 +122,7 @@ function OnPlayerSpawned( player )
 	
     local damagemodels = EntityGetComponent( player, "DamageModelComponent" )
 	if( damagemodels ~= nil ) then
-        local xx = 1
+        local xx = 0.9
 
 		for i,damagemodel in ipairs(damagemodels) do
 			local melee = tonumber(ComponentObjectGetValue( damagemodel, "damage_multipliers", "melee" ) )
