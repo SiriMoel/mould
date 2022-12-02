@@ -91,7 +91,7 @@
 	>
 	<Graphics
 	texture_file="data/materials_gfx/slime_green.png"
-	color="44B4FF10"
+	color="445F912C"
 	>
     </Graphics>
 	<ParticleEffect

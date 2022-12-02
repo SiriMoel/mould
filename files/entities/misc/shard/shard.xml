@@ -49,49 +49,24 @@
 		aabb_max_y="3" >
 	</HitboxComponent>
 
-	<LifetimeComponent
-		_tags="enabled_in_world"
-		lifetime="1300" >
-	</LifetimeComponent>
+	<InteractableComponent
+        radius="10"
+        ui_text="[COLLECT]"
+        name="Glass Shard" >
+    </InteractableComponent>
 	
 	<LuaComponent
 		_tags="enabled_in_world,enabled_in_inventory,enabled_in_hand"
 		script_source_file="mods/mould/files/entities/misc/shard/pickup.lua" 
-		execute_every_n_frame="1">
+		script_interacting="mods/mould/files/entities/misc/shard/pickup.lua" 
+		execute_every_n_frame="3"
+		enable_coroutines="1"
+		>
 	</LuaComponent>
 
 	<VariableStorageComponent
 		_tags="shard_id"
 		value_int=""
 	></VariableStorageComponent>
-
-	<!--ParticleEmitterComponent 
-        _tags="enabled_in_world"
-		emitted_material_name="spark_green"
-		gravity.y="0.0"
-		lifetime_min="1"
-		lifetime_max="2"
-		x_vel_min="0"
-		x_vel_max="0"
-		y_vel_min="0"
-		y_vel_max="0"
-		count_min="25"
-		count_max="45"
-		render_on_grid="1"
-		fade_based_on_lifetime="0"
-		area_circle_radius.min="1"
-		area_circle_radius.max="1"
-		cosmetic_force_create="1"
-		collide_with_grid="0"
-		airflow_force="0.051"
-		airflow_time="1.01"
-		airflow_scale="0.03"
-		emission_interval_min_frames="1"
-		emission_interval_max_frames="1"
-		emit_cosmetic_particles="1"
-		velocity_always_away_from_center="11"
-		render_back="1"
-		is_emitting="1" >
-	</ParticleEmitterComponent-->
 
 </Entity>

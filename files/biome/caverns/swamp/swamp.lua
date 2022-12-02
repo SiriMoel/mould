@@ -37,10 +37,16 @@ g_enemy_ground = {
         entity = "",
     },
     {
-        prob = 0.5,
+        prob = 0.3,
         min_count = 1,
         max_count = 1,
         entity = "mods/mould/files/entities/animals/ominous_cube_weak/entity.xml",
+    },
+    {
+        prob = 0.6,
+        min_count = 1,
+        max_count = 1,
+        entity = "mods/mould/files/entities/animals/slime_shotgunner/entity.xml",
     },
 }
 
@@ -66,7 +72,7 @@ g_enemy_flying = {
     },]]--
 }
 
-g_enemy_minoboss = {
+g_enemy_miniboss = {
     total_prob = 0,
 }
 

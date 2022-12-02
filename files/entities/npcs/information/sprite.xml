@@ -1,0 +1,20 @@
+	<Sprite
+		filename="mods/mould/files/entities/npcs/information/sprite.png"
+		offset_x="8"
+		offset_y="7.5"
+		default_animation="stand"
+	>
+
+ <RectAnimation
+  name="stand"
+  pos_x="0"
+  pos_y="0"
+  frame_count="1"
+  frame_width="10"
+  frame_height="14"
+  frame_wait="0.2"
+  frames_per_row="8"
+  loop="1"   >
+ </RectAnimation>
+
+</Sprite>

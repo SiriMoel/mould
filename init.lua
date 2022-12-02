@@ -123,18 +123,6 @@ function OnPlayerSpawned( player )
     local damagemodels = EntityGetComponent( player, "DamageModelComponent" )
 	if( damagemodels ~= nil ) then
         local xx = 1
-        if ModSettingGet("mould.difficulty") == "easy" then
-            xx = 0.6
-        end
-        if ModSettingGet("mould.difficulty") == "normal" then
-            xx = 1
-        end
-        if ModSettingGet("mould.difficulty") == "hard" then
-            xx = 1.2
-        end
-        if ModSettingGet("mould.difficulty") == "expert" then
-            xx = 1.5
-        end
 
 		for i,damagemodel in ipairs(damagemodels) do
 			local melee = tonumber(ComponentObjectGetValue( damagemodel, "damage_multipliers", "melee" ) )

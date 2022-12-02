@@ -1,2 +1,15 @@
 <Entity name="stainchecker">
+
+    <MaterialCheckerComponent
+        update_every_x_frame="2"
+        kill_after_message="false"
+        area_aabb.min_x="-1"
+        area_aabb.max_x="1"
+        area_aabb.min_y="-1"
+        area_aabb.max_y="1"
+        material=""
+        material2=""
+        >
+    </MaterialCheckerComponent>
+
 </Entity>

@@ -16,7 +16,9 @@ status_list = {
         maxStacks = 1,
         stained = true,
         material = "mould_toxic_slime",
-        perFrame = function(stacks) end,
+        perFrame = function(stacks) 
+            GamePrint("toxic slimed " .. v.duration)
+        end,
         onAdded = function() end,
         onRemoved = function(stacks) end,
     },

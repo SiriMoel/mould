@@ -14,7 +14,7 @@ function flipboolean(bool) -- honestly quite incredible.
     elseif string.sub(tostring(bool), 1, 1) == "f" then
         bool = true
         return bool
-    end 
+    end
 end
 
 function setbool(toset)
@@ -115,18 +115,44 @@ function SpawnShard(id, x, y)
     local shard = EntityLoad( pathtoload, x, y )
     local comp = EntityGetFirstComponentIncludingDisabled( shard, "VariableStorageComponent", "shard_id" )
     if comp == nil then 
-        error("Couldn't find shard id VSC")
+        error("could not store shard id")
     end
     ComponentSetValue2( comp, "value_int", id )
 end
 
-function DropShards()
+function DropShard(id, sendmessage)
     local x, y = EntityGetTransform(EntityGetWithTag("player_unit")[1])
     for i,v in ipairs(shards_list) do
-        if v.collected == true then
-            SpawnShard( v.id, x, y )
-            x = x + 5
-            v.collected = false
+        if v.id == id then
+            if v.collected == true then
+                SpawnShard( id, x, y )
+                v.collected = false
+                if sendmessage then
+                    GamePrint("Shard dropped.")
+                end
+            else
+                if sendmessage then
+                    GamePrint("You do not have this shard collected.")
+                end
+            end
+        end
+    end
+end
+
+function DropShards( all, todrop)
+    if all then
+        for i,v in ipairs(shards_list) do
+            DropShard(v.id, false)
+        end
+    else
+        if todrop ~= nil and #todrop ~= 0 then
+            for i,b in ipairs(todrop) do
+                for i,v in ipairs(shards_list) do
+                    if b == v.id then
+                        DropShard(v.id, false)
+                    end
+                end
+            end
         end
     end
 end

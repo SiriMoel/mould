@@ -9,6 +9,6 @@ function death( damage_type_bit_field, damage_message, entity_thats_responsible,
     local a = math.random(1, 3)
     GamePrint(tostring(a))
     if a == 2 then
-        EntityLoad("mods/mould/entities/items/hiisishotgun/weapon.xml", x, y)
+        EntityLoad("mods/mould/files/entities/items/hiisishotgun/weapon.xml", x, y)
     end
 end

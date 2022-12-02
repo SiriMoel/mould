@@ -7,6 +7,7 @@ RegisterSpawnFunction( 0xffff7b86, "intronpc" )
 RegisterSpawnFunction( 0xffff7bb6, "armourynpc" )
 RegisterSpawnFunction( 0xffff9fce, "mapnpc" )
 RegisterSpawnFunction( 0xffd823bb, "map" )
+RegisterSpawnFunction( 0xffac9b7c, "informationnpc" )
 
 g_vines =
 {
@@ -61,4 +62,8 @@ end
 
 function map(x, y)
 	EntityLoad("mods/mould/files/entities/misc/hiisimap/map.xml", x, y)
+end
+
+function informationnpc(x, y)
+	EntityLoad("mods/mould/files/entities/npcs/information/information.xml", x, y)
 end

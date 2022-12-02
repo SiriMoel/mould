@@ -1,6 +1,7 @@
 dofile_once("mods/mould/files/scripts/utils.lua")
 dofile_once("mods/mould/files/scripts/inventory.lua")
 dofile_once("mods/mould/files/scripts/status_list.lua")
+dofile_once("mods/mould/files/scripts/goals.lua")
 local gusgui = dofile_once("mods/mould/lib/gusgui/Gui.lua")
 local Gui = gusgui.Create()
 
@@ -108,26 +109,37 @@ function OnWorldPreUpdate()
     end
 end
 
-function dropitem(slot)
-    local player = EntityGetWithTag("player_unit")[1]
-    local x, y = EntityGetTransform(player)
-    local pchildren = EntityGetAllChildren(player)
-    if pchildren == nil then return end
-    for i, v in ipairs(pchildren) do
-        if EntityGetName(v) == "inventory_quick" then
-            local we = EntityGetAllChildren(v)
-            if we ~= nil and #we ~= 0 and we[slot] ~= nil then
-                -- no
-            end
-        end
-    end
-end
+function dropitem(slot) end
 
 function OnWorldPostUpdate()
     if EntityGetWithTag("player_unit")[1] ~= nil then
         Gui:Render()
     end
 end
+
+Gui:AddElement(gusgui.Elements.VLayout({
+    id = "goals",
+    margin = {},
+    overideZ = 18,
+    onBeforeRender = function (element)
+        element.config.children = {}
+        for i,v in ipairs(Goals) do
+            if Goals:isactive(v.id) then
+                table.insert(element.config.children, {
+                    gusgui.Elements.Text({
+                        id = "goal_" .. i,
+                        overrideZ = 19,
+                        value = v.name,
+                        padding = 1,
+                        drawBorder = true,
+                        drawBackground = true,
+                    }),
+               })
+            end
+        end
+    end,
+    children = {},
+}))
 
 Gui:AddElement(gusgui.Elements.VLayout({
     id = "TheThings",
@@ -230,12 +242,15 @@ Gui:AddElement(gusgui.Elements.VLayout({
                     barColour = "white",
                     value = Gui:StateValue("kickbar")
                 }),
-                --[[gusgui.Elements.Text({
+                gusgui.Elements.Text({
                     id = "StatusEffects",
                     margin = { left = 10, },
                     overrideZ = 20,
-                    value =  Gui:StateValue("statuses"),
-                }),]]--
+                    value = "",
+                    onBeforeRender = function(element)
+                        element.config.value = Gui:StateValue("statuses")
+                    end,
+                }),
             },
         })
     },
@@ -266,7 +281,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
             scaleX = circuitrysize,
             scaleY = circuitrysize,
             children = {
-                gusgui.Elements.Image({
+                gusgui.Elements.ImageButton({
                     id = "shard_1",
                     margin = {},
                     overrideZ = 52,
@@ -284,8 +299,11 @@ Gui:AddElement(gusgui.Elements.VLayout({
                             end
                         end
                     end,
+                    onClick = function(element, state)
+                        DropShard(1, true)
+                    end,
                 }),
-                gusgui.Elements.Image({
+                gusgui.Elements.ImageButton({
                     id = "shard_2",
                     margin = {},
                     overrideZ = 52,
@@ -303,8 +321,11 @@ Gui:AddElement(gusgui.Elements.VLayout({
                             end
                         end
                     end,
+                    onClick = function(element, state)
+                        DropShard(2, true)
+                    end,
                 }),
-                gusgui.Elements.Image({
+                gusgui.Elements.ImageButton({
                     id = "shard_3",
                     margin = {},
                     overrideZ = 52,
@@ -322,8 +343,11 @@ Gui:AddElement(gusgui.Elements.VLayout({
                             end
                         end
                     end,
+                    onClick = function(element, state)
+                        DropShard(3, true)
+                    end,
                 }),
-                gusgui.Elements.Image({
+                gusgui.Elements.ImageButton({
                     id = "shard_4",
                     margin = {},
                     overrideZ = 52,
@@ -341,8 +365,11 @@ Gui:AddElement(gusgui.Elements.VLayout({
                             end
                         end
                     end,
+                    onClick = function(element, state)
+                        DropShard(4, true)
+                    end,
                 }),
-                gusgui.Elements.Image({
+                gusgui.Elements.ImageButton({
                     id = "shard_5",
                     margin = {},
                     overrideZ = 52,
@@ -360,8 +387,11 @@ Gui:AddElement(gusgui.Elements.VLayout({
                             end
                         end
                     end,
+                    onClick = function(element, state)
+                        DropShard(5, true)
+                    end,
                 }),
-                gusgui.Elements.Image({
+                gusgui.Elements.ImageButton({
                     id = "shard_6",
                     margin = {},
                     overrideZ = 52,
@@ -379,8 +409,11 @@ Gui:AddElement(gusgui.Elements.VLayout({
                             end
                         end
                     end,
+                    onClick = function(element, state)
+                        DropShard(6, true)
+                    end,
                 }),
-                gusgui.Elements.Image({
+                gusgui.Elements.ImageButton({
                     id = "shard_7",
                     margin = {},
                     overrideZ = 52,
@@ -398,8 +431,11 @@ Gui:AddElement(gusgui.Elements.VLayout({
                             end
                         end
                     end,
+                    onClick = function(element, state)
+                        DropShard(7, true)
+                    end,
                 }),
-                gusgui.Elements.Image({
+                gusgui.Elements.ImageButton({
                     id = "shard_8",
                     margin = {},
                     overrideZ = 52,
@@ -417,8 +453,11 @@ Gui:AddElement(gusgui.Elements.VLayout({
                             end
                         end
                     end,
+                    onClick = function(element, state)
+                        DropShard(8, true)
+                    end,
                 }),
-                gusgui.Elements.Image({
+                gusgui.Elements.ImageButton({
                     id = "shard_9",
                     margin = {},
                     overrideZ = 52,
@@ -436,8 +475,19 @@ Gui:AddElement(gusgui.Elements.VLayout({
                             end
                         end
                     end,
+                    onClick = function(element, state)
+                        DropShard(9, true)
+                    end,
                 }),
             },
+        }),
+        gusgui.Elements.Image({
+            id = "shardicons",
+            margin = { top = -305 },
+            overrideZ = 55,
+            src = "mods/mould/files/gui/shard_icons.png",
+            scaleX = circuitrysize,
+            scaleY = circuitrysize,
         }),
     },
 }))

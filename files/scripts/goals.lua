@@ -2,7 +2,7 @@ dofile_once("mods/mould/files/scripts/utils.lua")
 
 local gd = 0 -- Goals displayed
 local renderedGoals = {}
-local failedGoals = {} -- this could be used when displayind end of run stats
+local failedGoals = {} -- this could be used when displaying end of run stats
 
 Goals = {
     {

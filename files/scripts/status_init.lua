@@ -8,16 +8,13 @@ local path = "mods/mould/files/player/status/"
 for i,v in ipairs(status_list) do
     if v.stainable == true then
         local entity = EntityLoad(path .. "entity.xml")
+        local comp = EntityGetFirstComponentIncludingDisabled( entity, "MaterialAreaCheckerComponent" ) or 0
         EntityAddChild( player, entity )
-        EntityAddComponent( entity, "MaterialAreaCheckerComponent", {
-            update_every_x_frame="2",
-            kill_after_message=false,
-            ["area_aabb.min_x"]=-1,
-            ["area_aabb.max_x"]=1,
-            ["area_aabb.min_y"]=-1,   
-            ["area_aabb.max_y"]=1,
-            material=v.material,
-            material2="",
+        ComponentSetValue2( comp, "material", v.material )
+        EntityAddComponent( entity, "VariableStorageComponent", {
+            _tags="statuseffect",
+            name="statuseffect",
+            value_string=v.material,
         } )
         EntityAddComponent( entity, "LuaComponent", {
             script_material_area_checker_success="mods/mould/files/scripts/status_stain_apply.lua",

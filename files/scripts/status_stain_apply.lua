@@ -3,7 +3,7 @@ dofile_once("mods/mould/files/scripts/status_list.lua")
 
 local entity = GetUpdatedEntityID()
 local player = EntityGetWithTag("player_unit")[1]
-local comp = EntityGetFirstComponentIncludingDisabled( entity, "VariableStorageComponent", "statuseffect" )
+local comp = EntityGetFirstComponentIncludingDisabled( entity, "VariableStorageComponent", "statuseffect" ) or 0
 local effect = ComponentGetValue2( comp, "value_string" )
 
 function material_area_checker_success( pos_x, pos_y )

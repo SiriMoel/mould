@@ -1,6 +1,6 @@
 local to_insert = {
     {
-		id = "MOULD_HIISISHOTGUN",
+		id = "HIISISHOTGUN",
 		--name = "Hiisi Shotgun",
 		name = "",
 		description = "Fires 3 projectiles.",
@@ -21,7 +21,7 @@ local to_insert = {
 		end,
 	},
 	{
-		id = "MOULD_HIISISNIPER",
+		id = "HIISISNIPER",
 		--name = "Hiisi Sniper",
 		name = "",
 		description = "Fires a powerful projectile.",
@@ -40,5 +40,6 @@ local to_insert = {
 }
 
 for k, v in ipairs(to_insert) do
+	v.id = "MOULD_" .. v.id
     table.insert(actions, v)
 end
