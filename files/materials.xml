@@ -13,7 +13,7 @@
 	solid_static_type="1"
 	durability="10"
 	on_fire="0"
-	hp="100000" 
+	hp="30000" 
 	platform_type="1"
 	audio_physics_material_event="rock"
 	audio_physics_material_wall="rock"
