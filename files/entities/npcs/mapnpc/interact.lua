@@ -16,8 +16,8 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
             options = {
                 {
                     text = "Do you have any tasks for me?",
-                    func = function(dialogue)
-                        dialogue.show( { 
+                    func = function(dialog)
+                        dialog.show( { 
                             text="NYI"
                         } )
                     end,
@@ -36,26 +36,26 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
             options = {
                 {
                     text="I was told you had a task for me?",
-                    func = function(dialogue)
+                    func = function(dialog)
                         local flag = "intro_maproom"
                         local objtext = "I need you to retrieve the ~lost part of my map~ from \nour old village before we were forced underground. \nIf you go west from the exit to our base \nyou should find the village's location easily."
                         if Goals:isactive(flag) then
-                            dialogue.show( {
+                            dialog.show( {
                                 text=objtext,
                             } )
                             Goals:assign("retrievemap")
                             Goals:complete(flag)
                         elseif Goals:isactive("retrievemap") then
-                            dialogue.show( {
+                            dialog.show( {
                                 text="I have told you this.\n " .. objtext,
                             } )
                         elseif Goals:iscompleted("retrivemap") then
-                            dialogue.show( {
+                            dialog.show( {
                                 text="Thanks for retrieving my ~map~!",
                             } )
                             GameAddFlagRun("mapnpc_unlocked")
                         else
-                            dialogue.show( {
+                            dialog.show( {
                                 text="What?",
                             } )
                         end
@@ -63,13 +63,13 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                 },
                 {
                     text="Here is what you requested!",
-                    func = function(dialogue)
+                    func = function(dialog)
                         if Goals:iscompleted("retrievemap") ~= true then
-                            dialogue.show( {
+                            dialog.show( {
                                 text="What?", 
                             } ) 
                         else
-                            dialogue.show( {
+                            dialog.show( {
                                 text="Thanks for retrieving my ~map~!", 
                             } ) 
                             GameAddFlagRun("mapnpc_unlocked")

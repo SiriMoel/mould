@@ -57,52 +57,16 @@ function GetActionInfo(action_id, info)
 end
 
 local shardpath = "mods/mould/files/entities/misc/shard/shard.xml"
-shards_list = {
-    {
-        id = 1,
-        collected = true,
-        path = shardpath,
-    },
-    {
-        id = 2,
-        collected = false,
-        path = shardpath,
-    },
-    {
-        id = 3,
-        collected = false,
-        path = shardpath,
-    },
-    {
-        id = 4,
-        collected = false,
-        path = shardpath,
-    },
-    {
-        id = 5,
-        collected = false,
-        path = shardpath,
-    },
-    {
-        id = 6,
-        collected = false,
-        path = shardpath,
-    },
-    {
-        id = 7,
-        collected = false,
-        path = shardpath,
-    },
-    {
-        id = 8,
-        collected = false,
-        path = shardpath,
-    },
-    {
-        id = 9,
-        collected = false,
-        path = shardpath,
-    },
+shards_list = { 
+    { id = 1, collected = true, path = shardpath, },
+    { id = 2, collected = false, path = shardpath, },
+    { id = 3, collected = false, path = shardpath, },
+    { id = 4, collected = false, path = shardpath, },
+    { id = 5, collected = false, path = shardpath, },
+    { id = 6, collected = false, path = shardpath, },
+    { id = 7, collected = false, path = shardpath, },
+    { id = 8, collected = false, path = shardpath, },
+    { id = 9, collected = false, path = shardpath, },
 }
 
 function SpawnShard(id, x, y)
@@ -154,5 +118,111 @@ function DropShards( all, todrop)
                 end
             end
         end
+    end
+end
+
+function GetMoney()
+    local player = EntityGetWithTag("player_unit")[1]
+    local comp_wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent") or 0
+    local money = ComponentGetValue2(comp_wallet, "money")
+    return money
+end
+
+function SetMoney(amount)
+    local player = EntityGetWithTag("player_unit")[1]
+    local comp_wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent") or 0
+    ComponentSetValue2(comp_wallet, "money", amount)
+end
+
+function CanAfford(amount)
+    local player = EntityGetWithTag("player_unit")[1]
+    local comp_wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent") or 0
+    local money = ComponentGetValue2(comp_wallet, "money")
+    if money >= amount then
+        return true
+    else
+        return false
+    end
+end
+
+---@param spent boolean if the player's money_spent should be increased.
+function ReduceMoney(amount, spent)
+    local player = EntityGetWithTag("player_unit")[1]
+    local comp_wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent") or 0
+    local money = ComponentGetValue2(comp_wallet, "money")
+    local moneyspent = ComponentGetValue2(comp_wallet, "money_spent")
+    if CanAfford(amount) == false then
+        GamePrint("Cannot afford.")
+        return
+    end
+    money = money - amount
+    ComponentSetValue2(comp_wallet, "money", money)
+    if spent == true then
+        moneyspent = moneyspent + amount
+        ComponentSetValue2(comp_wallet, "money_spent", moneyspent)
+    end
+end
+
+function AddMoney(amount)
+    local player = EntityGetWithTag("player_unit")[1]
+    local comp_wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent") or 0
+    local money = ComponentGetValue2(comp_wallet, "money")
+    money = money + amount
+    ComponentSetValue2(comp_wallet, "money", money)
+end
+
+---@param options table the table of dialog options.
+---@param forsale table the items that are for sale. see example for more details.
+---@param x number x coordinate.
+---@param y number y coordinate.
+function shop( options, forsale, x, y )
+    local example = {
+        {
+            name = "", -- this is the text that is displayed as the item's name
+            desc = "", -- description of the item
+            price = "", -- self explanatory
+            entity = "", -- what is loaded when the sale is complete
+            onBought = function() -- is ran once the transaction is completed
+                
+            end
+        },
+    }
+    for i,v in ipairs(forsale) do
+        table.insert( options, {
+            text = v.name .. " $" .. v.price,
+            func = function(dialog)
+                dialog.show( { 
+                    text = v.name .. ". " .. v.desc,
+                    options = {
+                        {
+                            text = "Buy. $" .. v.price,
+                            func = function(dialog)
+                                if CanAfford(v.price) then
+                                    ReduceMoney(v.price, true)
+                                    EntityLoad(v.entity, x, y)
+                                    v.onBought()
+                                    dialog.show( {
+                                        text = "Transaction successful."
+                                    } )
+                                else
+                                    dialog.show( {
+                                        text = "You cannot afford this.",
+                                        options = {
+                                            text = "Ok.",
+                                        },
+                                    } )
+                                end
+                            end,
+                        },
+                        {
+                            text = "Go back.",
+                            func = function(dialog)
+                                dialog.back()
+                            end,
+                        },
+                    },
+                } )
+            end,
+        } )
     end
 end

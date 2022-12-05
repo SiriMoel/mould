@@ -15,10 +15,10 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
         options = {
             {
                 text="I need a weapon.",
-                func = function(dialogue)
+                func = function(dialog)
                     local flag = "intro_armoury"
                     if Goals:isactive(flag) then
-                        dialogue.show( {
+                        dialog.show( {
                             text="I see. I can give you the choice of three. \nThe ~shotgun~, the ~pistol~ or the ~sniper~."
                         } )
                         -- spawn starting weapons
@@ -27,11 +27,11 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
 
                         EntityLoad("mods/mould/files/entities/items/_starter/hiisishotgun/weapon.xml", sx, sy)
                         EntityLoad("mods/mould/files/entities/items/_starter/hiisisniper/weapon.xml", sx+30, sy)
-                        EntityLoad("mods/mould/files/entities/items/_starter/hiisishotgun/weapon.xml", sx+60, sy)
+                        EntityLoad("mods/mould/files/entities/items/_starter/hiisipistol/weapon.xml", sx+60, sy)
 
                         Goals:complete(flag)
                     else
-                        dialogue.show( {
+                        dialog.show( {
                             text="Hm?"
                         } )
                     end
@@ -39,9 +39,26 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
             },
             {
                 text="Show me your stock.", -- weapons shop
-                func = function(dialogue)
-                    dialogue.show( {
-                        text="NYI"
+                func = function(dialog)
+                    dialog.show( {
+                        text="NYI",
+                        func = function(dialog)
+                            shop( dialog.options, {
+                                {
+                                    name = "Hiisi Shotgun",
+                                    desc = "A fine weapon.",
+                                    price = 150,
+                                    entity = "mods/mould/files/entities/items/hiisishotgun/weapon.xml"
+                                },
+                                {
+                                    name = "Hiisi Sniper",
+                                    desc = "A fine weapon.",
+                                    price = 150,
+                                    entity = "mods/mould/files/entities/items/hiisisniper/weapon.xml"
+                                },
+                            }, x, y-20 )
+                        end,
+                        options = {},
                     } )
                 end,
             },

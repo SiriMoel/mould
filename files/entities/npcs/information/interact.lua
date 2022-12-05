@@ -15,30 +15,30 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
         options = {
             {
                 text = "INFORMATION",
-                func = function(dialogue)
-                    dialogue.show( {
+                func = function(dialog)
+                    dialog.show( {
                         text = "Text.",
                     } )
                 end,
             },
             {
                 text = "KNOWN ISSUES",
-                func = function(dialogue)
-                    dialogue.show( {
+                func = function(dialog)
+                    dialog.show( {
                         text = "THERE ARE NO ISSUES IN THIS MOD.",
                     } )
                 end,
             },
             {
                 text = "PATCH NOTES",
-                func = function(dialogue)
-                    dialogue.show( {
+                func = function(dialog)
+                    dialog.show( {
                         text = "",
                         options = {
                             {
                                 text = "v1.0",
-                                func = function(dialogue)
-                                    dialogue.show( {
+                                func = function(dialog)
+                                    dialog.show( {
                                         text = "Not yet released."
                                     } )
                                 end,

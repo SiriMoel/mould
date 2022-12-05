@@ -16,13 +16,13 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
         options = {
             {
                 text = "Hello?",
-                func = function(dialogue)
+                func = function(dialog)
                     if BiomeMapGetName(x, y) == "Ruumishuone" then
-                        dialogue.show( { 
+                        dialog.show( { 
                             text="Down this well before us are #the Caverns#. \nA network of tunnels that many have tried to tame, \nbut none have succeeded."
                         } )
                     else
-                        dialogue.show( { 
+                        dialog.show( { 
                             text="This isn't right."
                         } )
                     end
