@@ -182,9 +182,7 @@ function shop( options, forsale, x, y )
             desc = "", -- description of the item
             price = "", -- self explanatory
             entity = "", -- what is loaded when the sale is complete
-            onBought = function() -- is ran once the transaction is completed
-                
-            end
+            onBought = function() end, -- is ran once the transaction is completed
         },
     }
     for i,v in ipairs(forsale) do

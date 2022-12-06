@@ -1,7 +1,6 @@
 dofile_once("mods/mould/files/scripts/utils.lua")
 
 local gd = 0 -- Goals displayed
-local renderedGoals = {}
 local failedGoals = {} -- this could be used when displaying end of run stats
 
 Goals = {
@@ -25,19 +24,16 @@ Goals = {
 function Goals:assign(id)
     if GameHasFlagRun("goal_" .. id) ~= true and GameHasFlagRun("DONE_goal_" .. id) ~= true then
         GameAddFlagRun("goal_" .. id)
-        rendergoal(id)
     end
 end
 
 function Goals:complete(id)
     GameRemoveFlagRun("goal_" .. id)
     GameAddFlagRun("DONE_goal_" .. id)
-    stoprendergoal(id)
 end
 
 function Goals:remove(id)
     GameRemoveFlagRun("goal_" .. id)
-    stoprendergoal(id)
 end
 
 function Goals:fail(id, addflag)
@@ -62,7 +58,6 @@ function Goals:fail(id, addflag)
             table.insert(failedGoals, id)
         end
     end
-    stoprendergoal(id)
 end
 
 function Goals:iscompleted(id)
@@ -78,27 +73,5 @@ function Goals:isactive(id)
         return true
     else
         return false
-    end
-end
-
-local function rendergoal(id)
-    gd = gd + 1
-    -- render goal
-    table.insert(renderedGoals, id)
-end
-
-local function stoprendergoal(id)
-    if gd > 0 then 
-        gd = gd - 1
-    end
-    -- stop rendering goal
-    for i,v in ipairs(renderedGoals) do
-        if v == id then
-            table.remove(renderedGoals, i)
-            break
-        end
-    end
-    for i,v in ipairs(renderedGoals) do
-        -- move up in gui location due to free stop
     end
 end
