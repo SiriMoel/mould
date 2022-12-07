@@ -2,9 +2,9 @@ dofile_once("mods/mould/files/scripts/utils.lua")
 dofile_once("data/scripts/gun/procedural/gun_action_utils.lua")
 
 local entity = GetUpdatedEntityID()
-local z, x, c, v, b, n = GameGetDateAndTimeLocal()
+local z, i, c, v, b, n = GameGetDateAndTimeLocal()
 local x, y = EntityGetTransform(entity)
-math.randomseed(z+x+c+v+b+n+x+y)
+math.randomseed(z+i+c+v+b+n+x+y)
 
 local hiisiquirks = { -- PLACEHOLDERS
     "ELECTRIC_CHARGE",

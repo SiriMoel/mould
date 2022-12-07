@@ -4,7 +4,6 @@ local to_insert = {
 		--name = "Hiisi Shotgun",
 		name = "",
 		description = "Fires 3 projectiles.",
-		--sprite = "data/ui_gfx/inventory/icon_info.png",
         sprite = "mods/mould/files/misc/icon_proj.png",
 		related_projectiles	= {"mods/mould/files/entities/items/hiisishotgun/projectile.xml",3},
 		type = ACTION_TYPE_PROJECTILE,
@@ -25,7 +24,6 @@ local to_insert = {
 		--name = "Hiisi Sniper",
 		name = "",
 		description = "Fires a powerful projectile.",
-		--sprite = "data/ui_gfx/inventory/icon_info.png",
         sprite = "mods/mould/files/misc/icon_proj.png",
 		related_projectiles	= {"mods/mould/files/entities/items/hiisisniper/projectile.xml"},
 		type = ACTION_TYPE_PROJECTILE,
@@ -35,6 +33,22 @@ local to_insert = {
 		mana = 0,
 		action = function()
 			add_projectile("mods/mould/files/entities/items/hiisisniper/projectile.xml")
+		end,
+	},
+	{
+		id = "HIISIPISTOL",
+		--name = "Hiisi Pistol",
+		name = "",
+		description = "Fires a projectile.",
+        sprite = "mods/mould/files/misc/icon_proj.png",
+		related_projectiles	= {"mods/mould/files/entities/items/hiisipistol/projectile.xml"},
+		type = ACTION_TYPE_PROJECTILE,
+		spawn_level = "",
+		spawn_probability = "",
+		price = 0,
+		mana = 0,
+		action = function()
+			add_projectile("mods/mould/files/entities/items/hiisipistol/projectile.xml")
 		end,
 	},
 }

@@ -56,6 +56,12 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                                     price = 150,
                                     entity = "mods/mould/files/entities/items/hiisisniper/weapon.xml"
                                 },
+                                {
+                                    name = "Hiisi Pistol",
+                                    desc = "A fine weapon.",
+                                    price = 150,
+                                    entity = "mods/mould/files/entities/items/hiisipistol/weapon.xml"
+                                },
                             }, x, y-20 )
                         end,
                         options = {},

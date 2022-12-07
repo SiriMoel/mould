@@ -64,7 +64,7 @@ function OnPlayerSpawned( player )
 
     EntityLoad("mods/mould/files/entities/items/hiisishotgun/weapon.xml", dx, dy-10)
     EntityLoad("mods/mould/files/entities/items/hiisisniper/weapon.xml", dx, dy-12)
-    --EntityLoad("mods/mould/files/entities/items/hiisishotgun/weapon.xml", dx, dy-14)
+    EntityLoad("mods/mould/files/entities/items/hiisipistol/weapon.xml", dx, dy-14)
 
     --print(BiomeMapGetName(dx, dy))
 
