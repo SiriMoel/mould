@@ -116,6 +116,7 @@ function DropShards( all, todrop)
     end
 end
 
+---@return integer
 function GetMoney()
     local player = EntityGetWithTag("player_unit")[1]
     local comp_wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent") or 0
@@ -123,68 +124,63 @@ function GetMoney()
     return money
 end
 
+---@param amount integer
 function SetMoney(amount)
     local player = EntityGetWithTag("player_unit")[1]
     local comp_wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent") or 0
     ComponentSetValue2(comp_wallet, "money", amount)
 end
 
+---@param amount integer
+---@return boolean
 function CanAfford(amount)
-    local player = EntityGetWithTag("player_unit")[1]
-    local comp_wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent") or 0
-    local money = ComponentGetValue2(comp_wallet, "money")
-    if money >= amount then
+    if GetMoney() >= amount then
         return true
     else
         return false
     end
 end
 
+---@param amount integer
 ---@param spent boolean if money_spent in WalletComponent should be increased.
 function ReduceMoney(amount, spent)
-    local player = EntityGetWithTag("player_unit")[1]
-    local comp_wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent") or 0
-    local money = ComponentGetValue2(comp_wallet, "money")
-    local moneyspent = ComponentGetValue2(comp_wallet, "money_spent")
     if CanAfford(amount) == false then
         GamePrint("Cannot afford.")
         return
     end
-    money = money - amount
-    ComponentSetValue2(comp_wallet, "money", money)
+    SetMoney(GetMoney() - amount)
     if spent == true then
+        local player = EntityGetWithTag("player_unit")[1]
+        local comp_wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent") or 0
+        local moneyspent = ComponentGetValue2(comp_wallet, "money_spent")    
         moneyspent = moneyspent + amount
         ComponentSetValue2(comp_wallet, "money_spent", moneyspent)
     end
 end
 
+---@param amount integer
 function AddMoney(amount)
-    local player = EntityGetWithTag("player_unit")[1]
-    local comp_wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent") or 0
-    local money = ComponentGetValue2(comp_wallet, "money")
-    money = money + amount
-    ComponentSetValue2(comp_wallet, "money", money)
+    SetMoney(GetMoney() + amount)
 end
 
----@param options table the table of dialog options.
----@param forsale table the items that are for sale. see example for more details.
+---@class shopItem
+---@field name string
+---@field price number
+---@field desc string
+---@field entity string
+---@field onBought function?
+
+---@param forsale shopItem[] the items that are for sale. see example for more details.
 ---@param x number x coordinate.
 ---@param y number y coordinate.
-function shop( options, forsale, x, y )
-    local example = {
-        {
-            name = "", -- this is the text that is displayed as the item's name
-            desc = "", -- description of the item
-            price = "", -- self explanatory
-            entity = "", -- what is loaded when the sale is complete
-            onBought = function() end, -- is ran once the transaction is completed
-        },
-    }
-    for i,v in ipairs(forsale) do
+function shop(forsale, x, y )
+    local options = {}
+    for i=1, #forsale do
+        local v = forsale[i]
         table.insert( options, {
             text = v.name .. " $" .. v.price,
             func = function(dialog)
-                dialog.show({ 
+                dialog.show({
                     text = v.name .. ". " .. v.desc,
                     options = {
                         {
@@ -193,7 +189,7 @@ function shop( options, forsale, x, y )
                                 if CanAfford(v.price) then
                                     ReduceMoney(v.price, true)
                                     EntityLoad(v.entity, x, y)
-                                    v.onBought()
+                                    if v.onBought then v.onBought() end
                                     dialog.show({
                                         text = "Transaction successful."
                                     })
@@ -218,4 +214,5 @@ function shop( options, forsale, x, y )
             end,
         } )
     end
+    return options
 end

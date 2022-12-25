@@ -2,6 +2,6 @@ dofile_once("mods/mould/files/scripts/weapon.lua")
 
 local weapon = GetUpdatedEntityID()
 
-init(weapon)
+winit(weapon)
 hgun( weapon, 5, 1, 2, true )
 AddGunAction( weapon, "MOULD_HERMITPISTOL" )
