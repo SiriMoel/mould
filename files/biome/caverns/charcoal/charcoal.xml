@@ -10,7 +10,7 @@
     background_edge_priority="10"
 	  limit_background_image="0"
     lua_script="mods/mould/files/biome/caverns/charcoal/charcoal.lua"
-    wang_template_file="mods/mould/files/biome/caverns/blank.png"
+    wang_template_file="mods/mould/files/biome/caverns/charcoal/charcoal.png"
     wang_map_width="144"
     wang_map_height="220"
     audio_music_2=""
