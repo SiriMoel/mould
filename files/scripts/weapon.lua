@@ -6,13 +6,13 @@ local z, i, c, v, b, n = GameGetDateAndTimeLocal()
 local x, y = EntityGetTransform(entity)
 math.randomseed(z+i+c+v+b+n+x+y)
 
-local hiisiquirks = { -- PLACEHOLDERS
+local hermitquirks = { -- PLACEHOLDERS
     "ELECTRIC_CHARGE",
     "SPEED",
     "SPREAD_REDUCE",
 }
 
-function init( weapon )
+function winit( weapon )
     EntityAddComponent( weapon, "LuaComponent", {
         _tags="enabled_in_hand",
         script_source_file="mods/mould/files/scripts/weaponthrow.lua",
@@ -20,7 +20,7 @@ function init( weapon )
     } )
 end
 
-function hgun( weapon, capacity, actions, statsm, doquirks ) -- hiisi gun
+function hgun( weapon, capacity, actions, statsm, doquirks ) -- hermit gun
     -- weapon id, weapon capacity (to set), #actions in gun, quirk chance multiplier, stats max multiplier
     local mqc = capacity - actions -- max quirks count
 
@@ -44,7 +44,7 @@ function hgun( weapon, capacity, actions, statsm, doquirks ) -- hiisi gun
         while cqt <= mqc do
             if not doquirks then return end
             if cqt == mqc then return end
-            local quirk = hiisiquirks[math.random(1, #hiisiquirks + (math.floor((#hiisiquirks * 1.3) - 1 )))]
+            local quirk = hermitquirks[math.random(1, #hermitquirks + (math.floor((#hermitquirks * 1.3) - 1 )))]
             if quirk ~= nil then
                 AddGunAction( weapon, quirk )
                 cqc = cqc + 1

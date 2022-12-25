@@ -6,7 +6,7 @@ dofile_once("data/scripts/biome_scripts.lua")
 RegisterSpawnFunction( 0xffffeedd, "init" )
 RegisterSpawnFunction( 0xffb4a700, "bogstructure" )
 RegisterSpawnFunction( 0xffc7a1dc, "enemy_ground") --[[
-    slime-possessed hiisi shotgunner (hiisi shotgunner with special slime attack)
+    slime-possessed shotgunner (shotgunner with special slime attack)
     slimey mass (zombie-like thing that lunges at player)
     slightly ominous cube
 ]]--
@@ -22,7 +22,7 @@ RegisterSpawnFunction( 0xff1635ff, "enemy_miniboss" ) --[[
 ominous cubes could be pseudo-lukki? to ensure they closish to terrain (this would be like maurice ultrakill)
 ]]--
 
-local structures = { -- these are placeholders (for now)
+local structures = { -- these are placeholders
     "mods/mould/files/biome/caverns/swamp/bogstructures/tree1.xml",
     "mods/mould/files/biome/caverns/swamp/bogstructures/tree2.xml",
     "mods/mould/files/biome/caverns/swamp/bogstructures/tree3.xml",

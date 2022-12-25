@@ -17,11 +17,6 @@ function flipboolean(bool) -- honestly quite incredible.
     end
 end
 
-function setbool(toset)
-    bool = toset
-    return bool
-end
-
 function table.contains(table, element)
         for _, value in pairs(table) do
             if value == element then
@@ -145,7 +140,7 @@ function CanAfford(amount)
     end
 end
 
----@param spent boolean if the player's money_spent should be increased.
+---@param spent boolean if money_spent in WalletComponent should be increased.
 function ReduceMoney(amount, spent)
     local player = EntityGetWithTag("player_unit")[1]
     local comp_wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent") or 0
@@ -189,7 +184,7 @@ function shop( options, forsale, x, y )
         table.insert( options, {
             text = v.name .. " $" .. v.price,
             func = function(dialog)
-                dialog.show( { 
+                dialog.show({ 
                     text = v.name .. ". " .. v.desc,
                     options = {
                         {
@@ -199,16 +194,16 @@ function shop( options, forsale, x, y )
                                     ReduceMoney(v.price, true)
                                     EntityLoad(v.entity, x, y)
                                     v.onBought()
-                                    dialog.show( {
+                                    dialog.show({
                                         text = "Transaction successful."
-                                    } )
+                                    })
                                 else
-                                    dialog.show( {
+                                    dialog.show({
                                         text = "You cannot afford this.",
                                         options = {
                                             text = "Ok.",
                                         },
-                                    } )
+                                    })
                                 end
                             end,
                         },
@@ -219,7 +214,7 @@ function shop( options, forsale, x, y )
                             end,
                         },
                     },
-                } )
+                })
             end,
         } )
     end

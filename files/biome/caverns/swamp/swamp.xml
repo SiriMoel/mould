@@ -10,14 +10,14 @@
     background_edge_priority="10"
 	  limit_background_image="0"
     lua_script="mods/mould/files/biome/caverns/swamp/swamp.lua"
-    wang_template_file="mods/mould/files/biome/caverns/swamp/swamp.png" 
-    wang_map_width="300"
-    wang_map_height="300"
+    wang_template_file="mods/mould/files/biome/caverns/swamp/swamp.png"
+    wang_map_width="144"
+    wang_map_height="220"
     audio_music_2=""
     audio_ambience="cave"
 	>
   </Topology>
-
+  
   <Materials 
     name="swamp" 
      >

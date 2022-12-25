@@ -12,6 +12,7 @@ local max_hp = 0
 local max_hp_old = 0
 local hpbar = 0
 local active_item = 0
+local moveTimeVSC = 0
 
 function OnWorldPreUpdate()
     local player = EntityGetWithTag("player_unit")[1]
@@ -62,7 +63,7 @@ function OnWorldPreUpdate()
         if comp_wallet then
             Gui.state.wallet = ComponentGetValue2(comp_wallet, "money")
         end
-        local moveTimeVSC = EntityGetFirstComponentIncludingDisabled(player, "VariableStorageComponent", "movetimer")
+        moveTimeVSC = EntityGetFirstComponentIncludingDisabled(player, "VariableStorageComponent", "movetimer") or 0
         if moveTimeVSC then Gui.state.movetimer = ComponentGetValue2(moveTimeVSC, "value_int") end
         if comp_kickcd then
             Gui.state.kickcd = ComponentGetValue2(comp_kickcd, "value_int")
@@ -227,15 +228,26 @@ Gui:AddElement(gusgui.Elements.VLayout({
                         }),
                     },
                 }),
-                gusgui.Elements.ProgressBar({
-                    id = "KickCDbar",
-                    width = 100,
-                    height = 15,
-                    overrideZ = 18,
-                    barColour = "white",
-                    value = Gui:StateValue("kickbar")
+                gusgui.Elements.VLayout({
+                    id = "MovementStuff",
+                    overrideZ = 17,
+                    children = {
+                        gusgui.Elements.ProgressBar({
+                            id = "KickCDbar",
+                            width = 100,
+                            height = 15,
+                            overrideZ = 18,
+                            barColour = "white",
+                            value = Gui:StateValue("kickbar")
+                        }),
+                        --[[gusgui.Elements.Text({
+                            id = "movetimertext",
+                            overrideZ = 17,
+                            value = "${movetimer}",
+                        }),]]--
+                    },
                 }),
-                gusgui.Elements.Text({
+                --[[gusgui.Elements.Text({
                     id = "StatusEffects",
                     margin = { left = 10, },
                     overrideZ = 20,
@@ -249,7 +261,7 @@ Gui:AddElement(gusgui.Elements.VLayout({
                             end
                         end
                     end,
-                }),
+                }),]]--
             },
         })
     },

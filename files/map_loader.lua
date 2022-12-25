@@ -1,6 +1,6 @@
 dofile("mods/mould/files/scripts/utils.lua")
 
-local w = 64
+local w = 88
 local h = 48
 
 BiomeMapSetSize( w, h )

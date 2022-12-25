@@ -3,7 +3,6 @@ dofile_once("data/scripts/director_helpers.lua")
 dofile_once("data/scripts/biome_scripts.lua")
 dofile_once("data/scripts/lib/utilities.lua")
 
-RegisterSpawnFunction( 0xffffeedd, "init" )
 RegisterSpawnFunction( 0xff30ffff, "plant" )
 RegisterSpawnFunction( 0xffffc94f, "lamp" )
 RegisterSpawnFunction( 0xffffa776, "biglamp" )

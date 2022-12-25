@@ -25,9 +25,9 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                         local sx = 1850 -- spawn x
                         local sy = 1890 -- spawn y
 
-                        EntityLoad("mods/mould/files/entities/items/_starter/hiisishotgun/weapon.xml", sx, sy)
-                        EntityLoad("mods/mould/files/entities/items/_starter/hiisisniper/weapon.xml", sx+30, sy)
-                        EntityLoad("mods/mould/files/entities/items/_starter/hiisipistol/weapon.xml", sx+60, sy)
+                        EntityLoad("mods/mould/files/entities/items/_starter/shotgun/weapon.xml", sx, sy)
+                        EntityLoad("mods/mould/files/entities/items/_starter/sniper/weapon.xml", sx+30, sy)
+                        EntityLoad("mods/mould/files/entities/items/_starter/pistol/weapon.xml", sx+60, sy)
 
                         Goals:complete(flag)
                     else
@@ -41,30 +41,36 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
                 text="Show me your stock.", -- weapons shop
                 func = function(dialog)
                     dialog.show( {
-                        text="NYI",
+                        text="Here you go!",
+                        --options = {},
                         func = function(dialog)
                             shop( dialog.options, {
                                 {
-                                    name = "Hiisi Shotgun",
+                                    name = "Trochus Shotgun",
                                     desc = "A fine weapon.",
                                     price = 150,
-                                    entity = "mods/mould/files/entities/items/hiisishotgun/weapon.xml"
+                                    entity = "mods/mould/files/entities/items/hermitshotgun/weapon.xml"
                                 },
                                 {
-                                    name = "Hiisi Sniper",
+                                    name = "Trochus Sniper",
                                     desc = "A fine weapon.",
                                     price = 150,
-                                    entity = "mods/mould/files/entities/items/hiisisniper/weapon.xml"
+                                    entity = "mods/mould/files/entities/items/hermitsniper/weapon.xml"
                                 },
                                 {
-                                    name = "Hiisi Pistol",
+                                    name = "Trochus Pistol",
                                     desc = "A fine weapon.",
                                     price = 150,
-                                    entity = "mods/mould/files/entities/items/hiisipistol/weapon.xml"
+                                    entity = "mods/mould/files/entities/items/hermitpistol/weapon.xml"
+                                },
+                                {
+                                    name = "Trochus Rocket Launcher",
+                                    desc = "Yes ~" .. pname .."~, kaboom.",
+                                    price = 300,
+                                    entity = "mods/mould/files/entities/items/hermitpistol/weapon.xml"
                                 },
                             }, x, y-20 )
                         end,
-                        options = {},
                     } )
                 end,
             },

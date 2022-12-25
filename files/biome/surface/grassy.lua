@@ -65,7 +65,7 @@ local animals = {
 
 function init( x, y, w, h )
     local whichscene = math.random(1,3)
-    LoadPixelScene( "mods/mould/files/biome/surface/grassy_" .. whichscene .. ".png", "", x, y, "mods/mould/files/biome/hiisibase/exit_background.png", true )
+    LoadPixelScene( "mods/mould/files/biome/surface/grassy_" .. whichscene .. ".png", "", x, y, "mods/mould/files/biome/hermitbase/exit_background.png", true )
 end
 
 function plant(x, y)

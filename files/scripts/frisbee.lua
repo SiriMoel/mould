@@ -2,7 +2,7 @@ dofile("mods/mould/files/scripts/utils.lua")
 
 local weapon = GetUpdatedEntityID()
 local x, y = EntityGetTransform( weapon )
-local tg = EntityGetInRadiusWithTag(  x, y, 50, "thrownglaive" ) -- thrown glaive
+local tg = EntityGetInRadiusWithTag(  x, y, 50, "thrownfrisbee" ) -- thrown frisbee
 local thrown = false
 
 if tg ~= nil then

@@ -11,7 +11,7 @@ function interacting( entity_who_interacted, entity_interacted, interactable_nam
         name = "Tuoli",
         portrait = "mods/mould/files/entities/npcs/intronpc/portrait.png",
         typing_sound = "two",
-        text = "Hello ~" .. pname .. "~. Nevermind the failed thievery of the\n ~Throngler~, atleast the mages do not have it now eh? As for \nthe hearts... I may have a lead on how we can deal with them \nbut thats for future discussion.",
+        text = "Hello ~" .. pname .. "~.",
         options = {
             {
                 text="What should I be doing now then?", -- maybe expand this for a large portion of the story?
