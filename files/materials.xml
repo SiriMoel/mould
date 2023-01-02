@@ -117,8 +117,7 @@
   <CellData
 	name="mould_charcoal_solid"
 	ui_name="Charcoal"
-	tags="[sand_ground],[corrodible],[alchemy],[solid]"
-	burnable="0"  
+	tags="[sand_ground],[corrodible],[alchemy],[solid],[burnable]" 
 	density="6"  
 	cell_type="liquid" 
 	wang_color="ff442200"  
@@ -131,6 +130,8 @@
 	requires_oxygen="1"  
 	temperature_of_fire="10"
 	hp="2000" 
+	burnable="1"
+	fire_hp="600"
 	durability="10"
 	audio_physics_material_event="gravel"
 	audio_physics_material_wall="gravel"
@@ -152,7 +153,7 @@
 					<Image 
 						do_only_horizontal_stripe="1" 
 						do_only_vertical_stripe="0" 
-						filename="mods/mould/files/materials_gfx/charcoal_edge_hor.png" 
+						filename="mods/mould/files/materials_gfx/charcoal_edge_hor.png"
 						min_angle="45" 
 						max_angle="135" />
 					<Image 

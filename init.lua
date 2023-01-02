@@ -1,5 +1,4 @@
 dofile_once( "data/scripts/lib/utilities.lua" )
-
 ModLuaFileAppend( "data/scripts/gun/gun_actions.lua", "mods/mould/files/actions.lua" )
 ModMagicNumbersFileAdd( "mods/mould/files/magic_numbers.xml" ) 
 ModMaterialsFileAdd("mods/mould/files/materials.xml")
@@ -79,6 +78,7 @@ xml:add_children(nxml.parse_many[[
     <Biome height_index="0" color="ff020202" biome_filename="mods/mould/files/biome/solid/empty.xml" />
     <Biome height_index="0" color="ff003f31" biome_filename="mods/mould/files/biome/solid/swamp.xml" />
 	<Biome height_index="0" color="ff31332b" biome_filename="mods/mould/files/biome/solid/underground.xml" />
+	<Biome height_index="0" color="ff1c1717" biome_filename="mods/mould/files/biome/solid/charcoal.xml" />
     
     <Biome height_index="0" color="ff5d9135" biome_filename="mods/mould/files/biome/surface/grassy.xml" />
 
@@ -95,6 +95,12 @@ xml:add_children(nxml.parse_many[[
 	<Biome height_index="0" color="ff82c151" biome_filename="mods/mould/files/biome/caverns/moss/moss.xml" />
 	<Biome height_index="0" color="ff86d9ff" biome_filename="mods/mould/files/biome/caverns/heartlair/heartlair.xml" />
 	<Biome height_index="0" color="ff4c4f43" biome_filename="mods/mould/files/biome/caverns/solidborder_underground.xml" />
+	<Biome height_index="0" color="ff60a80f" biome_filename="mods/mould/files/biome/caverns/swamp_boss/enter.xml" />
+	<Biome height_index="0" color="ff7e3126" biome_filename="mods/mould/files/biome/caverns/solidborder_2.xml" />
+
+	<Biome height_index="0" color="ff9f3126" biome_filename="mods/mould/files/biome/caverns/opening_down_l.xml" />
+	<Biome height_index="0" color="ffb5362b" biome_filename="mods/mould/files/biome/caverns/opening_down_m.xml" />
+	<Biome height_index="0" color="ffce3e31" biome_filename="mods/mould/files/biome/caverns/opening_down_r.xml" />
 
 	<Biome height_index="0" color="ff0075b6" biome_filename="mods/mould/files/biome/ocean/surface/surface.xml" />
 	<Biome height_index="0" color="ff005c8e" biome_filename="mods/mould/files/biome/ocean/water/water.xml" />

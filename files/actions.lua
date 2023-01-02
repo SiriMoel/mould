@@ -1,4 +1,4 @@
-local to_insert = {
+local a = {
     {
 		id = "HERMITSTHOTGUN",
 		name = "",
@@ -64,9 +64,25 @@ local to_insert = {
 			shot_effects.recoil_knockback = 120.0
 		end,
 	},
+	{
+		id = "HERMITKNIFE",
+		name = "",	
+		description = "A swift stab.",
+		sprite = "mods/mould/files/misc/icon_stab.png",
+		related_projectiles	= {"mods/mould/files/entities/items/hermitknife/projectile.xml"},
+		type = ACTION_TYPE_PROJECTILE,
+		spawn_level = "",
+		spawn_probability = "",
+		price = 0,
+		mana = 0,
+		action = function()
+			add_projectile("mods/mould/files/entities/items/hermitknife/projectile.xml")
+		end,
+	},
 }
 
-for k, v in ipairs(to_insert) do
+for i,v in ipairs(a) do
 	v.id = "MOULD_" .. v.id
+	v.name = ""
     table.insert(actions, v)
 end

@@ -68,6 +68,12 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
                                 price = 300,
                                 entity = "mods/mould/files/entities/items/hermitpistol/weapon.xml"
                             },
+                            {
+                                name = "Trochus Knife",
+                                desc = "A good weapon for bad circumstances.",
+                                price = 200,
+                                entity = "mods/mould/files/entities/items/hermitknife/weapon.xml"
+                            },
                         }, x, y - 20)
                     })
                 end,
