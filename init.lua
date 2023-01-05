@@ -1,4 +1,4 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/mould/files/scripts/utils.lua" )
 ModLuaFileAppend( "data/scripts/gun/gun_actions.lua", "mods/mould/files/actions.lua" )
 ModMagicNumbersFileAdd( "mods/mould/files/magic_numbers.xml" ) 
 ModMaterialsFileAdd("mods/mould/files/materials.xml")
@@ -122,6 +122,10 @@ local dy = 1764
 function OnPlayerSpawned( player ) 
     
     if GameHasFlagRun("mouldplayer") then return end
+
+	for i,v in ipairs(shards_list) do
+		if v.id == 1 then v.collected = true return end
+	end
 
     EntityLoad("mods/mould/files/entities/items/hermitshotgun/weapon.xml", dx, dy-10)
     EntityLoad("mods/mould/files/entities/items/hermitsniper/weapon.xml", dx, dy-12)

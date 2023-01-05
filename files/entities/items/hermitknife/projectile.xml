@@ -65,6 +65,27 @@
         >
     </SpriteComponent>
 
+    <LuaComponent
+        script_source_file="mods/mould/files/scripts/melee_projectile.lua"
+        execute_on_added="1"
+        remove_after_executed="1"
+        >
+    </LuaComponent>
+
+    <VariableStorageComponent
+        _tags="crit_chance"
+        name="crit_chance"
+        value_int="15"
+        >
+    </VariableStorageComponent>
+
+    <VariableStorageComponent
+        _tags="crit_mult"
+        name="crit_mult"
+        value_int="2"
+        >
+    </VariableStorageComponent>
+
     <VariableStorageComponent
         name="projectile_file"
         value_string="mods/mould/files/entities/items/hermitknife/projectile.xml"

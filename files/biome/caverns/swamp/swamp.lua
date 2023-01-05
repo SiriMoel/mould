@@ -9,17 +9,16 @@ RegisterSpawnFunction( 0xffc7a1dc, "enemy_ground") --[[
     slime-possessed shotgunner (shotgunner with special slime attack)
     slimey mass (zombie-like thing that lunges at player)
     slightly ominous cube
+    group of small creatures that dont move much but jump at the player, turning nearby oil into toxic slime
 ]]--
 RegisterSpawnFunction( 0xffe80000, "enemy_flying" ) --[[
     slightly ominous cube (gelatinous cube (dnd) but cooler, fast but clunky movement, drops kinda random loot)
     slime-possessed guns (shotgun, pistol, sniper)
+    slime bat thing that latches onto the player for a period of time draining health
+    ochre jelly like creature (but green) that spews toxic gas and moves very slowly
 ]]--
 RegisterSpawnFunction( 0xff1635ff, "enemy_miniboss" ) --[[
     very ominous cube (gelatinous cube (dnd) but coolerer, fast but clunky movement, drops very random loot)
-]]--
-
---[[
-ominous cubes could be pseudo-lukki? to ensure they closish to terrain (this would be like maurice ultrakill)
 ]]--
 
 local structures = { -- these are placeholders

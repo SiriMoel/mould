@@ -74,7 +74,7 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
                                 price = 200,
                                 entity = "mods/mould/files/entities/items/hermitknife/weapon.xml"
                             },
-                        }, x, y - 20)
+                        }, x, y - 10)
                     })
                 end,
             },

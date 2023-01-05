@@ -53,7 +53,7 @@ end
 
 local shardpath = "mods/mould/files/entities/misc/shard/shard.xml"
 shards_list = { 
-    { id = 1, collected = true, path = shardpath, },
+    { id = 1, collected = false, path = shardpath, },
     { id = 2, collected = false, path = shardpath, },
     { id = 3, collected = false, path = shardpath, },
     { id = 4, collected = false, path = shardpath, },
@@ -170,7 +170,7 @@ end
 ---@field entity string
 ---@field onBought function?
 
----@param forsale shopItem[] the items that are for sale. see example for more details.
+---@param forsale shopItem[] the items that are for sale.
 ---@param x number x coordinate.
 ---@param y number y coordinate.
 function shop(forsale, x, y )

@@ -1,10 +1,10 @@
 local a = {
     {
 		id = "HERMITSTHOTGUN",
-		name = "",
+		name = "Trochus Shotgun Shell",
 		description = "Fires 3 projectiles.",
         sprite = "mods/mould/files/misc/icon_proj.png",
-		related_projectiles	= {"mods/mould/files/entities/items/hermitshotgun/projectile.xml",3},
+		related_projectiles	= {"mods/mould/files/entities/items/hermitshotgun/projectile.xml", 3},
 		type = ACTION_TYPE_PROJECTILE,
 		spawn_level = "",
 		spawn_probability = "",
@@ -19,7 +19,7 @@ local a = {
 	},
 	{
 		id = "HERMITSNIPER",
-		name = "",
+		name = "Trochus Sniper Bullet",
 		description = "Fires a fast and deadly projectile.",
         sprite = "mods/mould/files/misc/icon_proj.png",
 		related_projectiles	= {"mods/mould/files/entities/items/hermitsniper/projectile.xml"},
@@ -34,7 +34,7 @@ local a = {
 	},
 	{
 		id = "HERMITPISTOL",
-		name = "",
+		name = "Trochus Pistol Shot",
 		description = "Fires a projectile.",
         sprite = "mods/mould/files/misc/icon_proj.png",
 		related_projectiles	= {"mods/mould/files/entities/items/hermitpistol/projectile.xml"},
@@ -49,7 +49,7 @@ local a = {
 	},
 	{
 		id = "HERMITROCKETLAUNCHER",
-		name = "",
+		name = "Trochus Rocket",
 		description = "Fires a powerful missile.",
 		sprite = "mods/mould/files/misc/icon_proj.png",
 		related_projectiles	= {"mods/mould/files/entities/items/hermitrocketlauncher/projectile.xml"},
@@ -66,7 +66,7 @@ local a = {
 	},
 	{
 		id = "HERMITKNIFE",
-		name = "",	
+		name = "Trochus Knife Attack",
 		description = "A swift stab.",
 		sprite = "mods/mould/files/misc/icon_stab.png",
 		related_projectiles	= {"mods/mould/files/entities/items/hermitknife/projectile.xml"},
@@ -75,6 +75,10 @@ local a = {
 		spawn_probability = "",
 		price = 0,
 		mana = 0,
+		melee = {
+			cc=15,
+			cm=2,
+		},
 		action = function()
 			add_projectile("mods/mould/files/entities/items/hermitknife/projectile.xml")
 		end,

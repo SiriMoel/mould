@@ -12,6 +12,6 @@ function shot( projectile_entity_id )
     local ammouse = ComponentGetValue2(comp_ammouse, "value_int")
     local helditem = ComponentGetValue2( comp_inv2, "mActiveItem" )
     if helditem ~= weapon then return end
-    ammocount = ammocount - 1
+    ammocount = ammocount - ammouse
     ComponentSetValue2( comp_ammocount, "value_int", ammocount )
 end
