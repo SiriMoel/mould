@@ -97,10 +97,12 @@ xml:add_children(nxml.parse_many[[
 	<Biome height_index="0" color="ff4c4f43" biome_filename="mods/mould/files/biome/caverns/solidborder_underground.xml" />
 	<Biome height_index="0" color="ff60a80f" biome_filename="mods/mould/files/biome/caverns/swamp_boss/enter.xml" />
 	<Biome height_index="0" color="ff7e3126" biome_filename="mods/mould/files/biome/caverns/solidborder_2.xml" />
-
 	<Biome height_index="0" color="ff9f3126" biome_filename="mods/mould/files/biome/caverns/opening_down_l.xml" />
 	<Biome height_index="0" color="ffb5362b" biome_filename="mods/mould/files/biome/caverns/opening_down_m.xml" />
 	<Biome height_index="0" color="ffce3e31" biome_filename="mods/mould/files/biome/caverns/opening_down_r.xml" />
+	<Biome height_index="0" color="ff5f7f46" biome_filename="mods/mould/files/biome/caverns/enter_moss.xml" />
+	<Biome height_index="0" color="ffcc0058" biome_filename="mods/mould/files/biome/caverns/copigrove/enter.xml" />
+	<Biome height_index="0" color="ffff006e" biome_filename="mods/mould/files/biome/caverns/copigrove/grove.xml" />
 
 	<Biome height_index="0" color="ff0075b6" biome_filename="mods/mould/files/biome/ocean/surface/surface.xml" />
 	<Biome height_index="0" color="ff005c8e" biome_filename="mods/mould/files/biome/ocean/water/water.xml" />

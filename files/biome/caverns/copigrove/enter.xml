@@ -2,15 +2,16 @@
   <Topology 
     name="_EMPTY_"
     type="BIOME_WANG_TILE"
+
     background_image="mods/mould/files/biome/caverns/charcoal/background/bg.png"
     background_edge_left="mods/mould/files/biome/caverns/charcoal/background/bg_left.png"
     background_edge_right="mods/mould/files/biome/caverns/charcoal/background/bg_right.png"
     background_edge_top="mods/mould/files/biome/caverns/charcoal/background/bg_top.png"
     background_edge_bottom="mods/mould/files/biome/caverns/charcoal/background/bg_bottom.png"
-    background_edge_priority="10"
-	  limit_background_image="0"
+    background_edge_priority="10" 
+
     wang_template_file="" 
-    lua_script="mods/mould/files/biome/caverns/opening_down_r.lua"
+    lua_script="mods/mould/files/biome/caverns/copigrove/enter.lua"
     wang_map_width="256"
     wang_map_height="256"
     audio_music_2=""
@@ -35,3 +36,4 @@
   </Materials>
 
 </Biome>
+

@@ -115,7 +115,7 @@
   </CellData>
 
   <CellData
-	name="mould_charcoal_solid"
+	name="mould_charcoal_weak"
 	ui_name="Charcoal"
 	tags="[sand_ground],[corrodible],[alchemy],[solid],[burnable]" 
 	density="6"  
@@ -129,13 +129,13 @@
 	on_fire="0"  
 	requires_oxygen="1"  
 	temperature_of_fire="10"
-	hp="2000" 
+	hp="500" 
 	burnable="1"
 	fire_hp="600"
 	durability="10"
 	audio_physics_material_event="gravel"
-	audio_physics_material_wall="gravel"
-	audio_physics_material_solid="rock"	
+	audio_physics_material_wall="wood"
+	audio_physics_material_solid="wood"	
   >
   <Graphics
 		texture_file="mods/mould/files/materials_gfx/charcoal.png"
@@ -183,6 +183,119 @@
 				</Images>
 			  </EdgeGraphics>
 		</Edge>
+    </Graphics>
+  </CellData>
+
+	<!--should this remain flammable?-->
+  <CellData
+	name="mould_charcoal_solid"
+	ui_name="Charcoal"
+	tags="[sand_ground],[corrodible],[alchemy],[solid],[burnable]" 
+	density="6"  
+	cell_type="liquid" 
+	wang_color="ff442200"  
+	generates_smoke="0"  
+	liquid_gravity="0.5"  
+	liquid_sand="1"  
+	liquid_viscosity="75"
+	liquid_sticks_to_ceiling="50"
+	on_fire="0"  
+	requires_oxygen="1"  
+	temperature_of_fire="10"
+	hp="1000" 
+	burnable="1"
+	fire_hp="5000"
+	durability="10"
+	audio_physics_material_event="gravel"
+	audio_physics_material_wall="wood"
+	audio_physics_material_solid="wood"	
+  >
+  <Graphics
+		texture_file="mods/mould/files/materials_gfx/charcoaltwo.png"
+		color="ff442200" >
+		<Edge>
+			  <EdgeGraphics 
+				color="ff090400" 
+				overwrite="0" 
+				percent="1" 
+				require_same_material="0" 
+				require_same_material_type="1" 
+				type="NORMAL_BASED" 
+				z="1" >
+				<Images>
+					<Image 
+						do_only_horizontal_stripe="1" 
+						do_only_vertical_stripe="0" 
+						filename="mods/mould/files/materials_gfx/charcoaltwo_edge_hor.png"
+						min_angle="45" 
+						max_angle="135" />
+					<Image 
+						do_only_horizontal_stripe="0" 
+						do_only_vertical_stripe="1" 
+						filename="mods/mould/files/materials_gfx/charcoaltwo_edge_ver.png"
+						min_angle="135" 
+						max_angle="235" />
+					<Image 
+						do_only_horizontal_stripe="1" 
+						do_only_vertical_stripe="0" 
+						filename="mods/mould/files/materials_gfx/charcoaltwo_edge_hor.png"
+						min_angle="235" 
+						max_angle="315" />
+					<Image 
+						do_only_horizontal_stripe="0" 
+						do_only_vertical_stripe="1" 
+						filename="mods/mould/files/materials_gfx/charcoaltwo_edge_ver.png"
+						min_angle="315" 
+						max_angle="360" />
+					<Image 
+						do_only_horizontal_stripe="0" 
+						do_only_vertical_stripe="1" 
+						filename="mods/mould/files/materials_gfx/charcoaltwo_edge_ver.png"
+						min_angle="0" 
+						max_angle="45" />
+				</Images>
+			  </EdgeGraphics>
+		</Edge>
+    </Graphics>
+  </CellData>
+  
+  <CellData
+	name="mould_ancient_stone"
+	ui_name="Ancient Stone"
+	tags="[static],[corrodible],[alchemy],[solid],[earth]"
+	burnable="0"
+	density="10"
+	cell_type="liquid"
+	wang_color="ff79b24a"
+	liquid_gravity="1.2"
+	liquid_sand="1"
+	liquid_static="1"
+	solid_static_type="1"
+	on_fire="0"
+	wang_noise_percent="0.15"
+	hp="10000" 
+	platform_type="1"
+	durability="14"
+	audio_physics_material_wall="gravel"
+	audio_physics_material_solid="rock"	
+  >
+	<Graphics
+		texture_file="mods/mould/files/materials_gfx/ancient_rock.png"
+		color="ff3e3f30"
+		pixel_all_around="ff6F5439"
+
+		pixel_lonely="ff3e3f30"
+		pixel_top_right="ff3e3f30"
+		pixel_bottom_left="ff3e3f30"
+
+		pixel_left="ff5f614c"
+		pixel_top_left="ff5f614c"
+		pixel_top="ff5f614c"
+
+		pixel_right="ff4a4a3a"
+		pixel_bottom="ff4a4a3a"
+		pixel_bottom_right="ff4a4a3a"
+	>
     </Graphics>
   </CellData>
 
